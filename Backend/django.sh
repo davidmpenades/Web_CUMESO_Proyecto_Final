@@ -19,9 +19,9 @@ echo "Starting Migrations..."
 python3 manage.py migrate
 echo ====================================
 
-# echo "Create dump..."
-# cat ./bk/db_init.sql > ./bk/exportacion.sql
-# PGPASSWORD=$PG_PASSWORD pg_dump -h $PG_HOST -U $PG_USER -d $PG_DB >> ./bk/exportacion.sql
+echo "Create dump..."
+cat ./bk/db_init.sql > ./bk/exportacion.sql
+PGPASSWORD=$PG_PASSWORD pg_dump -h $PG_HOST -U $PG_USER -d $PG_DB >> ./bk/exportacion.sql
 
 echo "Starting Server..."
 python3 manage.py runserver 0.0.0.0:8000

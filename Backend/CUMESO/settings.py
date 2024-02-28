@@ -30,9 +30,14 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost', 'backend']
-
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST =['http://localhost:5173']
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8001","http://0.0.0.0:5173",
+    ]
 
 # Application definition
 
@@ -56,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'CUMESO.urls'

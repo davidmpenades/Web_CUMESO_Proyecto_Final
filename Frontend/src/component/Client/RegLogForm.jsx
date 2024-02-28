@@ -40,11 +40,11 @@ export default function RegLogForm({ loginUser, registerUser }) {
 
   return (
     <>
-      <section className="text-white font-sans" style={divStyle}>
+      <section className="text-white font-sans mt-6" style={divStyle}>
         <div className="min-h-screen flex items-center justify-center">
-          <div className="p-8 rounded-lg w-full md:w-1/2 lg:w-1/3 backdrop-blur-2xl shadow-2xl">
-            <h2 className="text-3xl text-green-400 font-semibold mb-6 text-center text:shadow-lg">
-              Formulario de {registro ? "Registro" : "Inicio de Sesión"}
+          <div className="p-8 rounded-lg w-full md:w-1/2 lg:w-1/3 backdrop-blur-md shadow-2xl">
+            <h2 className="text-3xl text-white font-semibold mb-6 text-center text:shadow-lg">
+               {registro ? "Registro" : "Inicio de Sesión"}
             </h2>
             <form
               className="w-full max-w-sm mx-auto"
@@ -55,7 +55,7 @@ export default function RegLogForm({ loginUser, registerUser }) {
                   onClick={() => setRegistro(false)}
                   className={`w-1/3 pb-4 font-medium text-center ${
                     !registro
-                      ? "text-green-400 capitalize border-b-2 border-green-500 dark:border-white-900 dark:text-white"
+                      ? "text-gray-300 capitalize border-b-2 border-gray-500 dark:border-white-900 dark:text-white"
                       : "text-white-500"
                   } cursor-pointer`}
                 >
@@ -66,7 +66,7 @@ export default function RegLogForm({ loginUser, registerUser }) {
                   onClick={() => setRegistro(true)}
                   className={`w-1/3 pb-4 font-medium text-center ${
                     registro
-                      ? "text-green-400 capitalize border-b-2 border-green-500 dark:border-green-400 dark:text-white"
+                      ? "text-gray-300 capitalize border-b-2 border-gray-500 dark:border-gray-400 dark:text-white"
                       : "text-white-500"
                   } cursor-pointer`}
                 >
@@ -271,7 +271,7 @@ export default function RegLogForm({ loginUser, registerUser }) {
                       {...register("password", {
                         required: "La contraseña es requerida",
                       })}
-                      className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-green-400 dark:focus:border-green-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                      className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-gray-400 dark:focus:border-gray-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                       placeholder="Contraseña"
                     />
                   </div>
@@ -282,14 +282,14 @@ export default function RegLogForm({ loginUser, registerUser }) {
                 {registro ? (
                   <button
                     type="submit"
-                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-500 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                   >
                     Registrarse
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-500 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                   >
                     Iniciar Sesión
                   </button>

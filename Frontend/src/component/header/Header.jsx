@@ -1,30 +1,42 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, NavLink } from "react-router-dom";
 import logo from "../../assets/imgs/Logo.png";
+import profile from "../../assets/imgs/profile.webp";
 import AuthContext from "../../context/AuthContext";
+import "./Header.css";
 
 export default function Header() {
-  // const navigate = useNavigate();
   const location = useLocation();
   const { user, isAuth, isAdmin, logout } = useContext(AuthContext);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // const redirect = {
-  //   dashboard: () => {
-  //     navigate("/dashboard");
-  //     // setActiveLink("/dashboard");
-  //   },
-  //   profile: () => {
-  //     navigate("/profile");
-  //   },
-  // };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10); // Cambiar a true cuando se haya desplazado más de 10px
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <Navbar fluid rounded>
+    <Navbar
+      fluid
+      rounded
+      className={`fixed top-0 left-0 right-0 z-50 transition duration-300 ${
+        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+      } h-16`} 
+    >
       {/* Primera columna: Logo */}
       <div className="flex items-center">
         <Navbar.Brand href="/">
           <img
             src={logo}
+            style={{ width: "150px" }}
             className="mr-3 h-6 sm:h-9"
             alt="Flowbite React Logo"
           />
@@ -34,46 +46,52 @@ export default function Header() {
       {/* Segunda columna: Menú de navegación */}
       <div className="flex flex-grow justify-center">
         <Navbar.Collapse>
-          <Navbar.Link href="/" active={location.pathname === "/"}>
+          <NavLink
+            to="/"
+            exact
+            className="relative nav-link px-2 link-danger"
+            activeClassName="active" // Agrega la clase "active" cuando el enlace está activo
+          >
             Inicio
-          </Navbar.Link>
-          <Navbar.Link href="/rent" active={location.pathname === "/"}>
-            Alquiler
-          </Navbar.Link>
-          <Navbar.Link href="/plan" active={location.pathname === "/"}>
-            Planes
-          </Navbar.Link>
-          <Navbar.Link
-            href="/contact"
-            active={location.pathname === "/"}
+            <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
+          </NavLink>
+          <NavLink
+            to="/maquinaria"
+            className="relative nav-link px-2 link-danger"
+            activeClassName="active" // Agrega la clase "active" cuando el enlace está activo
+          >
+            Maquinaria
+            <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
+          </NavLink>
+          <NavLink
+            to="/contacto"
+            className="relative nav-link px-2 link-danger"
+            activeClassName="active" // Agrega la clase "active" cuando el enlace está activo
           >
             Contacto
-          </Navbar.Link>
-
-          {!isAuth && (
-            <div className="flex md:order-2 items-center">
-            <Button color="dark" pill href="/login" active={location.pathname === "/login"}>
-              Entrar/Registro
-            </Button>        
-          </div>
-          )}
-          
+            <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
+          </NavLink>
         </Navbar.Collapse>
       </div>
 
       {/* Tercera columna: Dropdown */}
-      <div className="flex items-center">
-        {isAuth && (
+      {!isAuth ? (
+        <div className="flex md:order-2 items-center">
+          <Button
+            color="dark"
+            pill
+            href="/login"
+            active={location.pathname === "/login"}
+          >
+            Entrar/Registro
+          </Button>
+        </div>
+      ) : (
+        <div className="flex items-center">
           <Dropdown
             arrowIcon={false}
             inline
-            label={
-              <Avatar
-                alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                rounded
-              />
-            }
+            label={<Avatar alt="User settings" img={profile} rounded />}
           >
             <Dropdown.Header>
               <span className="block text-sm">{user.username}</span>
@@ -81,18 +99,14 @@ export default function Header() {
                 {user.email}
               </span>
             </Dropdown.Header>
-            {isAdmin && (
-              <Dropdown.Item >
-                Dashboard
-              </Dropdown.Item>
-            )}
-            <Dropdown.Item >Perfil</Dropdown.Item>
+            {isAdmin && <Dropdown.Item>Dashboard</Dropdown.Item>}
+            <Dropdown.Item>Perfil</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={logout}>Cerrar sesión</Dropdown.Item>
           </Dropdown>
-        )}
-        <Navbar.Toggle />
-      </div>
+          <Navbar.Toggle />
+        </div>
+      )}
     </Navbar>
   );
 }

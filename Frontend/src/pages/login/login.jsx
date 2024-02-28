@@ -18,7 +18,7 @@ const Login = () => {
         toast.success("Bienvenido, administrador!");
       }else{
       toast.success("Bienvenido!");
-      navigate("/rent");
+      navigate("/");
       }
     } else if (errorMSG) {
       toast.error(errorMSG);

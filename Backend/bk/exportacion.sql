@@ -411,7 +411,9 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, type, company) FROM stdin;
-1	pbkdf2_sha256$720000$DGbMH5QDvJtXSRksXJkDfc$xohuSERytSZQ5pRwAxBAvVWo+v8LkdLMJ5tsvwu+Mwc=	\N	t	bb2d829a-da94-cd50-d353-176dc0969e94	David Moreno	davidmpenades@gmail.com	admin	\N
+1	pbkdf2_sha256$720000$DGbMH5QDvJtXSRksXJkDfc$xohuSERytSZQ5pRwAxBAvVWo+v8LkdLMJ5tsvwu+Mwc=	\N	t	bb2d829a-da94-cd50-d353-176dc0969e94	David Moreno	davidmpenades@gmail.com	admin	CUMESO
+5	pbkdf2_sha256$720000$b64J8HHDVLujpimXVXrABj$gBH8l85P7JI0Cphk2uOH2mmQmGbb/E4oIjE/5oSfrGE=	\N	f	341fa16c-48aa-cee7-c17b-4ab03504c0b7	Kevin Espitia	kevin1@gmail.com	client	Lestacio
+6	pbkdf2_sha256$720000$ufS1XiqOOBCbEvWPvV60Kf$hJUEOZHECXqSEI/QZAmnzeU8xx+50J/tnvOv3r2eAqw=	\N	f	c3da59cb-384d-0e07-10e7-f32426fb981e	Johan	johan@gmail.com	client	lestacio
 \.
 
 
@@ -484,7 +486,7 @@ SELECT pg_catalog.setval('public.users_users_groups_id_seq', 1, false);
 -- Name: users_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.users_users_id_seq', 4, true);
+SELECT pg_catalog.setval('public.users_users_id_seq', 6, true);
 
 
 --

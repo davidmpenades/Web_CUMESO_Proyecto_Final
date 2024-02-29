@@ -1,0 +1,32 @@
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: inherit !important; /* Añade !important para asegurar que el color se mantenga */
+    margin: 0 20px;
+  }
+  
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: rgb(182, 8, 8);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .nav-link:hover {
+    color: rgb(182, 8, 8) !important; /* Cambia el color del texto a rojo al hacer hover */
+  }
+  .nav-link.active {
+    color: rgb(182, 8, 8) !important; /* Cambia el color del texto a rojo cuando el enlace está activo */
+  }
+  
+  .nav-link.active::after {
+    width: 100%;
+  }

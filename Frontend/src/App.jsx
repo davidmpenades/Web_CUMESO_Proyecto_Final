@@ -1,28 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import React, { Suspense } from "react";
+import "./App.css";
+import Header from "./component/header/Header";
+import Footer from "./component/Footer/Footer";
+import SpinnerLoading from "./component/SpinnerLoading/SpinnerLoading";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthContextProvider } from "./context/AuthContext";
 function App() {
-  const [count, setCount] = useState(0)
-
+  const Home = React.lazy(() => import("./pages/home/home"));
+  const Login = React.lazy(() => import("./pages/login/login"));
+  const Contact = React.lazy(() => import("./pages/contact/contact"));
   return (
-    <>
-      
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <Suspense fallback={<SpinnerLoading />}>
+        <BrowserRouter>
+          <AuthContextProvider>
+            <Header />
+            <div className="container_personalized">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </div>
+            <Footer />
+          </AuthContextProvider>
+        </BrowserRouter>
+      </Suspense>
+    </div>
+  );
 }
 
-export default App
+export default App;

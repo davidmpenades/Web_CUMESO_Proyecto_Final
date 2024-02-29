@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
 import { Link, useLocation, useNavigate, NavLink } from "react-router-dom";
-import logo from "../../assets/imgs/Logo.png";
+import logo from "../../assets/imgs/Logo.webp";
 import profile from "../../assets/imgs/profile.webp";
 import AuthContext from "../../context/AuthContext";
 import "./Header.css";
@@ -13,7 +13,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10); // Cambiar a true cuando se haya desplazado más de 10px
+      setIsScrolled(window.scrollY > 10); 
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -50,7 +50,7 @@ export default function Header() {
             to="/"
             exact
             className="relative nav-link px-2 link-danger"
-            activeClassName="active" // Agrega la clase "active" cuando el enlace está activo
+            activeClassName="active" 
           >
             Inicio
             <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
@@ -58,15 +58,15 @@ export default function Header() {
           <NavLink
             to="/maquinaria"
             className="relative nav-link px-2 link-danger"
-            activeClassName="active" // Agrega la clase "active" cuando el enlace está activo
+            activeClassName="active" 
           >
             Maquinaria
             <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
           </NavLink>
           <NavLink
-            to="/contacto"
+            to="/contact"
             className="relative nav-link px-2 link-danger"
-            activeClassName="active" // Agrega la clase "active" cuando el enlace está activo
+            activeClassName="active" 
           >
             Contacto
             <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
@@ -104,9 +104,10 @@ export default function Header() {
             <Dropdown.Divider />
             <Dropdown.Item onClick={logout}>Cerrar sesión</Dropdown.Item>
           </Dropdown>
-          <Navbar.Toggle />
+         
         </div>
       )}
+       <Navbar.Toggle />
     </Navbar>
   );
 }

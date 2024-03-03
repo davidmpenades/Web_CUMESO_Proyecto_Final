@@ -1,31 +1,36 @@
 from rest_framework import serializers
-from .models import Part
-from ..machine.models import Machine
+from django.core.exceptions import ValidationError
+from .models import Part, Machine
 
 class PartSerializer(serializers.ModelSerializer):
-    machines = serializers.PrimaryKeyRelatedField(many=True, queryset=Machine.objects.all())
-    img = serializers.ImageField()
-    cad_file = serializers.FileField()
-    pdf_file = serializers.FileField()
-    
+    machines = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Machine.objects.all(),
+        write_only=True
+    )
+    img = serializers.ImageField(required=True)
+    cad_file = serializers.FileField(required=True)
+    pdf_file = serializers.FileField(required=True)
+
     class Meta:
         model = Part
-        fields = ['id', 'name', 'description', 'img', 'cad_file', 'pdf_file', 'machines']
+        fields = ['id', 'slug', 'name', 'description', 'quantity', 'price', 'img', 'cad_file', 'pdf_file', 'machines']
 
-    def validate_name(self, value):
-        # Comprueba si ya existe una parte con el mismo nombre
-        if Part.objects.filter(name=value).exists():
-            raise serializers.ValidationError("Ya existe una parte con este nombre.")
-        return value
+    def to_internal_value(self, data):
+        # Llama primero a la implementación de la superclase para obtener un diccionario de datos validados
+        data = super().to_internal_value(data)
+        machine_data = data.get('machines')
 
-    def create(self, validated_data):
-        # Obtiene los datos de las máquinas asociadas (si las hay)
-        machines_data = validated_data.pop('machines', [])
-        # Crea la instancia de Part con los datos validados
-        part = Part.objects.create(**validated_data)
-        # Asocia las máquinas a la parte
-        for machine_data in machines_data:
-            # Crea una relación entre la parte y la máquina
-            part.machines.add(machine_data)
-        # Retorna la instancia de la parte creada
-        return part
+        # Verifica si machine_data es una lista que contiene cadenas que representan números
+        if isinstance(machine_data, list):
+            new_machine_list = []
+            for machine_id in machine_data:
+                if isinstance(machine_id, str) and machine_id.isdigit():
+                    new_machine_list.append(int(machine_id))
+                elif isinstance(machine_id, int):
+                    new_machine_list.append(machine_id)
+                else:
+                    raise ValidationError({'machines': 'Todos los IDs de máquinas deben ser enteros.'})
+            data['machines'] = new_machine_list
+
+        return data

@@ -33,4 +33,19 @@ class MachineSerializer(serializers.ModelSerializer):
             machine.users.add(user_data)
         # Retorna la instancia de la máquina creada
         return machine
+    
+    def update(self, instance, validated_data):
+        # Obtiene el nuevo nombre de la máquina desde los datos validados
+        new_name = validated_data.get('name')
+
+        # Verifica si existe alguna otra máquina con el mismo nuevo nombre
+        if Machine.objects.exclude(pk=instance.pk).filter(name=new_name).exists():
+            raise serializers.ValidationError({"name": "Ya existe una máquina con este nombre."})
+
+        # Actualiza la instancia de Machine con los datos validados
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
 

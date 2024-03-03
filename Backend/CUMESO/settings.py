@@ -51,13 +51,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'CUMESO.CUMESO.users',
+    'CUMESO.CUMESO.machine',
+    'CUMESO.CUMESO.part',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -149,3 +151,6 @@ REST_FRAMEWORK = {
         
     )
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.joinpath(MEDIA_URL.strip('/'))

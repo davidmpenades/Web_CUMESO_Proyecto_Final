@@ -10,3 +10,4 @@ postgres==4.0
 djangorestframework-jwt==1.11.0
 pyjwt==v1.7.1
 django-environ==0.11.2
+Pillow==8.4.0

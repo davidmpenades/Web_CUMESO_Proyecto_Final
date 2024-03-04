@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('CUMESO.CUMESO.users.urls')),
     path('api/', include('CUMESO.CUMESO.machine.urls')),
-    path('api/', include('CUMESO.CUMESO.part.urls'))
+    path('api/', include('CUMESO.CUMESO.part.urls')),
+    path('api/', include('CUMESO.CUMESO.providers.urls')),
 ]
 
 if settings.DEBUG:

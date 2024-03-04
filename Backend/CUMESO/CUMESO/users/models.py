@@ -25,6 +25,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username', max_length=30, unique=True, null=False)
     email = models.EmailField('email', unique=True)
     company = models.CharField('company', max_length=100, null=True)
+    image = models.ImageField(upload_to='ruta/de/carga/', blank=True, null=True)
     type = models.CharField('type', max_length=10, null=False, default='client')
 
     USERNAME_FIELD = 'username'

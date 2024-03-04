@@ -16,7 +16,17 @@ class MachineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Machine
         fields = ['id', 'slug', 'name', 'description', 'characteristics', 'price', 'visibility', 'img', 'users','parts']
-
+    def validate_name(self, value):
+        if self.instance is None:
+            # Creación
+            if Machine.objects.filter(name=value).exists():
+                raise serializers.ValidationError("Ya existe una máquina con este nombre.")
+        else:
+            # Actualización
+            if Machine.objects.filter(name=value).exclude(pk=self.instance.pk).exists():
+                raise serializers.ValidationError("Ya existe una máquina con este nombre.")
+        return value
+    
     def create(self, validated_data):
         # Obtiene los datos de los usuarios asociados (si los hay)
         users_data = validated_data.pop('users', [])
@@ -36,12 +46,20 @@ class MachineSerializer(serializers.ModelSerializer):
     
     def update(self, instance, validated_data):
         # Obtiene el nuevo nombre de la máquina desde los datos validados
-        new_name = validated_data.get('name')
+        new_name = validated_data.get('name', instance.name)
 
         # Verifica si existe alguna otra máquina con el mismo nuevo nombre
-        if Machine.objects.exclude(pk=instance.pk).filter(name=new_name).exists():
+        if new_name and Machine.objects.exclude(pk=instance.pk).filter(name=new_name).exists():
             raise serializers.ValidationError({"name": "Ya existe una máquina con este nombre."})
 
+        # Si el nombre ha cambiado, actualiza el slug
+        if new_name and instance.name != new_name:
+            instance.slug = instance._generate_unique_slug(new_name)
+            validated_data['slug'] = instance.slug  # Asegúrate de actualizar el slug en validated_data también
+        
+        if new_name != instance.name:
+            instance.slug = instance._generate_unique_slug(new_name)
+        
         # Actualiza la instancia de Machine con los datos validados
         for attr, value in validated_data.items():
             setattr(instance, attr, value)

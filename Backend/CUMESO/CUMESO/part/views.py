@@ -41,8 +41,8 @@ class PartList(viewsets.GenericViewSet):
         part.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-    def update(self, request, pk=None):
-        part_instance = get_object_or_404(Part, pk=pk)
+    def update(self, request, slug=None):
+        part_instance = get_object_or_404(Part, slug=slug)
         serializer = PartSerializer(part_instance, data=request.data, partial=True)  # El parámetro `partial=True` permite actualizaciones parciales
         if serializer.is_valid():
             serializer.save()

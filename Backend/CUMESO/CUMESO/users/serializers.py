@@ -2,9 +2,11 @@ from rest_framework import serializers
 from .models import Users
 
 class userSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(use_url=True, required=False, allow_null=True)
+    
     class Meta:
         model = Users
-        fields = ( 'id', 'uuid', 'username', 'email','company', 'password', 'type')
+        fields = ( 'id', 'uuid', 'username', 'email','company','image', 'password', 'type')
 
     def register(context):
         email = context['email']
@@ -23,6 +25,7 @@ class userSerializer(serializers.ModelSerializer):
                 'username': user.username,
                 'email': user.email,
                 'company': user.company,
+                'image': user.image.url if user.image else None,
                 'type': user.type
             },
             'token': user.token,
@@ -47,6 +50,7 @@ class userSerializer(serializers.ModelSerializer):
                 'username': user.username,
                 'email': user.email,
                 'company': user.company,
+                'image': user.image.url if user.image else None,
                 'type': user.type
             },
             'token': user.token,
@@ -67,6 +71,7 @@ class userSerializer(serializers.ModelSerializer):
                 'id': user.id,
                 'username': user.username,
                 'email': user.email,
+                'image': user.image,
                 'company': user.company,
                 'type': user.type
             },

@@ -628,6 +628,8 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at) FROM stdin;
+2	rc-1400-l	RC-1400-L	Rebobinadora Cortadora de 1400mm	{"revoluciones 800m/s","Area de trabajo fluida"}	\N	f		2024-03-04 11:37:38.052273+00	2024-03-04 12:07:44.752048+00	\N
+1	rc-1400-r-mea2qf	RC-1400-R	RC-1400-L	{"revoluciones 800m/s","Area de trabajo fluida"}	\N	f		2024-03-04 10:56:49.37533+00	2024-03-04 12:15:17.328105+00	\N
 \.
 
 
@@ -644,6 +646,8 @@ COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 --
 
 COPY public.part_part (id, slug, name, description, quantity, price, status, img, cad_file, pdf_file, created_at, updated_at) FROM stdin;
+2	rc-m2m3	RC-M2M3	segunda pieza de prueba	1	\N	\N	part_images/shop1.jpg	part_cad/WEB_CUMESO.pdf	part_pdf/WEB_CUMESO.pdf	2024-03-04 10:58:58.269819+00	2024-03-04 11:52:22.103767+00
+1	rc-m2m5-t29crx	RC-M2M5	pieza de prueba	1	\N	\N	part_images/Logo.png	part_cad/DNI_David_Moreno.pdf	part_pdf/CConducir_David_Moreno.pdf	2024-03-04 10:58:18.654392+00	2024-03-04 12:16:08.018928+00
 \.
 
 
@@ -668,6 +672,7 @@ COPY public.part_partmachinerelation (id, machine_id, part_id) FROM stdin;
 --
 
 COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, phone, responsible, created_at, updated_at) FROM stdin;
+2	mecanicados-nectorsl-o5yp2g	Mecanicados Nector,S.L.	Poligono el altet, sn	C-3492776	Titan@gmail.com	Ontinyent	654654243	Titan	2024-03-04 11:12:43.938857+00	2024-03-04 12:16:38.898388+00
 \.
 
 
@@ -676,6 +681,10 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 --
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, type) FROM stdin;
+7	pbkdf2_sha256$720000$Ht9pWlHbGD5ZmE7MD2IBrm$za3XTsCK9IMckc20mHdlUXsf0bwkwY/UDOkrMnLHA1I=	\N	f	088783c5-bd58-99a9-118f-58821c6585ec	Johan	johan@gmail.com	L'estacio		client
+8	pbkdf2_sha256$720000$1VmvN8ZGx6ZR4I4DBi8tKb$+NLEW+bZoVyn3tTJYwsHD5xGiNJY8cBuUROpHPwXdvo=	\N	f	76bc1e8e-7bed-5ef7-ceb4-8b5c8bb3a05e	Miguel	miguel@gmail.com	L'estacio		client
+9	pbkdf2_sha256$720000$082fDrbJgfiyuMStk4BNhp$Mrn2fbgkhg2nzl+2qAG76/hsYHYecMgXGhVJUcAtjq4=	\N	f	8594b937-6897-1553-a878-24a58014bf81	Yolanda	yolanda@gmail.com	L'estacio		client
+10	pbkdf2_sha256$720000$lHyNodksdq0aEYVmqS91qu$Ke4Lm5fz5/ptDsyjJnldIAcm63GwTuiMrI0usjdKjaM=	\N	t	1aec56e0-1ef5-c4e8-65df-e51ceb35cc24	David	davidmpenades@gmail.com	CUMESO		admin
 \.
 
 
@@ -741,7 +750,7 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 24, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 1, false);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 2, true);
 
 
 --
@@ -755,7 +764,7 @@ SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 1, false);
 -- Name: part_part_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_part_id_seq', 1, false);
+SELECT pg_catalog.setval('public.part_part_id_seq', 2, true);
 
 
 --
@@ -776,7 +785,7 @@ SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 1, false);
 -- Name: providers_providers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_providers_id_seq', 1, false);
+SELECT pg_catalog.setval('public.providers_providers_id_seq', 2, true);
 
 
 --
@@ -790,7 +799,7 @@ SELECT pg_catalog.setval('public.users_users_groups_id_seq', 1, false);
 -- Name: users_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.users_users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_users_id_seq', 10, true);
 
 
 --

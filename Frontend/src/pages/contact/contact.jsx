@@ -1,17 +1,34 @@
 import React, { useState } from "react";
-import emailjs from '@emailjs/browser';
-import { Toaster, toast } from "sonner";
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
 import contact from "../../assets/imgs/contact.webp";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    name: yup.string().required("El nombre es obligatorio"),
+    company: yup.string().required("La empresa es obligatoria"),
+    email: yup
+      .string()
+      .email("Debe ser un correo electrónico válido")
+      .required("El correo electrónico es obligatorio"),
+    message: yup
+      .string()
+      .min(20, "El mensaje debe tener al menos 20 caracteres")
+      .required("El mensaje es obligatorio"),
+  })
+  .required();
 
 export default function Contact() {
   const navigate = useNavigate();
+
   const divStyle = {
     backgroundImage: `url(${contact})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    Height: "100%",
+    height: "100%",
   };
   const [formData, setFormData] = useState({
     name: "",
@@ -19,6 +36,9 @@ export default function Contact() {
     email: "",
     message: "",
   });
+
+  const [errors, setErrors] = useState({});
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -26,37 +46,51 @@ export default function Contact() {
       [name]: value,
     }));
   };
-  const sendEmail = (e) => {
+
+  const validateForm = async () => {
+    try {
+      await schema.validate(formData, { abortEarly: false });
+      setErrors({});
+      return true;
+    } catch (err) {
+      const formattedErrors = err.inner.reduce(
+        (acc, error) => ({
+          ...acc,
+          [error.path]: error.message,
+        }),
+        {}
+      );
+      setErrors(formattedErrors);
+      return false;
+    }
+  };
+
+  const sendEmail = async (e) => {
     e.preventDefault();
 
+    const isValid = await validateForm();
+    if (!isValid) {
+      toast.error("Por favor, corrige los errores antes de enviar.", {
+        duration: 1500,
+      });
+      return;
+    }
+
     emailjs
-      .sendForm(
-        "service_ps1ix3h",
-        "template_0373bxq",
-        e.target,
-        "y4ei3M-hc_WcjebZf"
-      )
-      .then(
-        (result) => {
-          setFormData({
-            name: "",
-            company: "",
-            email: "",
-            message: "",
-          });
-          setTimeout(() => {
-          navigate("/");
-          }, 1800);
-        },
-        (error) => {
-          <Toaster position="top-center" richColors />;
-          toast.error("Error al enviar el mensaje");
-        }
-      );
+      .sendForm("service_id", "template_id", e.target, "user_id")
+      .then(() => {
+        toast.success("Mensaje enviado correctamente", { duration: 1500 });
+        setFormData({ name: "", company: "", email: "", message: "" });
+        setTimeout(() => navigate("/"), 1800);
+      })
+      .catch((error) => {
+        toast.error("Error al enviar el mensaje", { duration: 1500 });
+        console.error("EmailJS error:", error);
+      });
   };
+
   return (
-    <body className="text-white font-sans mt-6" style={divStyle}>
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex text-white font-sans items-center justify-center mt-6"style={divStyle}>
         <div className=" p-8 rounded-lg w-full md:w-1/2 lg:w-1/3 backdrop-blur-md">
           <h2 className="text-3xl font-semibold mb-6 text-center text:shadow-lg">
             Contacta con nosotros
@@ -75,6 +109,8 @@ export default function Contact() {
                 placeholder="Nombre"
               />
             </div>
+            <p style={{ color: "red" }}>{errors.name}</p>
+
             <div className="flex items-center">
               <input
                 type="text"
@@ -84,9 +120,10 @@ export default function Contact() {
                 value={formData.company}
                 onChange={handleInputChange}
                 className="flex-1 p-3 border border-black rounded focus:outline-none focus:border-blue-500"
-                placeholder="Compañía"
+                placeholder="Empresa"
               />
             </div>
+            <p style={{ color: "red" }}>{errors.company}</p>
 
             <div className="flex items-center">
               <input
@@ -100,6 +137,7 @@ export default function Contact() {
                 placeholder="Email"
               />
             </div>
+            <p style={{ color: "red" }}>{errors.email}</p>
 
             <div className="flex items-center">
               <textarea
@@ -113,12 +151,12 @@ export default function Contact() {
                 placeholder="Mensaje"
               ></textarea>
             </div>
+            <p style={{ color: "red" }}>{errors.message}</p>
 
             <div onSubmit={sendEmail} className="flex justify-end">
-              <Toaster position="top-center" richColors />
               <button
                 type="submit"
-                onClick={() => toast.success("Mensaje enviado correctamente")}
+                onClick={sendEmail}
                 className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-800"
               >
                 Enviar mensaje
@@ -141,6 +179,6 @@ export default function Contact() {
           </form>
         </div>
       </div>
-    </body>
+    
   );
 }

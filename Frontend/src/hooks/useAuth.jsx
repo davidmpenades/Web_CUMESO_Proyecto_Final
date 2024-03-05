@@ -3,7 +3,7 @@ import AuthService from "../services/AuthService";
 import AuthContext from "../context/AuthContext";
 import JwtService from "../services/JWTService";
 import { useNavigate } from "react-router-dom";
-import { Toaster, toast } from 'sonner'
+import {toast } from 'sonner'
 
 export function useAuth() {
   const { user, setUser, setToken, isAdmin, setIsAdmin, isAuth, setIsAuth } =
@@ -21,58 +21,57 @@ export function useAuth() {
       .catch((e) => console.error(e));
   }, []);
 
-  const useLogin = useCallback(
-    (data) => {
-      AuthService.Login(data)
-        .then(({ data, status }) => {
-          if (status === 200) {
-            JwtService.saveToken(data.token);
-            JwtService.saveRefreshToken(data.ref_token);
-            setToken(data.token);
-            setUser(data.user);
-            setIsAuth(true);
-            setIsAdmin(data.user.type === "admin");
-            setIsCorrect(true);
-            setErrorMSG("");
-            setTimeout(() => {
-              setIsCorrect(false);
-            }, 1000);
-          }
-        })
-        .catch((e) => {
-          console.log("error", e);
-          setErrorMSG(e.response.data[0]);
-        });
-    },
-    [setUser]
-  );
-
-  const useRegister = useCallback(
-    (data) => {
-      AuthService.Register(data)
-        .then(({ data, status }) => {
-          if (status == 200) {
-            JwtService.saveToken(data.token);
-            JwtService.saveRefreshToken(data.ref_token);
-            setToken(data.token);
-            setUser(data.user);
-            setIsAuth(true);
-            setIsAdmin(data.user.type === "admin");
-            setIsCorrect(true);
-            setErrorMSG("");
-            setTimeout(() => {
-              setIsCorrect(false);
-            }, 1000);
+  const useLogin = useCallback((data) => {
+    AuthService.Login(data)
+      .then(({ data, status }) => {
+        if (status === 200) {
+          JwtService.saveToken(data.token);
+          JwtService.saveRefreshToken(data.ref_token);
+          setToken(data.token);
+          setUser(data.user);
+          setIsAuth(true);
+          setIsAdmin(data.user.type === "admin");
+          setIsCorrect(true);
+          setErrorMSG("");
+          toast.success("Iniciando sesión, redirigiendo...",{duration:1500}); 
+          setTimeout(() => {
+            setIsCorrect(false);
             Navigate("/");
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-          setErrorMSG(e.response.data[0]);
-          // toast.error(e.response.data[0]);
-        });
-    },
-    [setUser]
-  );
+          }, 1500);
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        setErrorMSG(e.response.data[0]);
+        toast.error("Error en el inicio de sesión: " + e.response.data[0],{duration:1500}); 
+      });
+  }, [setUser, Navigate]);
+  
+  const useRegister = useCallback((data) => {
+    AuthService.Register(data)
+      .then(({ data, status }) => {
+        if (status === 200) {
+          JwtService.saveToken(data.token);
+          JwtService.saveRefreshToken(data.ref_token);
+          setToken(data.token);
+          setUser(data.user);
+          setIsAuth(true);
+          setIsAdmin(data.user.type === "admin");
+          setIsCorrect(true);
+          setErrorMSG("");
+          toast.success("Registrado con éxito, redirigiendo...",{duration:1500}); 
+          setTimeout(() => {
+            setIsCorrect(false);
+            Navigate("/");
+          }, 1500);
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        setErrorMSG(e.response.data[0]);
+        toast.error("Error en el registro: " + e.response.data[0],{duration:1500});
+      });
+  }, [setUser, Navigate]);
+  
   return { useAuth, useLogin, useRegister, user, setUser,users, errorMSG, isCorrect };
 }

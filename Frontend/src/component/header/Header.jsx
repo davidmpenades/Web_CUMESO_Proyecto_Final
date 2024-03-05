@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
-import { Link, useLocation, useNavigate, NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
 import logo from "../../assets/imgs/Logo.webp";
 import profile from "../../assets/imgs/profile.webp";
-import AuthContext from "../../context/AuthContext";
 import "./Header.css";
 
 export default function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, isAuth, isAdmin, logout } = useContext(AuthContext);
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+  
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10); 
+      setIsScrolled(window.scrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -23,91 +31,151 @@ export default function Header() {
     };
   }, []);
 
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
+  const handleNavigation = () => {
+    navigate('/login'); 
+  };
+
   return (
-    <Navbar
-      fluid
-      rounded
-      className={`fixed top-0 left-0 right-0 z-50 transition duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
-      } h-16`} 
+    <div
+      className={`header-fixed mx-auto max-w-full px-4 sm:px-6 lg:px-8 ${
+        isScrolled ? "bg-white" : "bg-transparent"
+      } transition-colors duration-300`}
     >
-      {/* Primera columna: Logo */}
-      <div className="flex items-center">
-        <Navbar.Brand href="/">
+      <div className="flex h-16 items-center justify-between">
+        {/* Logo */}
+        <NavLink to="/" className="block text-teal-600">
           <img
             src={logo}
-            style={{ width: "150px" }}
-            className="mr-3 h-6 sm:h-9"
-            alt="Flowbite React Logo"
+            alt="Logo"
+            className="h-8 md:h-16"
+            style={{ width: "200px", height: "50px" }}
           />
-        </Navbar.Brand>
-      </div>
+        </NavLink>
 
-      {/* Segunda columna: Menú de navegación */}
-      <div className="flex flex-grow justify-center">
-        <Navbar.Collapse>
+        {/* Navigation Links */}
+        <div className="hidden md:flex gap-6">
           <NavLink
             to="/"
-            exact
-            className="relative nav-link px-2 link-danger"
-            activeClassName="active" 
+            className="header-link text-gray-500 transition hover:text-gray-500/75"
           >
             Inicio
-            <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
           </NavLink>
+
           <NavLink
             to="/maquinaria"
-            className="relative nav-link px-2 link-danger"
-            activeClassName="active" 
+            className="header-link text-gray-500 transition hover:text-gray-500/75"
           >
             Maquinaria
-            <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
           </NavLink>
+
           <NavLink
             to="/contact"
-            className="relative nav-link px-2 link-danger"
-            activeClassName="active" 
+            className="header-link text-gray-500 transition hover:text-gray-500/75"
           >
             Contacto
-            <span className="absolute bottom-0 left-0 w-full h-0 bg-danger transition-all duration-300"></span>
           </NavLink>
-        </Navbar.Collapse>
-      </div>
+        </div>
 
-      {/* Tercera columna: Dropdown */}
-      {!isAuth ? (
-        <div className="flex md:order-2 items-center">
-          <Button
-            color="dark"
-            pill
-            href="/login"
-            active={location.pathname === "/login"}
+        {/* Right Section */}
+        {!isAuth ? (
+          <button
+          onClick={handleNavigation}
+          className="w-[150px] bg-black h-[50px] my-3 flex items-center justify-center rounded-full cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#7c7979] before:to-[rgb(0, 0, 0, 0.1)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff] mx-2 py-2 font-medium text-sm"
+        >
+          Entrar
+        </button>
+        ) : (         
+          <div className="relative flex items-center">
+      <div onClick={toggleDropdown} className="cursor-pointer z-10"> 
+        <img alt="User settings" src={profile} style={{width:"42px", height:"42px"}} className="rounded-full" />
+      </div>
+      {isDropdownOpen && (
+        <div className="absolute right-0 top-full mt-1 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                <div className="block px-4 py-2 text-sm text-gray-700">
+                  {user.username}
+                </div>
+                <div className="block px-4 py-2 text-sm text-gray-700 truncate">
+                  {user.email}
+                </div>
+                <div className="px-4 py-2 border-t border-gray-100"></div>
+                {isAdmin && (
+                  <NavLink
+                    to="/dashboard"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Dashboard
+                  </NavLink>
+                )}
+                <NavLink
+                  to="/profile"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Perfil
+                </NavLink>
+                <div className="px-4 py-2 border-t border-gray-100"></div>
+                <button
+                  onClick={logout}
+                  className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
+                >
+                  Cerrar sesión
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden btn-primary"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {/* Icono de menú */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            width="25"
+            height="25"
           >
-            Entrar/Registro
-          </Button>
-        </div>
-      ) : (
-        <div className="flex items-center">
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={<Avatar alt="User settings" img={profile} rounded />}
+            <path d="M0 3h20v2H0zM0 9h20v2H0zM0 15h20v2H0z" />
+          </svg>
+        </button>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div
+            className={`${
+              isMobileMenuOpen ? "flex" : "hidden"
+            } flex-col absolute top-full left-0 right-0 bg-white shadow-md z-20 md:hidden`}
           >
-            <Dropdown.Header>
-              <span className="block text-sm">{user.username}</span>
-              <span className="block truncate text-sm font-medium">
-                {user.email}
-              </span>
-            </Dropdown.Header>
-            {isAdmin && <Dropdown.Item>Dashboard</Dropdown.Item>}
-            <Dropdown.Item>Perfil</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item onClick={logout}>Cerrar sesión</Dropdown.Item>
-          </Dropdown>
-         
-        </div>
-      )}
-       <Navbar.Toggle />
-    </Navbar>
+            {/* Los mismos NavLink que en tu menú principal */}
+            <NavLink
+              to="/"
+              className="p-2 hover:bg-gray-100"
+              onClick={closeMobileMenu}
+            >
+              Inicio
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="p-2 hover:bg-gray-100"
+              onClick={closeMobileMenu}
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className="p-2 hover:bg-gray-100"
+              onClick={closeMobileMenu}
+            >
+              Contacto
+            </NavLink>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

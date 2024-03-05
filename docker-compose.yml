@@ -6,8 +6,8 @@ services:
     container_name: postgres_container
     volumes:
       - postgres_container:/var/lib/postgresql/data
-      - ./Backend/bk/db_init.sql:/docker-entrypoint-initdb.d/exportacion.sql
-      # - ./Backend/bk/exportacion.sql:/docker-entrypoint-initdb.d/exportacion.sql
+      # - ./Backend/bk/db_init.sql:/docker-entrypoint-initdb.d/exportacion.sql
+      - ./Backend/bk/exportacion.sql:/docker-entrypoint-initdb.d/exportacion.sql
     ports:
       - "5434:5432"
     environment:

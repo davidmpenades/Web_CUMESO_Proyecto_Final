@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import RegLogForm from "../../component/Client/RegLogForm";
 import { useAuth } from "../../hooks/useAuth";
 import AuthContext from "../../context/AuthContext";
-import { Toaster, toast } from 'sonner'
+import { toast } from 'sonner'
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -15,9 +15,9 @@ const Login = () => {
     if (isCorrect) {
       if (isAdmin) {
         navigate("/dashboard");
-        toast.success("Bienvenido, administrador!");
+        toast.success("Bienvenido, administrador!",{duration:1500});
       }else{
-      toast.success("Bienvenido!");
+      toast.success("Bienvenido!",{duration:1500});
       navigate("/");
       }
     } else if (errorMSG) {

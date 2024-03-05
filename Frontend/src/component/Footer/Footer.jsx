@@ -4,15 +4,16 @@ import logo from "../../assets/imgs/Logo.webp";
 const FooterComponent = () => {
   return (
     <div>
-    <Footer fluid>
+    <Footer>
       <div className="w-full text-center px-4 mt-6">
         <div className="max-w-screen-xl mx-auto">
-          {/* Ajuste del ancho del contenido interno */}
           <div className="flex justify-between items-center">
             <Footer.Brand
               href="/"
               src={logo}
               alt="Cumeso Logo"
+              width={200}
+              height={50}
             />
             <Footer.LinkGroup>
               <Footer.Link href="#">About</Footer.Link>

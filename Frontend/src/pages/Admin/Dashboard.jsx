@@ -4,12 +4,14 @@ import Logo from "../../assets/imgs/Logo.webp";
 import "./Dashboard.css";
 import MachinsList from "../../component/Admin/Machine/MachineList";
 import useMachine  from "../../hooks/useMachine";
+import PartTable from "../../component/Admin/Part/PartTable";
 
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const {machines} = useMachine();
+
   const [selectedItem, setSelectedItem] = useState("machines");
   const handleSelectItem = (item) => {
     setSelectedItem(item);
@@ -29,9 +31,8 @@ const Dashboard = () => {
           return <div>Cargando máquinas...</div>;
         }
         return machines.map((machine) => <MachinsList key={machine.id} machine={machine} />);
-      case "parts":
-        return "PartsList";
-        // return <PartsList />;
+      case "parts":        
+        return  <PartTable />;
       case "providers":
         return "ProvidersList";
         // return <ProvidersList />;
@@ -176,12 +177,12 @@ const Dashboard = () => {
             <div className="mt-4 flex justify-center">
               <button 
                 onClick={() => handleSelectItem("machines")}
-                className="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded-full mr-2">
+                className="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded-3xl mr-2">
                 Máquinas
               </button>
               <button 
                 onClick={() => handleSelectItem("parts")}
-                className="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full">
+                className="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-3xl">
                 Piezas
               </button>
             </div>

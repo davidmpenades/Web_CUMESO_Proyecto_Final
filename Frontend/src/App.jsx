@@ -7,6 +7,7 @@ import SpinnerLoading from "./component/SpinnerLoading/SpinnerLoading";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import { MachineContextProvider } from "./context/MachineContext";
+import { PartContextProvider } from "./context/PartContext";
 import AdminGuard from "./services/Guards/Adminguard";
 
 function Layout({ children }) {
@@ -28,7 +29,10 @@ function App() {
   const Contact = React.lazy(() => import("./pages/contact/contact"));
   const Machine = React.lazy(() => import("./pages/Machine/machine"));
   const Dashboard = React.lazy(() => import("./pages/Admin/Dashboard"));
-  const MachineList = React.lazy(() => import("./component/Admin/Machine/MachineList"));
+  const MachineList = React.lazy(() =>
+    import("./component/Admin/Machine/MachineList")
+  );
+  const PartList = React.lazy(() => import("./component/Admin/Part/PartList"));
 
   return (
     <div className="App">
@@ -36,18 +40,52 @@ function App() {
         <BrowserRouter>
           <AuthContextProvider>
             <MachineContextProvider>
-            <Toaster position="top-center" richColors expand={true} />
-            <Routes>
-              <Route path="/" element={<Layout><Home /></Layout>} />
-              <Route path="/contact" element={<Layout><Contact /></Layout>} />
-              <Route path="/login" element={<Layout><Login /></Layout>} />
-              <Route path="/machine" element={<Layout><Machine /></Layout>} />
-              <Route element={<AdminGuard />}>
-                {/* Dashboard no está envuelto en Layout para evitar Header y Footer */}
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/dashboard/machine" element={<MachineList />} />
-              </Route>
-            </Routes>
+              <PartContextProvider>
+                <Toaster position="top-center" richColors expand={true} />
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <Layout>
+                        <Home />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/contact"
+                    element={
+                      <Layout>
+                        <Contact />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/login"
+                    element={
+                      <Layout>
+                        <Login />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/machine"
+                    element={
+                      <Layout>
+                        <Machine />
+                      </Layout>
+                    }
+                  />
+                  <Route element={<AdminGuard />}>
+                    {/* Dashboard no está envuelto en Layout para evitar Header y Footer */}
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route
+                      path="/dashboard/machine"
+                      element={<MachineList />}
+                    />
+                    <Route path="/dashboard/machine" element={<PartList />} />
+                  </Route>
+                </Routes>
+              </PartContextProvider>
             </MachineContextProvider>
           </AuthContextProvider>
         </BrowserRouter>

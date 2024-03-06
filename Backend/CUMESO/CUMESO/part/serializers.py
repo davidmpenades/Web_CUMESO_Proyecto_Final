@@ -14,7 +14,7 @@ class PartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Part
-        fields = ['id', 'slug', 'name', 'description', 'quantity', 'price', 'img', 'cad_file', 'pdf_file', 'machines']
+        fields = ['id', 'slug', 'name', 'description', 'quantity', 'price', 'img', 'cad_file', 'pdf_file', 'machines','updated_at','created_at']
 
     def to_internal_value(self, data):
         # Llama primero a la implementación de la superclase para obtener un diccionario de datos validados

@@ -5,7 +5,7 @@ const FooterComponent = () => {
   return (
     <div>
     <Footer>
-      <div className="w-full text-center px-4 mt-6">
+      <div className="w-full text-center px-4 mt-6 shadow-xl">
         <div className="max-w-screen-xl mx-auto">
           <div className="flex justify-between items-center">
             <Footer.Brand

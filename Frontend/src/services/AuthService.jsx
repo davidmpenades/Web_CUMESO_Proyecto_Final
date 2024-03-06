@@ -13,9 +13,6 @@ const AuthService = {
   Register(data) {
     console.log(data);
     return api().post("register/", data);
-  },
-  refreshToken() {
-    return api().post("refresh_token");
   }
 };
 

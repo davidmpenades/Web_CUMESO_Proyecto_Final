@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, createContext, useContext } fr
 import AuthService from "../services/AuthService";
 import JwtService from "../services/JWTService";
 import { useNavigate } from "react-router-dom";
-import { Toaster, toast } from 'sonner'
+import { toast } from 'sonner'
 
 const AuthContext = createContext();
 
@@ -14,8 +14,6 @@ export function AuthContextProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
-
-  const notifyLogout = () => toast.warning("has salido de tu cuenta!");
 
   useEffect(() => {
     if (token) {
@@ -30,38 +28,21 @@ export function AuthContextProvider({ children }) {
           }
         })
         .catch(({ error }) => {
-          console.error(error);
-          if (JwtService.getRefreshToken()) {
-            refresh_token();
-          } else {
-            setTimeout(() => {logout()}, 1500);
-          }
+          console.error(error);          
+            setTimeout(() => {logout()}, 1500);          
         });
     }
   }, []);
 
-  const refresh_token = async () => {
-    JwtService.destroyToken();
-    await AuthService.refreshToken()
-      .then(({ data }) => {
-        setToken(data.token);
-        JwtService.saveToken(data.token);
-        // navigate("/");
-      })
-      .catch(({}) => {
-        logout();
-      });
-  };
 
   const logout = useCallback(() => {
     console.log('logout');
     JwtService.destroyToken();
-    JwtService.destroyRefreshToken();
     setUser({});
     setToken(false);
     setIsAuth(false);
     setIsAdmin(false);
-    notifyLogout();
+    toast.warning("has salido de tu cuenta!")
     navigate('');
 }, []);
 

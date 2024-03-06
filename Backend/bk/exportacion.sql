@@ -685,6 +685,7 @@ COPY public.users_users (id, password, last_login, is_superuser, uuid, username,
 8	pbkdf2_sha256$720000$1VmvN8ZGx6ZR4I4DBi8tKb$+NLEW+bZoVyn3tTJYwsHD5xGiNJY8cBuUROpHPwXdvo=	\N	f	76bc1e8e-7bed-5ef7-ceb4-8b5c8bb3a05e	Miguel	miguel@gmail.com	L'estacio		client
 9	pbkdf2_sha256$720000$082fDrbJgfiyuMStk4BNhp$Mrn2fbgkhg2nzl+2qAG76/hsYHYecMgXGhVJUcAtjq4=	\N	f	8594b937-6897-1553-a878-24a58014bf81	Yolanda	yolanda@gmail.com	L'estacio		client
 10	pbkdf2_sha256$720000$lHyNodksdq0aEYVmqS91qu$Ke4Lm5fz5/ptDsyjJnldIAcm63GwTuiMrI0usjdKjaM=	\N	t	1aec56e0-1ef5-c4e8-65df-e51ceb35cc24	David	davidmpenades@gmail.com	CUMESO		admin
+11	pbkdf2_sha256$720000$9MvFBcwpuvuGvJpQzoHoRh$3jGtMxhJPvRIVfQNcUXXwZbT2xY67g5E6dxqwstoUEc=	\N	f	fcaf2f1f-8d24-271c-a84f-acf597c8c5c7	Miguel Vidal	miguel1@gmail.com	L'estacio		client
 \.
 
 
@@ -799,7 +800,7 @@ SELECT pg_catalog.setval('public.users_users_groups_id_seq', 1, false);
 -- Name: users_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.users_users_id_seq', 10, true);
+SELECT pg_catalog.setval('public.users_users_id_seq', 11, true);
 
 
 --

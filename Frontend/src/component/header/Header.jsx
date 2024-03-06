@@ -15,6 +15,10 @@ export default function Header() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const closeDropdown = () => {
+    setIsDropdownOpen(false);
+  };
   
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -66,7 +70,7 @@ export default function Header() {
           </NavLink>
 
           <NavLink
-            to="/maquinaria"
+            to="/machine"
             className="header-link text-gray-500 transition hover:text-gray-500/75"
           >
             Maquinaria
@@ -84,7 +88,7 @@ export default function Header() {
         {!isAuth ? (
           <button
           onClick={handleNavigation}
-          className="w-[150px] bg-black h-[50px] my-3 flex items-center justify-center rounded-full cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#7c7979] before:to-[rgb(0, 0, 0, 0.1)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff] mx-2 py-2 font-medium text-sm"
+          className="w-[150px] bg-black h-[40px] my-3 flex items-center justify-center rounded-full cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#7c7979] before:to-[rgb(0, 0, 0, 0.1)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff] mx-2 py-2 font-medium text-sm"
         >
           Entrar
         </button>
@@ -105,6 +109,7 @@ export default function Header() {
                 {isAdmin && (
                   <NavLink
                     to="/dashboard"
+                    onClick={closeDropdown}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Dashboard
@@ -112,6 +117,7 @@ export default function Header() {
                 )}
                 <NavLink
                   to="/profile"
+                  onClick={closeDropdown}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Perfil
@@ -160,11 +166,11 @@ export default function Header() {
               Inicio
             </NavLink>
             <NavLink
-              to="/about"
+              to="/machine"
               className="p-2 hover:bg-gray-100"
               onClick={closeMobileMenu}
             >
-              About
+              Maquinaria
             </NavLink>
             <NavLink
               to="/contact"

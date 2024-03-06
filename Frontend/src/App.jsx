@@ -4,27 +4,51 @@ import Header from "./component/header/Header";
 import Footer from "./component/Footer/Footer";
 import { Toaster } from "sonner";
 import SpinnerLoading from "./component/SpinnerLoading/SpinnerLoading";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
+import { MachineContextProvider } from "./context/MachineContext";
+import AdminGuard from "./services/Guards/Adminguard";
+
+function Layout({ children }) {
+  const location = useLocation();
+  const showHeaderAndFooter = location.pathname !== "/dashboard";
+
+  return (
+    <>
+      {showHeaderAndFooter && <Header />}
+      <div className="container_personalized">{children}</div>
+      {showHeaderAndFooter && <Footer />}
+    </>
+  );
+}
+
 function App() {
   const Home = React.lazy(() => import("./pages/home/home"));
   const Login = React.lazy(() => import("./pages/login/login"));
   const Contact = React.lazy(() => import("./pages/contact/contact"));
+  const Machine = React.lazy(() => import("./pages/Machine/machine"));
+  const Dashboard = React.lazy(() => import("./pages/Admin/Dashboard"));
+  const MachineList = React.lazy(() => import("./component/Admin/Machine/MachineList"));
+
   return (
     <div className="App">
       <Suspense fallback={<SpinnerLoading />}>
         <BrowserRouter>
           <AuthContextProvider>
-            <Toaster position="top-center" richColors expand={true}/>
-            <Header />
-            <div className="container_personalized">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/login" element={<Login />} />
-              </Routes>
-            </div>
-            <Footer />
+            <MachineContextProvider>
+            <Toaster position="top-center" richColors expand={true} />
+            <Routes>
+              <Route path="/" element={<Layout><Home /></Layout>} />
+              <Route path="/contact" element={<Layout><Contact /></Layout>} />
+              <Route path="/login" element={<Layout><Login /></Layout>} />
+              <Route path="/machine" element={<Layout><Machine /></Layout>} />
+              <Route element={<AdminGuard />}>
+                {/* Dashboard no está envuelto en Layout para evitar Header y Footer */}
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard/machine" element={<MachineList />} />
+              </Route>
+            </Routes>
+            </MachineContextProvider>
           </AuthContextProvider>
         </BrowserRouter>
       </Suspense>

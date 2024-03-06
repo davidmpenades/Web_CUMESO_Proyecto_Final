@@ -29,6 +29,7 @@ export default function Contact() {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     height: "100%",
+    marginTop: "3rem",
   };
   const [formData, setFormData] = useState({
     name: "",

@@ -1,0 +1,4 @@
+.list-machine ul {
+    list-style-type: disc !important;
+    margin-left: 20px; /* Ajuste según sea necesario */
+  }

@@ -10,16 +10,16 @@ export function useAuth() {
     useContext(AuthContext);
   const [isCorrect, setIsCorrect] = useState(false);
   const [errorMSG, setErrorMSG] = useState("");
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    AuthService.getAllUsers()
-      .then(({ data }) => {
-        setUsers(data);
-      })
-      .catch((e) => console.error(e));
-  }, []);
+  // useEffect(() => {
+  //   AuthService.getAllUsers()
+  //     .then(({ data }) => {
+  //       setUsers(data);
+  //     })
+  //     .catch((e) => console.error(e));
+  // }, []);
 
   const useLogin = useCallback((data) => {
     AuthService.Login(data)
@@ -36,7 +36,11 @@ export function useAuth() {
           toast.success("Iniciando sesión, redirigiendo...",{duration:1500}); 
           setTimeout(() => {
             setIsCorrect(false);
-            Navigate("/");
+            if (data.user.type === "admin") {
+              navigate("/dashboard")
+            } else{
+            navigate("/");
+            }
           }, 1500);
         }
       })
@@ -45,7 +49,7 @@ export function useAuth() {
         setErrorMSG(e.response.data[0]);
         toast.error("Error en el inicio de sesión: " + e.response.data[0],{duration:1500}); 
       });
-  }, [setUser, Navigate]);
+  }, [setUser, navigate]);
   
   const useRegister = useCallback((data) => {
     AuthService.Register(data)
@@ -61,8 +65,8 @@ export function useAuth() {
           setErrorMSG("");
           toast.success("Registrado con éxito, redirigiendo...",{duration:1500}); 
           setTimeout(() => {
-            setIsCorrect(false);
-            Navigate("/");
+            setIsCorrect(false)
+            navigate("/");
           }, 1500);
         }
       })
@@ -71,7 +75,7 @@ export function useAuth() {
         setErrorMSG(e.response.data[0]);
         toast.error("Error en el registro: " + e.response.data[0],{duration:1500});
       });
-  }, [setUser, Navigate]);
+  }, [setUser, navigate]);
   
   return { useAuth, useLogin, useRegister, user, setUser,users, errorMSG, isCorrect };
 }

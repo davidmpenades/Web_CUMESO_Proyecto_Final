@@ -5,7 +5,7 @@ const AuthService = {
     return api().post("login/", data);
   },
   getUser() {
-    return api().get("user");
+    return api().get("user/");
   },
   getAllUsers(){
     return api().get("users/")

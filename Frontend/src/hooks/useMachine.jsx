@@ -4,7 +4,6 @@ import MachineContext from "../context/MachineContext";
 
 const useMachine = () => {
     const { machines, setMachines } = useContext(MachineContext);
-    console.log("machines", machines);
     
     const fetchMachines = useCallback(() => {
         MachineService.getAll()

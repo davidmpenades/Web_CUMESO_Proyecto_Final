@@ -5,6 +5,7 @@ import "./Dashboard.css";
 import MachinsList from "../../component/Admin/Machine/MachineList";
 import useMachine  from "../../hooks/useMachine";
 import PartTable from "../../component/Admin/Part/PartTable";
+import ProvidersTable from "../../component/Admin/Providers/ProviderTable";
 
 
 const Dashboard = () => {
@@ -34,8 +35,7 @@ const Dashboard = () => {
       case "parts":        
         return  <PartTable />;
       case "providers":
-        return "ProvidersList";
-        // return <ProvidersList />;
+        return <ProvidersTable />;
       case "users":
         return "UsersList";
         // return <UsersList />;

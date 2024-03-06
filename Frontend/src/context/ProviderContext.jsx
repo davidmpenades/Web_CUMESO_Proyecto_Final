@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
-import PartService from "../services/PartService";
+import ProviderService from "../services/ProviderService";
 import JwtService from "../services/JWTService";
 import AuthContext from "./AuthContext";
 
 const Context = React.createContext({});
 
-export const PartContextProvider = ({ children }) => {
-  const [parts, setParts] = useState([]);
+export const ProviderContextProvider = ({ children }) => {
+  const [providers, setProviders] = useState([]);
   const [token, setToken] = useState(
     JwtService.getToken ? JwtService.getToken : false
   );
   const { isAdmin } = useContext(AuthContext);
+
   useEffect(() => {
     if (token && isAdmin) {
-      PartService.getAll()
+      ProviderService.getAll()
         .then((data) => {
-          setParts(data.data);
+          setProviders(data.data);
         })
         .catch((error) => {
           console.error(error);
@@ -24,7 +25,9 @@ export const PartContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <Context.Provider value={{ parts, setParts }}>{children}</Context.Provider>
+    <Context.Provider value={{ providers, setProviders }}>
+      {children}
+    </Context.Provider>
   );
 };
 

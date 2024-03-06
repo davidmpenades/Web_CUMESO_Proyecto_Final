@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import { MachineContextProvider } from "./context/MachineContext";
 import { PartContextProvider } from "./context/PartContext";
+import { ProviderContextProvider } from "./context/ProviderContext";
 import AdminGuard from "./services/Guards/Adminguard";
 
 function Layout({ children }) {
@@ -33,6 +34,7 @@ function App() {
     import("./component/Admin/Machine/MachineList")
   );
   const PartList = React.lazy(() => import("./component/Admin/Part/PartList"));
+  const ProviderList = React.lazy(() => import("./component/Admin/Providers/ProviderList"));
 
   return (
     <div className="App">
@@ -41,6 +43,7 @@ function App() {
           <AuthContextProvider>
             <MachineContextProvider>
               <PartContextProvider>
+                <ProviderContextProvider>
                 <Toaster position="top-center" richColors expand={true} />
                 <Routes>
                   <Route
@@ -83,8 +86,10 @@ function App() {
                       element={<MachineList />}
                     />
                     <Route path="/dashboard/machine" element={<PartList />} />
+                    <Route path="/dashboard/machine" element={<ProviderList />} />
                   </Route>
                 </Routes>
+                </ProviderContextProvider>
               </PartContextProvider>
             </MachineContextProvider>
           </AuthContextProvider>

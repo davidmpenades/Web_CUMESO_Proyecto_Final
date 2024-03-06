@@ -4,6 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const AuthGuard = () => {
     const { isAuth } = useContext(AuthContext);
+    
 
     return isAuth ? <Outlet /> : <Navigate to="/" />;
 }

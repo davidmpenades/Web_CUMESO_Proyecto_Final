@@ -2,9 +2,8 @@ import React from "react";
 import "./MachineList.css";
 
 const MachinesList = ({ machine }) => {
-  console.log("machine", machine);
   return (
-    <div className="flex w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 m-4">
+    <div className="flex w-2/4 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 m-4">
       <div
         className="w-2/3 bg-cover"
         style={{

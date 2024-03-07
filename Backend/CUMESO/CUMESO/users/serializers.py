@@ -29,7 +29,7 @@ class userSerializer(serializers.ModelSerializer):
                 'type': user.type
             },
             'token': user.token,
-            'ref_token': user.ref_token,
+            
         }
 
     def login(context):
@@ -54,7 +54,7 @@ class userSerializer(serializers.ModelSerializer):
                 'type': user.type
             },
             'token': user.token,
-            'ref_token': user.ref_token,
+            
         }
 
     def getUser(context):
@@ -75,8 +75,7 @@ class userSerializer(serializers.ModelSerializer):
                 'company': user.company,
                 'type': user.type
             },
-            'token': user.token,
-            'ref_token': user.ref_token,
+            'token': user.token,           
         }
 
     def refreshToken(context):

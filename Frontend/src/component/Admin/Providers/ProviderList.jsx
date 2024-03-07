@@ -1,13 +1,19 @@
 import React from "react";
+import usePart from "../../../hooks/usePart";
+import { Select, Option } from "@material-tailwind/react";
 
 const ProviderList = ({ provider }) => {
-  const opciones = ["Pieza 1", "Pieza 2", "Pieza 3", "Pieza 4"];
+  const { parts } = usePart();
+
+  const providerParts = parts.filter((part) =>
+    provider.parts.some((p) => p === part.id)
+  );
 
   return (
     <tr>
       <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
         <div className="inline-flex items-center gap-x-3">
-          <h2 className="font-normal text-gray-800 dark:text-white ">
+          <h2 className="font-normal text-gray-800 dark:text-white">
             {provider.name}
           </h2>
         </div>
@@ -30,15 +36,22 @@ const ProviderList = ({ provider }) => {
       <td className="hidden sm:table-cell px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300">
         {provider.CIF}
       </td>
-      <td className="hidden sm:table-cell px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300">
-        <select className="form-select block w-full mt-1">
-          {opciones.map((opcion, index) => (
-            <option key={index} value={opcion}>
-              {opcion}
-            </option>
-          ))}
-        </select>
+      <td>
+        <div className="w-72">
+          <Select label="Piezas suministradas" size="lg">
+            {providerParts.length > 0 ? (
+              providerParts.map((part, index) => (
+                <Option key={index} value={part.id}>
+                  {part.name} - {part.status ? part.status : "Sin estado"}
+                </Option>
+              ))
+            ) : (
+              <Option disabled>No hay partes asociadas</Option>
+            )}
+          </Select>
+        </div>
       </td>
+
       <td className="px-4 py-4 text-sm whitespace-nowrap">
         <button className="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100">
           <svg

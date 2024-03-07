@@ -26,7 +26,7 @@ export function useAuth() {
       .then(({ data, status }) => {
         if (status === 200) {
           JwtService.saveToken(data.token);
-          JwtService.saveRefreshToken(data.ref_token);
+          
           setToken(data.token);
           setUser(data.user);
           setIsAuth(true);
@@ -52,11 +52,12 @@ export function useAuth() {
   }, [setUser, navigate]);
   
   const useRegister = useCallback((data) => {
+    console.log(data);
     AuthService.Register(data)
       .then(({ data, status }) => {
+        console.log(data, status);
         if (status === 200) {
-          JwtService.saveToken(data.token);
-          JwtService.saveRefreshToken(data.ref_token);
+          JwtService.saveToken(data.token);          
           setToken(data.token);
           setUser(data.user);
           setIsAuth(true);

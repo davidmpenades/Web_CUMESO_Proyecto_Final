@@ -2,6 +2,7 @@ import api from "./api";
 
 const AuthService = {
   Login(data) {
+    console.log(data);
     return api().post("login/", data);
   },
   getUser() {

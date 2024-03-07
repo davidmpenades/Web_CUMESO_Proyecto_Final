@@ -47,8 +47,8 @@ class Machine(models.Model):
         return unique_slug
 
 class MachineUserRelation(models.Model):
-    machine = models.ForeignKey('Machine', on_delete=models.CASCADE)
-    user = models.ForeignKey('users.Users', on_delete=models.CASCADE) 
+    machine = models.ForeignKey(Machine, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey('users.Users', on_delete=models.CASCADE, null=True)
 
     class Meta:
         unique_together = ('machine', 'user')

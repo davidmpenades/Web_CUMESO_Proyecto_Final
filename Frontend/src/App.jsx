@@ -9,7 +9,9 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { MachineContextProvider } from "./context/MachineContext";
 import { PartContextProvider } from "./context/PartContext";
 import { ProviderContextProvider } from "./context/ProviderContext";
+import { UserContextProvider } from "./context/UserContext";
 import AdminGuard from "./services/Guards/Adminguard";
+
 
 function Layout({ children }) {
   const location = useLocation();
@@ -35,6 +37,7 @@ function App() {
   );
   const PartList = React.lazy(() => import("./component/Admin/Part/PartList"));
   const ProviderList = React.lazy(() => import("./component/Admin/Providers/ProviderList"));
+  const UserTable = React.lazy(() => import("./component/Admin/Users/UserTable"));
 
   return (
     <div className="App">
@@ -44,6 +47,7 @@ function App() {
             <MachineContextProvider>
               <PartContextProvider>
                 <ProviderContextProvider>
+                  <UserContextProvider>
                 <Toaster position="top-center" richColors expand={true} />
                 <Routes>
                   <Route
@@ -85,10 +89,12 @@ function App() {
                       path="/dashboard/machine"
                       element={<MachineList />}
                     />
-                    <Route path="/dashboard/machine" element={<PartList />} />
-                    <Route path="/dashboard/machine" element={<ProviderList />} />
+                    <Route path="/dashboard/part" element={<PartList />} />
+                    <Route path="/dashboard/provider" element={<ProviderList />} />
+                    <Route path="/dashboard/user" element={<UserTable />} />
                   </Route>
                 </Routes>
+                </UserContextProvider>
                 </ProviderContextProvider>
               </PartContextProvider>
             </MachineContextProvider>

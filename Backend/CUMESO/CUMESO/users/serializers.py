@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import serializers
 from .models import Users
 
@@ -6,7 +7,7 @@ class userSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Users
-        fields = ( 'id', 'uuid', 'username', 'email','company','image', 'password', 'type')
+        fields = ( 'id', 'uuid', 'username', 'email','company','image', 'password','last_login','created_at', 'type')
 
     def register(context):
         email = context['email']
@@ -26,7 +27,8 @@ class userSerializer(serializers.ModelSerializer):
                 'email': user.email,
                 'company': user.company,
                 'image': user.image.url if user.image else None,
-                'type': user.type
+                'type': user.type,  
+                'created_at': user.created_at,             
             },
             'token': user.token,
             
@@ -43,6 +45,9 @@ class userSerializer(serializers.ModelSerializer):
 
         if not user.check_password(password):
             raise serializers.ValidationError('*Wrong username or password.')
+        
+        user.last_login = timezone.now()
+        user.save(update_fields=['last_login'])
 
         return {
             'user': {
@@ -51,7 +56,8 @@ class userSerializer(serializers.ModelSerializer):
                 'email': user.email,
                 'company': user.company,
                 'image': user.image.url if user.image else None,
-                'type': user.type
+                'type': user.type,
+                'last_login': user.last_login                
             },
             'token': user.token,
             
@@ -73,20 +79,9 @@ class userSerializer(serializers.ModelSerializer):
                 'email': user.email,
                 'image': user.image.url if user.image else None,
                 'company': user.company,
-                'type': user.type
+                'type': user.type,
+                'last_login': user.last_login
             },
             'token': user.token,           
-        }
-
-    def refreshToken(context):
-        username = context['username']
-
-        try:
-            user = Users.objects.get(username=username)
-        except:
-            raise serializers.ValidationError('Username not valid.')
-
-        return {
-            'token': user.token
         }
 

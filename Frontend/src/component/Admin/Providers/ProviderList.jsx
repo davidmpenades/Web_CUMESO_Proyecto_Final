@@ -1,6 +1,5 @@
 import React from "react";
 import usePart from "../../../hooks/usePart";
-import { Select, Option } from "@material-tailwind/react";
 
 const ProviderList = ({ provider }) => {
   const { parts } = usePart();
@@ -8,6 +7,18 @@ const ProviderList = ({ provider }) => {
   const providerParts = parts.filter((part) =>
     provider.parts.some((p) => p === part.id)
   );
+
+  // Función para obtener el color basado en el estado de la pieza
+  const getColorForStatus = (status) => {
+    switch (status) {
+      case "pendiente":
+        return "text-orange-500";
+      case "terminada":
+        return "text-green-500";
+      default:
+        return "text-black";
+    }
+  };
 
   return (
     <tr>
@@ -38,17 +49,28 @@ const ProviderList = ({ provider }) => {
       </td>
       <td>
         <div className="w-72">
-          <Select label="Piezas suministradas" size="lg">
-            {providerParts.length > 0 ? (
-              providerParts.map((part, index) => (
-                <Option key={index} value={part.id}>
-                  {part.name} - {part.status ? part.status : "Sin estado"}
-                </Option>
-              ))
-            ) : (
-              <Option disabled>No hay partes asociadas</Option>
+          <select
+            id="parts"
+            name="parts"
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-black focus:border-black sm:text-sm rounded-md"
+            defaultValue=""
+          >
+            <option disabled value="">
+              Listado de Piezas
+            </option>
+            {providerParts.map((part, index) => (
+              <option
+                key={index}
+                value={part.id}
+                className={getColorForStatus(part.status)}
+              >
+                {part.name} - {part.status ? part.status : "Sin determinar"}
+              </option>
+            ))}
+            {providerParts.length === 0 && (
+              <option disabled>No hay partes asociadas</option>
             )}
-          </Select>
+          </select>
         </div>
       </td>
 

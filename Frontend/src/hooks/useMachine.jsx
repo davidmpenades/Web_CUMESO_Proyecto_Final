@@ -8,7 +8,6 @@ const useMachine = () => {
     const fetchMachines = useCallback(() => {
         MachineService.getAll()
         .then((data) => {
-            console.log(data.data);
             setMachines(data.data); 
         })
         .catch((e) => {

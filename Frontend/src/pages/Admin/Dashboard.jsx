@@ -6,6 +6,7 @@ import MachinsList from "../../component/Admin/Machine/MachineList";
 import useMachine  from "../../hooks/useMachine";
 import PartTable from "../../component/Admin/Part/PartTable";
 import ProvidersTable from "../../component/Admin/Providers/ProviderTable";
+import UserTable from "../../component/Admin/Users/UserTable";
 
 
 const Dashboard = () => {
@@ -37,8 +38,8 @@ const Dashboard = () => {
       case "providers":
         return <ProvidersTable />;
       case "users":
-        return "UsersList";
-        // return <UsersList />;
+        
+        return <UserTable />;
       default:
         return null;
     }

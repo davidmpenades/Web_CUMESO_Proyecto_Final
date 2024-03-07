@@ -13,13 +13,7 @@ export function useAuth() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
-  // useEffect(() => {
-  //   AuthService.getAllUsers()
-  //     .then(({ data }) => {
-  //       setUsers(data);
-  //     })
-  //     .catch((e) => console.error(e));
-  // }, []);
+  
 
   const useLogin = useCallback((data) => {
     AuthService.Login(data)

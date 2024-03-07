@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import ProviderService from "../services/ProviderService";
+import UserService from "../services/UserService";
 import JwtService from "../services/JWTService";
 import AuthContext from "./AuthContext";
 
 const Context = React.createContext({});
 
-export const ProviderContextProvider = ({ children }) => {
-  const [providers, setProviders] = useState([]);
+export const UserContextProvider = ({ children }) => {
+  const [users, setUsers] = useState([]);
   const [token] = useState(
     JwtService.getToken ? JwtService.getToken : false
   );
@@ -14,9 +14,9 @@ export const ProviderContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (token && isAdmin) {
-      ProviderService.getAll()
+      UserService.getAll()
         .then((data) => {
-          setProviders(data.data);
+          setUsers(data.data);
         })
         .catch((error) => {
           console.error(error);
@@ -25,7 +25,7 @@ export const ProviderContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <Context.Provider value={{ providers, setProviders }}>
+    <Context.Provider value={{ users, setUsers }}>
       {children}
     </Context.Provider>
   );

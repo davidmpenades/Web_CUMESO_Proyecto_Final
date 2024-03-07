@@ -37,9 +37,6 @@ class Users(AbstractBaseUser, PermissionsMixin):
     def token(self):
         return self.generate_token_jwt(1080)
     
-    @property
-    def ref_token(self):
-        return self.generate_token_jwt(10800)
 
     def generate_token_jwt(self, token_time):
         dt = datetime.now() + timedelta(seconds=token_time)

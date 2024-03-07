@@ -28,19 +28,19 @@ class ProvidersList(viewsets.GenericViewSet):
             return {}
 
     def list(self, request):
-        queryset = Providers.objects.all()  # Corregido aquí
+        queryset = Providers.objects.all() 
         serializer = ProvidersSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     
     def getBySlug(self, request, slug=None):
-        provider = get_object_or_404(Providers, slug=slug)  # Corregido aquí
+        provider = get_object_or_404(Providers, slug=slug) 
         serializer = ProvidersSerializer(provider)
         return JsonResponse(serializer.data)
 
     
     def destroy(self, request, slug=None):
-        provider = get_object_or_404(Providers, slug=slug)  # Corregido aquí
+        provider = get_object_or_404(Providers, slug=slug)  
         provider.delete()
         return HttpResponse(status=status.HTTP_204_NO_CONTENT)
     

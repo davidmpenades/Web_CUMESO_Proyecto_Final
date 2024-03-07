@@ -14,12 +14,10 @@ const Login = () => {
   useEffect(() => {
     if (isCorrect) {      
       if (isAdmin) {
-        // navigate("/dashboard");
         toast.success("Bienvenido, administrador!",{duration:1500});
       }
       if(!isAdmin){
       toast.success("Bienvenido!",{duration:1500});
-      // navigate("/");
       }
     } else if (errorMSG) {
       toast.error(errorMSG);

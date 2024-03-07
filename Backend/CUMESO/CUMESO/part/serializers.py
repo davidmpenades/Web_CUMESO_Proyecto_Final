@@ -14,7 +14,7 @@ class PartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Part
-        fields = ['id', 'slug', 'name', 'description', 'quantity', 'price', 'img', 'cad_file', 'pdf_file', 'machines','updated_at','created_at']
+        fields = ['id', 'slug', 'name', 'description', 'quantity', 'price','status', 'img', 'cad_file', 'pdf_file', 'machines','updated_at','created_at']
 
     def to_internal_value(self, data):
         # Llama primero a la implementación de la superclase para obtener un diccionario de datos validados
@@ -34,3 +34,25 @@ class PartSerializer(serializers.ModelSerializer):
             data['machines'] = new_machine_list
 
         return data
+    
+    def update(self, instance, validated_data):
+        # Actualiza los campos normales
+        instance.slug = validated_data.get('slug', instance.slug)
+        instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
+        instance.quantity = validated_data.get('quantity', instance.quantity)
+        instance.price = validated_data.get('price', instance.price)
+        instance.img = validated_data.get('img', instance.img)
+        instance.status = validated_data.get('status', instance.status)
+        instance.cad_file = validated_data.get('cad_file', instance.cad_file)
+        instance.pdf_file = validated_data.get('pdf_file', instance.pdf_file)
+        
+        # Guarda los cambios en el objeto 'Part'
+        instance.save()
+
+        # Actualiza la relación ManyToMany 'machines'
+        if 'machines' in validated_data:
+            machines_ids = validated_data['machines']
+            instance.machines.set(machines_ids)
+
+        return instance

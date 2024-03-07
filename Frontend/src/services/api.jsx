@@ -13,14 +13,6 @@ const Axios = () => {
                 "Authorization": `Bearer ${JwtService.getToken()}`
             }
         });
-    } else if (localStorage.getItem('ref_token')) {
-        api = axios.create({
-            baseURL: secrets.URL_DFR,
-            headers: {
-                "Content-type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem('ref_token')}`
-            }
-        });
     } else {
     api = axios.create({    
         baseURL: secrets.URL_DFR,

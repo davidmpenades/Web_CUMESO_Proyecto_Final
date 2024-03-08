@@ -6,8 +6,9 @@ export default withMT({
     'node_modules/flowbite-react/lib/esm/**/*.js'
   ],
   theme: {
-    extend: {},
-  },
+    extend: {fontFamily: {
+      'display': ['DisplayOTF', 'sans-serif']}
+  }},
   plugins: [
     require('flowbite/plugin')
   ],

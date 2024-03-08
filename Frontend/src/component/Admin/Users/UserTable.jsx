@@ -5,7 +5,6 @@ import useMachine from "../../../hooks/useMachine";
 const UserTable = () => {
   const { users } = useUser();
   const { machines } = useMachine();
-  console.log(users);
 
   return (
     <div>

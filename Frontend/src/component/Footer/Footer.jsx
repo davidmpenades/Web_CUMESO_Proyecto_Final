@@ -5,8 +5,8 @@ const FooterComponent = () => {
   return (
     <div>
     <Footer>
-      <div className="w-full text-center px-4 mt-6 shadow-xl">
-        <div className="max-w-screen-xl mx-auto">
+      <div className="w-full text-center text-white px-4 mt-0 shadow-xl bg-white py-3">
+        <div className="max-w-screen-xl mx-auto text-white ">
           <div className="flex justify-between items-center">
             <Footer.Brand
               href="/"
@@ -16,9 +16,7 @@ const FooterComponent = () => {
               height={50}
             />
             <Footer.LinkGroup>
-              <Footer.Link href="#">About</Footer.Link>
-              <Footer.Link href="#">Privacy Policy</Footer.Link>
-              <Footer.Link href="#">Licensing</Footer.Link>
+              <Footer.Link href="#">Sobre Nosotros</Footer.Link>
               <Footer.Link href="/contact">Contacto</Footer.Link>
             </Footer.LinkGroup>
           </div>

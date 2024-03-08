@@ -662,6 +662,10 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at) FROM stdin;
+1	rc-1400-dugdt3	RC-1400	Rebobinadora Cortadora de 1400mm	{"revoluciones 800m/s","Area de trabajo fluida"}	\N	f	machine_image/maquina1400.webp	2024-03-07 18:00:42.730086+00	2024-03-07 18:32:44.100358+00	\N
+2	rc-1400-l-3d0y8a	RC-1400-L	Rebobinadora Cortadora de 1400mm, descarga de bobinas a la izquierda	{"revoluciones 800m/s","Area de trabajo fluida"}	\N	f	machine_image/maquina1400_cMJiEdy.webp	2024-03-07 18:17:33.760619+00	2024-03-07 18:33:08.036671+00	\N
+3	rc-1400-r-vm2zjm	RC-1400-R	Rebobinadora Cortadora de 1400mm, descarga de bobinas a la derecha	{"revoluciones 800m/s","Area de trabajo fluida","Laser para centrar","Mas bonica que nah"}	\N	f	machine_image/maquina1400_fqMIwnl.webp	2024-03-07 18:18:44.620096+00	2024-03-07 18:33:22.041262+00	\N
+4	rc-1400-t-ewro24	RC-1400-T	Rebobinadora Cortadora de 1400mm, Turbo	{"revoluciones 1000m/s","Area de trabajo fluida","Laser para centrar","Mas bonica que nah"}	\N	f	machine_image/maquina1400_rEvulMm.webp	2024-03-07 18:19:32.476333+00	2024-03-07 18:33:38.208624+00	\N
 \.
 
 
@@ -678,6 +682,7 @@ COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 --
 
 COPY public.part_part (id, slug, name, description, quantity, price, status, img, cad_file, pdf_file, created_at, updated_at) FROM stdin;
+1	rc-m1s2-tri6ab	RC-M1S2	pieza de prueba	1	\N	\N	part_images/Logo_8eyBPbr.png	part_cad/DNI_David_Moreno_Yb0PrBW.pdf	part_pdf/CConducir_David_Moreno_KJhA4ba.pdf	2024-03-07 18:00:32.241935+00	2024-03-07 18:00:32.241972+00
 \.
 
 
@@ -702,6 +707,7 @@ COPY public.part_partmachinerelation (id, machine_id, part_id) FROM stdin;
 --
 
 COPY public.providers_partproviderrelation (id, part_id, provider_id) FROM stdin;
+1	1	1
 \.
 
 
@@ -710,6 +716,8 @@ COPY public.providers_partproviderrelation (id, part_id, provider_id) FROM stdin
 --
 
 COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, phone, responsible, created_at, updated_at) FROM stdin;
+1	mecanicados-nector-qfz4k4	Mecanicados Nector	Poligono el altet, sn	B-3454323434	nector@gmail.com	Ontinyent	654654243	Tito	2024-03-07 18:00:37.156774+00	2024-03-07 18:00:37.156789+00
+2	suministros-navarro-j6uuwf	Suministros Navarro	Carrer de la trama, sn	B-3454dafs	navarro@gmail.com	Ontinyent	65456433	Boira(Jefe), Tito(encargado almacen)	2024-03-07 18:21:25.58182+00	2024-03-07 18:21:25.581836+00
 \.
 
 
@@ -718,6 +726,10 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 --
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, created_at, type) FROM stdin;
+2	pbkdf2_sha256$720000$ibDBlNLGoiN69ZC0GDdAt3$On48bwTqzx+79wkTd7z9r800cJNC3ZHVqyU8OVAqVWs=	2024-03-07 18:23:43.567646+00	f	aa3395c0-7739-b09c-c007-6cf68f53fb2a	Yolanda	yomogans@gmail.com	L'Estació		2024-03-07 18:22:29.084183+00	client
+4	pbkdf2_sha256$720000$f9lbNqTjFPvDcCzKLQ9m4d$yUHtlhzrdTUhNBzFNTYmJt5fbUs5VkD2NQ/i7B6TehA=	2024-03-07 18:24:22.278739+00	f	0e8e8e30-b3ec-dc8f-8cd1-bde8db21302b	Pau	pau@gmail.com	L'Estació		2024-03-07 18:22:53.336906+00	client
+3	pbkdf2_sha256$720000$hTa6vp4G6wvNDyWbeuWPlj$Gbrz+m5X5ZnrMtbKD5HCBQo1NvMN0UYOMq/80ZvRhS4=	2024-03-07 18:24:32.806053+00	f	5bd649ab-6d5a-f14a-fbf6-d2cf3a08051e	Jose	jose@gmail.com	L'Estació		2024-03-07 18:22:43.552547+00	client
+1	pbkdf2_sha256$720000$NrV4zBnYsKCWRk3OCCcgDR$8bnsA9le9Dq/TFEqSHxTEk8cak5sZ199Arwns+Lbarw=	2024-03-07 21:01:36.436454+00	t	d13c83ff-68e8-6e4d-621a-6adabc7a17a3	David	davidmpenades@gmail.com	CUMESO		2024-03-07 17:59:47.143696+00	admin
 \.
 
 
@@ -783,21 +795,21 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 25, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 1, false);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 4, true);
 
 
 --
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 1, true);
 
 
 --
 -- Name: part_part_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_part_id_seq', 1, false);
+SELECT pg_catalog.setval('public.part_part_id_seq', 1, true);
 
 
 --
@@ -811,21 +823,21 @@ SELECT pg_catalog.setval('public.part_part_providers_id_seq', 1, false);
 -- Name: part_partmachinerelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 1, true);
 
 
 --
 -- Name: providers_partproviderrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 1, true);
 
 
 --
 -- Name: providers_providers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_providers_id_seq', 1, false);
+SELECT pg_catalog.setval('public.providers_providers_id_seq', 2, true);
 
 
 --
@@ -839,7 +851,7 @@ SELECT pg_catalog.setval('public.users_users_groups_id_seq', 1, false);
 -- Name: users_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.users_users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_users_id_seq', 4, true);
 
 
 --

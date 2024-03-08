@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'DisplayOTF';
+  src: url('../../assets/font/DisplayOTF.otf') format('opentype');
+}
+.blur {
+  filter: blur(6px);
+}
+
+.blur-none {
+  filter: blur(0);
+}

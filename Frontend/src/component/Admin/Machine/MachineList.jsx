@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./MachineList.css";
+// import useDataImage from "../../../hooks/useDataImage";
 
 const MachinesList = ({ machine }) => {
+  // const { fetchImage } = useDataImage();
+  // const [imageUrl, setImageUrl] = useState(null);
+
+  // useEffect(() => {
+  //   fetchImage(machine.img) 
+  //     .then((data) => {
+  //       console.log(data);
+  //       setImageUrl(data); 
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, [fetchImage, machine.img]);
+
   return (
     <div className="flex w-2/4 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 m-4">
       <div
         className="w-2/3 bg-cover"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80')",
-        }}
+        // style={{
+        //   backgroundImage:
+        //     // `url(${imageUrl})`,
+        // }}
       ></div>
 
       <div className="w-2/3 p-4 md:p-4">

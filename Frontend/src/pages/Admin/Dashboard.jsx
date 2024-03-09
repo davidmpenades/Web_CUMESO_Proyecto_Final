@@ -32,7 +32,9 @@ const Dashboard = () => {
           // Muestra algún indicador de carga o mensaje mientras los datos se cargan
           return <div>Cargando máquinas...</div>;
         }
-        return machines.map((machine) => <MachinsList key={machine.id} machine={machine} />);
+        const sortedMachines = machines.sort((a, b) => b.visibility - a.visibility);
+
+        return sortedMachines.map((machine) => <MachinsList key={machine.id} machine={machine} />);
       case "parts":        
         return  <PartTable />;
       case "providers":

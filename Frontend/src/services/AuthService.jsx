@@ -2,7 +2,6 @@ import api from "./api";
 
 const AuthService = {
   Login(data) {
-    console.log(data);
     return api().post("login/", data);
   },
   getUser() {
@@ -12,7 +11,6 @@ const AuthService = {
     return api().get("users/")
   },
   Register(data) {
-    console.log(data);
     return api().post("register/", data);
   }
 };

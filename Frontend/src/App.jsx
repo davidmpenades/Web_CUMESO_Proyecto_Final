@@ -12,7 +12,6 @@ import { ProviderContextProvider } from "./context/ProviderContext";
 import { UserContextProvider } from "./context/UserContext";
 import AdminGuard from "./services/Guards/Adminguard";
 
-
 function Layout({ children }) {
   const location = useLocation();
   const showHeaderAndFooter = location.pathname !== "/dashboard";
@@ -36,8 +35,12 @@ function App() {
     import("./component/Admin/Machine/MachineList")
   );
   const PartList = React.lazy(() => import("./component/Admin/Part/PartList"));
-  const ProviderList = React.lazy(() => import("./component/Admin/Providers/ProviderList"));
-  const UserTable = React.lazy(() => import("./component/Admin/Users/UserTable"));
+  const ProviderList = React.lazy(() =>
+    import("./component/Admin/Providers/ProviderList")
+  );
+  const UserTable = React.lazy(() =>
+    import("./component/Admin/Users/UserTable")
+  );
 
   return (
     <div className="App">
@@ -48,53 +51,55 @@ function App() {
               <PartContextProvider>
                 <ProviderContextProvider>
                   <UserContextProvider>
-                <Toaster position="top-center" richColors expand={true} />
-                <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <Layout>
-                        <Home />
-                      </Layout>
-                    }
-                  />
-                  <Route
-                    path="/contact"
-                    element={
-                      <Layout>
-                        <Contact />
-                      </Layout>
-                    }
-                  />
-                  <Route
-                    path="/login"
-                    element={
-                      <Layout>
-                        <Login />
-                      </Layout>
-                    }
-                  />
-                  <Route
-                    path="/machine"
-                    element={
-                      <Layout>
-                        <Machine />
-                      </Layout>
-                    }
-                  />
-                  <Route element={<AdminGuard />}>
-                    {/* Dashboard no está envuelto en Layout para evitar Header y Footer */}
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route
-                      path="/dashboard/machine"
-                      element={<MachineList />}
-                    />
-                    <Route path="/dashboard/part" element={<PartList />} />
-                    <Route path="/dashboard/provider" element={<ProviderList />} />
-                    <Route path="/dashboard/user" element={<UserTable />} />
-                  </Route>
-                </Routes>
-                </UserContextProvider>
+                    <Toaster position="top-center" richColors expand={true} />
+                    <Routes>
+                      <Route
+                        path="/"
+                        element={
+                          <Layout>
+                            <Home />
+                          </Layout>
+                        }
+                      />
+                      <Route
+                        path="/contact"
+                        element={
+                          <Layout>
+                            <Contact />
+                          </Layout>
+                        }
+                      />
+                      <Route
+                        path="/login"
+                        element={
+                          <Layout>
+                            <Login />
+                          </Layout>
+                        }
+                      />
+                      <Route
+                        path="/machine"
+                        element={
+                          <Layout>
+                            <Machine />
+                          </Layout>
+                        }
+                      />
+                      <Route element={<AdminGuard />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route
+                          path="/dashboard/machine"
+                          element={<MachineList />}
+                        />
+                        <Route path="/dashboard/part" element={<PartList />} />
+                        <Route
+                          path="/dashboard/provider"
+                          element={<ProviderList />}
+                        />
+                        <Route path="/dashboard/user" element={<UserTable />} />
+                      </Route>
+                    </Routes>
+                  </UserContextProvider>
                 </ProviderContextProvider>
               </PartContextProvider>
             </MachineContextProvider>

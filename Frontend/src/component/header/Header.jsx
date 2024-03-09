@@ -73,7 +73,7 @@ export default function Header() {
             to="/machine"
             className="header-link text-gray-500 transition hover:text-gray-500/75"
           >
-            Maquinaria
+            Catálogo
           </NavLink>
 
           <NavLink

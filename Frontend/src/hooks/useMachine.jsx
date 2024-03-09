@@ -3,27 +3,51 @@ import MachineService from "../services/MachineService";
 import MachineContext from "../context/MachineContext";
 
 const useMachine = () => {
-    const { machines, setMachines } = useContext(MachineContext);
-    
-    const fetchMachines = useCallback(() => {
-        MachineService.getAll()
-        .then((data) => {
-            setMachines(data.data); 
-        })
-        .catch((e) => {
-            console.log(e);
-        });
-    }, []);
+  const { machines, setMachines } = useContext(MachineContext);
 
-   
-    useEffect(() => {
+  const updateMachineVisibility = useCallback((slug, newVisibility) => {
+    MachineService.updateVisibility(slug, newVisibility)
+      .then((data) => {
+        setMachines(prevMachines => prevMachines.map(machine => 
+          machine.slug === slug ? { ...machine, visibility: newVisibility.visibility } : machine
+        ));  
         fetchMachines();
-    }, [fetchMachines]);
-    
-    return {
-        machines,
-        fetchMachines, 
-    };
-}
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
+  const fetchMachines = useCallback(() => {
+    MachineService.getAll()
+      .then((data) => {
+        setMachines(data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
+  const getMachineImage = async (slug) => {
+    try {
+      const data = await MachineService.getImage(slug);
+      return data.data;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    fetchMachines();
+  }, [fetchMachines]);
+
+  return {
+    machines,
+    fetchMachines,
+    getMachineImage,
+    updateMachineVisibility, 
+  };
+};
 
 export default useMachine;

@@ -14,6 +14,9 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'parts': {'read_only': False},
         }
+    
+    
+    
 class MachineSerializer(serializers.ModelSerializer):
     users = serializers.PrimaryKeyRelatedField(
         many=True,
@@ -26,6 +29,11 @@ class MachineSerializer(serializers.ModelSerializer):
         queryset=Part.objects.all(),  
         required=False
     )
+    def to_machine_image(self, instance):
+        request = self.context.get('request')
+        if instance.img and hasattr(instance.img, 'url'):
+            return request.build_absolute_uri(instance.img.url)
+        return None
 
     class Meta:
         model = Machine
@@ -81,7 +89,7 @@ class MachineSerializer(serializers.ModelSerializer):
                 instance.parts.clear()
             else:
                 new_part_instances = Part.objects.filter(id__in=part_ids)
-                instance.parts.set(new_part_instances)
+                instance.parts.set(new_part_instances)    
         
         # Actualización de campos normales y slug si es necesario
         new_name = validated_data.get('name', instance.name)
@@ -101,42 +109,8 @@ class MachineSerializer(serializers.ModelSerializer):
         
         return instance
 
-    
-    # def update(self, instance, validated_data):
-    #     # Extraer los IDs de usuarios y partes directamente de validated_data
-    #     user_ids = [user.id for user in validated_data.pop('users', [])]
-    #     part_ids = [part.id for part in validated_data.pop('parts', [])]
-
-    #     # Actualizar la relación ManyToMany para 'users'
-    #     if user_ids is not None:
-    #         if user_ids is None:
-    #             instance.users.clear()
-    #         for user_id in user_ids:
-    #             user_instance = Users.objects.get(pk=user_id)
-    #             instance.users.add(user_instance)
-
-    #     # Actualizar la relación ManyToMany para 'parts'
-    #     if part_ids is not None:
-    #         if part_ids is None:
-    #          instance.parts.clear()  
-    #         for part_id in part_ids:
-    #             part_instance = Part.objects.get(pk=part_id)
-    #             instance.parts.add(part_instance)
-
-    #     # Actualización de campos normales y slug si es necesario
-    #     new_name = validated_data.get('name', None)
-    #     if new_name and new_name != instance.name:
-    #         # Si el nombre cambió, actualiza el nombre y genera un nuevo slug
-    #         instance.name = new_name
-    #         instance.slug = slugify(new_name)
-    #         # No necesitas comprobar si el nombre ya existe aquí, porque
-    #         # el método 'validate_name' ya lo hace.
-
-    #     # Actualizar otros campos
-    #     for attr, value in validated_data.items():
-    #         setattr(instance, attr, value)
-
-    #     # Guardar todos los cambios en la instancia
-    #     instance.save()
-
-    #     return instance
+class MachineVisibilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Machine
+        fields = ['visibility']   
+   

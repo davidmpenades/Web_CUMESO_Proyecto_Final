@@ -9,3 +9,8 @@
 .blur-none {
   filter: blur(0);
 }
+.image-contain {
+  object-fit: contain; 
+  height: 100%;
+  width: 100%;
+}

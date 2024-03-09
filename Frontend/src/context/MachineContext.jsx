@@ -14,7 +14,7 @@ export const MachineContextProvider = ({ children }) => {
   const { isAdmin } = useContext(AuthContext);
 
   useEffect(() => {
-    if (token && isAdmin) {
+    // if (token && isAdmin) {
       MachineService.getAll()
         .then((data) => {
           setMachines(data.data);
@@ -22,7 +22,7 @@ export const MachineContextProvider = ({ children }) => {
         .catch((error) => {
           console.error(error);
         });
-    }
+    // }
   }, []);
 
   return (

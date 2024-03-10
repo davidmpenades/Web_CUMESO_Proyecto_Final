@@ -14,6 +14,17 @@ const useProvider = () => {
             console.error(error);
         });
     }, [setProviders]);
+
+    const deleteProvider = useCallback((slug) => {
+        ProviderService.delete(slug)
+        .then(() => {
+            setProviders(prevProviders => prevProviders.filter(provider => provider.slug !== slug));
+        })
+        .catch((error) => {
+            console.error(error);
+            alert("Hubo un error al borrar la pieza.");
+        });
+    }, [setProviders]);
     
     useEffect(() => {
         fetchProviders();
@@ -22,6 +33,7 @@ const useProvider = () => {
     return {
         providers,
         fetchProviders,
+        deleteProvider
     };
     }
 

@@ -36,8 +36,8 @@ class PartList(viewsets.GenericViewSet):
         serializer = PartSerializer(part)
         return Response(serializer.data)
     
-    def delete(self, request, pk=None):
-        part = get_object_or_404(Part, pk=pk)
+    def delete(self, request, slug=None):
+        part = get_object_or_404(Part, slug=slug)
         part.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     

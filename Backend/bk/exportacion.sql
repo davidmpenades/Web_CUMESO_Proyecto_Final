@@ -662,9 +662,8 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at) FROM stdin;
-2	rc-1400-l-h5ga2b	RC-1400-L	Rebobinadora Cortadora de 1400mm, descarga de bobinas a la izquierda	{"Rebobinadora de 1400mm de ancho de trabajo","Alta velocidad de trabajo más de 800m/min","Precisión de corte de 0.1mm","Con sistema de corte por navaja y cuchilla","Con sistema de control de tensión y velocidad","Control de diámetro de bobina","Extración de bobinas por sistema de brazo robótico","Extración por el lado izquierdo"}	\N	t	machine_image/maquina1400-R.webp	2024-03-07 18:17:33.760619+00	2024-03-09 17:56:39.558997+00	\N
-3	rc-1400-r-oukrq7	RC-1400-R	Rebobinadora Cortadora de 1400mm, descarga de bobinas a la derecha	{"Rebobinadora de 1400mm de ancho de trabajo","Alta velocidad de trabajo más de 800m/min","Precisión de corte de 0.1mm","Con sistema de corte por navaja y cuchilla","Con sistema de control de tensión y velocidad","Control de diámetro de bobina","Extración de bobinas por sistema de brazo robótico"}	\N	t	machine_image/maquina1400_fqMIwnl.webp	2024-03-07 18:18:44.620096+00	2024-03-09 17:56:42.117949+00	\N
-4	rc-1400-t-gj7qj4	RC-1400-T	Rebobinadora Cortadora de 1400mm, Turbo	{"Rebobinadora de 1400mm de ancho de trabajo","Alta velocidad de trabajo de 1000m/min","Precisión de corte de 0.1mm","Con sistema de corte por navaja y cuchilla","Con sistema de control de tensión y velocidad","Control de diámetro de bobina","Extración de bobinas por sistema de brazo robótico"}	\N	f	machine_image/maquina1400_rEvulMm.webp	2024-03-07 18:19:32.476333+00	2024-03-09 17:56:44.955457+00	\N
+2	rc-1400-l-azrisw	RC-1400-L	Rebobinadora Cortadora de 1400mm, descarga de bobinas a la izquierda	{"Rebobinadora de 1400mm de ancho de trabajo","Alta velocidad de trabajo más de 800m/min","Precisión de corte de 0.1mm","Con sistema de corte por navaja y cuchilla","Con sistema de control de tensión y velocidad","Control de diámetro de bobina","Extración de bobinas por sistema de brazo robótico","Extración por el lado izquierdo"}	\N	f	machine_image/Foto5.webp	2024-03-07 18:17:33.760619+00	2024-03-10 09:12:56.21221+00	\N
+3	rc-1400-r-j77oaw	RC-1400-R	Rebobinadora Cortadora de 1400mm, descarga de bobinas a la derecha	{"Rebobinadora de 1400mm de ancho de trabajo","Alta velocidad de trabajo más de 800m/min","Precisión de corte de 0.1mm","Con sistema de corte por navaja y cuchilla","Con sistema de control de tensión y velocidad","Control de diámetro de bobina","Extración de bobinas por sistema de brazo robótico"}	\N	f	machine_image/Foto1.webp	2024-03-07 18:18:44.620096+00	2024-03-10 09:12:57.258563+00	\N
 \.
 
 
@@ -673,7 +672,8 @@ COPY public.machine_machine (id, slug, name, description, characteristics, price
 --
 
 COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
-2	4	2
+6	2	4
+7	3	3
 \.
 
 
@@ -729,7 +729,7 @@ COPY public.users_users (id, password, last_login, is_superuser, uuid, username,
 2	pbkdf2_sha256$720000$ibDBlNLGoiN69ZC0GDdAt3$On48bwTqzx+79wkTd7z9r800cJNC3ZHVqyU8OVAqVWs=	2024-03-07 18:23:43.567646+00	f	aa3395c0-7739-b09c-c007-6cf68f53fb2a	Yolanda	yomogans@gmail.com	L'Estació		2024-03-07 18:22:29.084183+00	client
 4	pbkdf2_sha256$720000$f9lbNqTjFPvDcCzKLQ9m4d$yUHtlhzrdTUhNBzFNTYmJt5fbUs5VkD2NQ/i7B6TehA=	2024-03-07 18:24:22.278739+00	f	0e8e8e30-b3ec-dc8f-8cd1-bde8db21302b	Pau	pau@gmail.com	L'Estació		2024-03-07 18:22:53.336906+00	client
 3	pbkdf2_sha256$720000$hTa6vp4G6wvNDyWbeuWPlj$Gbrz+m5X5ZnrMtbKD5HCBQo1NvMN0UYOMq/80ZvRhS4=	2024-03-07 18:24:32.806053+00	f	5bd649ab-6d5a-f14a-fbf6-d2cf3a08051e	Jose	jose@gmail.com	L'Estació		2024-03-07 18:22:43.552547+00	client
-1	pbkdf2_sha256$720000$NrV4zBnYsKCWRk3OCCcgDR$8bnsA9le9Dq/TFEqSHxTEk8cak5sZ199Arwns+Lbarw=	2024-03-09 18:11:44.702332+00	t	d13c83ff-68e8-6e4d-621a-6adabc7a17a3	David	davidmpenades@gmail.com	CUMESO		2024-03-07 17:59:47.143696+00	admin
+1	pbkdf2_sha256$720000$NrV4zBnYsKCWRk3OCCcgDR$8bnsA9le9Dq/TFEqSHxTEk8cak5sZ199Arwns+Lbarw=	2024-03-10 09:31:59.415624+00	t	d13c83ff-68e8-6e4d-621a-6adabc7a17a3	David	davidmpenades@gmail.com	CUMESO		2024-03-07 17:59:47.143696+00	admin
 \.
 
 
@@ -795,14 +795,14 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 25, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 4, true);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 38, true);
 
 
 --
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 3, true);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 9, true);
 
 
 --

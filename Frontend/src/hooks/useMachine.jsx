@@ -38,6 +38,18 @@ const useMachine = () => {
     }
   };
 
+  const deleteMachine = useCallback((slug) => {
+    MachineService.delete(slug)
+      .then(() => {
+        // Actualizar el estado para reflejar la máquina borrada
+        setMachines(prevMachines => prevMachines.filter(machine => machine.slug !== slug));  
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("Hubo un error al borrar la máquina.");
+      });
+  }, [setMachines]);
+
   useEffect(() => {
     fetchMachines();
   }, [fetchMachines]);
@@ -47,6 +59,7 @@ const useMachine = () => {
     fetchMachines,
     getMachineImage,
     updateMachineVisibility, 
+    deleteMachine
   };
 };
 

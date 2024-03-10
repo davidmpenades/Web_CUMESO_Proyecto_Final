@@ -14,6 +14,17 @@ const usePart = () => {
             console.error(error);
         });
     }, [setParts]);
+
+    const deletePart = useCallback((slug) => {
+        PartService.delete(slug)
+        .then(() => {
+            setParts(prevParts => prevParts.filter(part => part.slug !== slug));
+        })
+        .catch((error) => {
+            console.error(error);
+            alert("Hubo un error al borrar la pieza.");
+        });
+    }, [setParts]);
     
     useEffect(() => {
         fetchParts();
@@ -22,6 +33,7 @@ const usePart = () => {
     return {
         parts,
         fetchParts,
+        deletePart
     };
     }
 

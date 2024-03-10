@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useMachine from "../../../hooks/useMachine";
 import "./MachineList.css";
+import ConfirmationModal from "../Modals/ConfirmationModal";
 
 const MachinesList = ({ machine }) => {
   const [machineImageUrl, setMachineImageUrl] = useState("");
-  const { getMachineImage, updateMachineVisibility } = useMachine();
-
+  const { getMachineImage, updateMachineVisibility, deleteMachine } =
+    useMachine();
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (machine && machine.slug) {
@@ -18,6 +20,11 @@ const MachinesList = ({ machine }) => {
   const handleVisibilityClick = () => {
     const newVisibility = { visibility: !machine.visibility };
     updateMachineVisibility(machine.slug, newVisibility);
+  };
+
+  const handleDeleteClick = () => {
+    deleteMachine(machine.slug);
+    setModalOpen(false);
   };
 
   return (
@@ -33,7 +40,7 @@ const MachinesList = ({ machine }) => {
         />
       )}
 
-      <div className="w-full md:w-1/2 p-4 md:p-4 relative">       
+      <div className="w-full md:w-1/2 p-4 md:p-4 relative">
         <div
           className="absolute top-0 right-0 m-2 h-4 w-4 rounded-full"
           style={{ backgroundColor: machine.visibility ? "green" : "red" }}
@@ -54,7 +61,10 @@ const MachinesList = ({ machine }) => {
           <button className="px-2 py-1 m-1 text-xs font-bold text-white uppercase transition-colors duration-300 transform bg-blue-800 rounded dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">
             Modificar
           </button>
-          <button className="px-2 py-1 m-1 text-xs font-bold text-white uppercase transition-colors duration-300 transform bg-red-400 rounded dark:bg-red-700 hover:bg-red-700 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="px-2 py-1 m-1 text-xs font-bold text-white uppercase transition-colors duration-300 transform bg-red-400 rounded dark:bg-red-700 hover:bg-red-700 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600"
+          >
             Borrar
           </button>
           <button
@@ -63,6 +73,13 @@ const MachinesList = ({ machine }) => {
           >
             Visibilidad
           </button>
+          <ConfirmationModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onConfirm={handleDeleteClick}
+            title="Confirmar Borrado"
+            description={`Estas seguro que quieres eliminar la máquina ${machine.name}?`}
+          />
         </div>
       </div>
     </div>

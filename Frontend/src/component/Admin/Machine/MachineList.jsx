@@ -8,7 +8,6 @@ const MachinesList = ({ machine }) => {
   const { getMachineImage, updateMachineVisibility, deleteMachine } =
     useMachine();
   const [modalOpen, setModalOpen] = useState(false);
-
   useEffect(() => {
     if (machine && machine.slug) {
       getMachineImage(machine.slug).then((data) => {

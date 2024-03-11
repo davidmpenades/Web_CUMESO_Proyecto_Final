@@ -8,7 +8,16 @@ from django.shortcuts import get_object_or_404
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from PIL import Image
+import io
+from django.core.files.base import ContentFile
 
+def convert_to_webp(image_input):
+        image = Image.open(image_input)
+        with io.BytesIO() as output:
+            image.save(output, format="WEBP")
+            return output.getvalue()
+        
 class UserView(viewsets.GenericViewSet):
     def register(self, request):
         data = request.data
@@ -78,14 +87,23 @@ class UserProtectedView(viewsets.GenericViewSet):
         serializer = userSerializer(user, data=request.data, partial=True, context={'request': request})
 
         if serializer.is_valid():
-            
             user = serializer.save()
+
             if 'image' in request.FILES:
+                if user.image and not user.image.name.startswith('path/to/default/image'):
+                    user.image.delete(save=False) 
+                
                 image_file = request.FILES['image']
-                user.image.save(image_file.name, image_file, save=True) 
+                # Convierte la imagen a WEBP
+                converted_image = convert_to_webp(image_file)
+                # Guarda la imagen convertida en el campo de imagen del usuario
+                user.image.save(f'{user.username}.webp', ContentFile(converted_image), save=True)
+
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+   
 
     def delete_profile(self, request):
         user = request.user

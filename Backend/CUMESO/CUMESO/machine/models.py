@@ -14,6 +14,7 @@ class Machine(models.Model):
     price = models.DecimalField(max_digits=15, decimal_places=2, null=True)
     visibility = models.BooleanField(default=False)
     img = models.ImageField(upload_to='machine_image', null=True, blank=True)
+    pdf_machine = models.FileField(upload_to='machine_pdf', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True)

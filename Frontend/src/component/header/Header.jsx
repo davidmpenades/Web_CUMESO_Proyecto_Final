@@ -12,6 +12,11 @@ export default function Header() {
   const { user, isAuth, isAdmin, logout } = useContext(AuthContext);
   const { profile } = useContext(ProfileContext);
   const baseURL = "http://localhost:8001";
+  const defaultProfileSVG = (
+    <svg className="w-10 h-10 rounded-full" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" d="M10 10a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+    </svg>
+  );
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -98,7 +103,14 @@ export default function Header() {
         ) : (         
           <div className="relative flex items-center">
       <div onClick={toggleDropdown} className="cursor-pointer z-10"> 
-        <img alt="User settings" src={`${baseURL}${profile.image}`} style={{width:"42px", height:"42px"}} className="rounded-full" />
+      {profile.image ? (
+                <img
+                  alt="User settings"
+                  src={`${baseURL}${profile.image}`}
+                  style={{width:"42px", height:"42px"}}
+                  className="rounded-full"
+                />
+              ) : defaultProfileSVG}
       </div>
       {isDropdownOpen && (
         <div className="absolute right-0 top-full mt-1 py-2 w-48 bg-white rounded-md shadow-xl z-20">

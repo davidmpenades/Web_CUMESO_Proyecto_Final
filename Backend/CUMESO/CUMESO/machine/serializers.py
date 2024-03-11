@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             'parts': {'read_only': False},
         }
     
-    
+    pdf_machine = serializers.FileField(required=False)
     
 class MachineSerializer(serializers.ModelSerializer):
     users = serializers.PrimaryKeyRelatedField(
@@ -37,7 +37,7 @@ class MachineSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Machine
-        fields = ['id', 'slug', 'name', 'description', 'characteristics', 'price', 'visibility', 'img', 'users','parts']
+        fields = ['id', 'slug', 'name', 'description', 'characteristics', 'price', 'visibility', 'img','pdf_machine', 'users','parts']
     
     def validate_name(self, value):
         if self.instance is None:
@@ -103,7 +103,10 @@ class MachineSerializer(serializers.ModelSerializer):
             # Si el nombre no ha cambiado, actualiza solo los otros campos.
             for attr, value in validated_data.items():
                 setattr(instance, attr, value)
-        
+                
+        pdf_machine_file = validated_data.pop('pdf_machine', None)
+        if pdf_machine_file is not None:
+            instance.pdf_machine.save(pdf_machine_file.name, pdf_machine_file, save=False)
         # Guardar todos los cambios en la instancia
         instance.save()
         

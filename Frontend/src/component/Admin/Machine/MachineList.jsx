@@ -8,6 +8,8 @@ const MachinesList = ({ machine }) => {
   const { getMachineImage, updateMachineVisibility, deleteMachine } =
     useMachine();
   const [modalOpen, setModalOpen] = useState(false);
+  const pdf = machine.pdf_machine ? machine.pdf_machine.split("/").pop() : "aun no hay pdf";
+  console.log(pdf);
   useEffect(() => {
     if (machine && machine.slug) {
       getMachineImage(machine.slug).then((data) => {
@@ -15,7 +17,6 @@ const MachinesList = ({ machine }) => {
       });
     }
   }, [machine, machine?.slug, getMachineImage]);
-
   const handleVisibilityClick = () => {
     const newVisibility = { visibility: !machine.visibility };
     updateMachineVisibility(machine.slug, newVisibility);
@@ -56,6 +57,7 @@ const MachinesList = ({ machine }) => {
               ))}
           </ul>
         </div>
+        <h3 className="mt-1">Pdf: {pdf}</h3>
         <div className="flex justify-end mt-3">
           <button className="px-2 py-1 m-1 text-xs font-bold text-white uppercase transition-colors duration-300 transform bg-blue-800 rounded dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">
             Modificar

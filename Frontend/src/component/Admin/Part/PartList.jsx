@@ -86,28 +86,25 @@ const PartList = ({ part }) => {
           </svg>
         </button>
         {showDropdown && (
-          <div className="relative right-0 z-10 mt-2 w-36 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="relative right-0 z-10 mt-2 w-36 origin-top-left rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
             <div className="py-1" role="none">
-              {/* Opción Editar */}
-              <a
+              <button
                 href="#"
-                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                className="text-gray-700 w-full block px-4 py-2 text-sm hover:bg-blue-300"
                 role="menuitem"
               >
                 Editar
-              </a>
-              {/* Opción Enviar */}
-              <a
+              </button>
+              <button
                 href="#"
-                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                className="text-gray-700 w-full block px-4 py-2 text-sm hover:bg-green-300"
                 role="menuitem"
               >
                 Enviar
-              </a>
-              {/* Opción Borrar */}
+              </button>
               <button
                 onClick={() => setModalOpen(true)}
-                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                className="text-gray-700 w-full block px-4 py-2 text-sm hover:bg-red-400"
                 role="menuitem"
               >
                 Borrar
@@ -117,7 +114,11 @@ const PartList = ({ part }) => {
                 onClose={() => setModalOpen(false)}
                 onConfirm={handleDeleteClick}
                 title="Confirmar Borrado"
-                description={`Estas seguro que quieres eliminar la pieza ${part.name}?`}
+                description={
+                  <span>
+                    Estás seguro que quieres eliminar la pieza <strong>{part.name}</strong>?
+                  </span>
+                }
               />
             </div>
           </div>

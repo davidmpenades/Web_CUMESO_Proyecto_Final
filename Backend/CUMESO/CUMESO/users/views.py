@@ -1,9 +1,13 @@
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from .serializers import userSerializer
 from .models import Users
 from rest_framework.permissions import (AllowAny, IsAuthenticated)
 from CUMESO.CUMESO.core.permissions import IsAdmin
+from django.shortcuts import get_object_or_404
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 class UserView(viewsets.GenericViewSet):
     def register(self, request):
@@ -39,12 +43,6 @@ class UserInfoView(viewsets.GenericViewSet):
         serializer = userSerializer.getUser(context=serializer_context)
         return Response(serializer)
 
-    def refreshToken(self, request):
-        username = request.user
-        serializer_context = { 'username': username }
-        serializer = userSerializer.refreshToken(serializer_context)
-        return Response(serializer)
-
     def logout(self, request):
         return Response()
 
@@ -66,3 +64,33 @@ class UserAdminView(viewsets.GenericViewSet):
         print(user)
         user.delete()
         return Response({'data': 'User deleted successfully'})
+    
+class UserProtectedView(viewsets.GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    parser_classes = (MultiPartParser, FormParser, JSONParser)
+    def get_profile(self, request):
+        user = request.user
+        serializer = userSerializer(user) 
+        return Response(serializer.data)
+
+    def update_profile(self, request):
+        user = request.user
+        serializer = userSerializer(user, data=request.data, partial=True, context={'request': request})
+
+        if serializer.is_valid():
+            
+            user = serializer.save()
+            if 'image' in request.FILES:
+                image_file = request.FILES['image']
+                user.image.save(image_file.name, image_file, save=True) 
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete_profile(self, request):
+        user = request.user
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    
+        

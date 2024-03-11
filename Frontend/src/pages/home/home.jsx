@@ -3,9 +3,6 @@ import logo from "../../assets/imgs/Logo.webp";
 import video from "../../assets/video/home.mp4";
 import "./home.css";
 import fondo from "../../assets/imgs/register.webp";
-import maquina from "../../assets/imgs/maquina1400.webp";
-import maquinaR from "../../assets/imgs/maquina1400-R.webp";
-import pantalla from "../../assets/imgs/pantalla.webp";
 import foto1 from "../../assets/imgs/Foto1.webp";
 import foto2 from "../../assets/imgs/Foto2.webp";
 import foto3 from "../../assets/imgs/Foto3.webp";
@@ -275,7 +272,7 @@ const Home = () => {
             <img
               className="object-cover object-center rounded"
               alt="hero"
-              src={maquina}
+              src={foto5}
             />
           </div>
         </div>

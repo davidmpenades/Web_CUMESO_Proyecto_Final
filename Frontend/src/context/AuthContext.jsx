@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, createContext, useContext } from "react";
+import React, { useEffect, useState, useCallback, createContext } from "react";
 import AuthService from "../services/AuthService";
 import JwtService from "../services/JWTService";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,6 @@ export function AuthContextProvider({ children }) {
     }
   }, []);
 
-
   const logout = useCallback(() => {
     console.log('logout');
     JwtService.destroyToken();
@@ -45,6 +44,9 @@ export function AuthContextProvider({ children }) {
     toast.warning("has salido de tu cuenta!")
     navigate('');
 }, []);
+
+  
+
 
   return (
     <AuthContext.Provider

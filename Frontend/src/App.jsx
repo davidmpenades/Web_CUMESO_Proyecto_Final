@@ -10,7 +10,9 @@ import { MachineContextProvider } from "./context/MachineContext";
 import { PartContextProvider } from "./context/PartContext";
 import { ProviderContextProvider } from "./context/ProviderContext";
 import { UserContextProvider } from "./context/UserContext";
+import { ProfileContextProvider } from "./context/ProfileContext";
 import AdminGuard from "./services/Guards/Adminguard";
+import AuthGuard from "./services/Guards/AuthGuard";
 
 function Layout({ children }) {
   const location = useLocation();
@@ -41,6 +43,7 @@ function App() {
   const UserTable = React.lazy(() =>
     import("./component/Admin/Users/UserTable")
   );
+  const Profile = React.lazy(() => import("./pages/Client/Profile"));
 
   return (
     <div className="App">
@@ -51,6 +54,7 @@ function App() {
               <PartContextProvider>
                 <ProviderContextProvider>
                   <UserContextProvider>
+                    <ProfileContextProvider>
                     <Toaster position="top-center" richColors expand={true} />
                     <Routes>
                       <Route
@@ -98,7 +102,11 @@ function App() {
                         />
                         <Route path="/dashboard/user" element={<UserTable />} />
                       </Route>
+                      <Route element={<AuthGuard />}>
+                        <Route path="/profile" element={<Layout><Profile /></Layout>} />
+                      </Route>
                     </Routes>
+                    </ProfileContextProvider>
                   </UserContextProvider>
                 </ProviderContextProvider>
               </PartContextProvider>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
+import ProfileContext from "../../context/ProfileContext";
 import logo from "../../assets/imgs/Logo.webp";
 import profile from "../../assets/imgs/profile.webp";
 import "./Header.css";
@@ -9,6 +10,8 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuth, isAdmin, logout } = useContext(AuthContext);
+  const { profile } = useContext(ProfileContext);
+  const baseURL = "http://localhost:8001";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -95,7 +98,7 @@ export default function Header() {
         ) : (         
           <div className="relative flex items-center">
       <div onClick={toggleDropdown} className="cursor-pointer z-10"> 
-        <img alt="User settings" src={profile} style={{width:"42px", height:"42px"}} className="rounded-full" />
+        <img alt="User settings" src={`${baseURL}${profile.image}`} style={{width:"42px", height:"42px"}} className="rounded-full" />
       </div>
       {isDropdownOpen && (
         <div className="absolute right-0 top-full mt-1 py-2 w-48 bg-white rounded-md shadow-xl z-20">

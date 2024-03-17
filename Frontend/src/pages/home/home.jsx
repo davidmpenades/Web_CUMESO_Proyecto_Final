@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import logo from "../../assets/imgs/Logo.webp";
 import video from "../../assets/video/home.mp4";
 import "./home.css";
@@ -10,7 +10,7 @@ import foto4 from "../../assets/imgs/Foto4.webp";
 import foto5 from "../../assets/imgs/Foto5.webp";
 import foto6 from "../../assets/imgs/Foto6.webp";
 import { useInView } from "react-intersection-observer";
-import { Carousel, Tooltip, Typography } from "@material-tailwind/react";
+import { Carousel } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -21,14 +21,12 @@ const Home = () => {
       threshold: 0.1,
     });
 
-    // Las clases de animación controlan la dirección y visibilidad
     const animationClass = inView
       ? "translate-x-0 opacity-100 blur-none"
       : `${
           direction === "left" ? "-translate-x-full" : "translate-x-full"
         } opacity-0 blur`;
 
-    // Las clases de tamaño manejan si la imagen debe ser de ancho completo o parcial
     const sizeClass = fullWidth ? "w-full" : "w-1/2";
 
     return (

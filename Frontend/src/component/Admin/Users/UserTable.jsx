@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import useUser from "../../../hooks/useUser";
 import useMachine from "../../../hooks/useMachine";
+import ConfirmationModal from "../Modals/ConfirmationModal";
 
 const UserTable = () => {
-  const { users } = useUser();
+  const { users, deleteUser, fetchUsers } = useUser();
   const { machines } = useMachine();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedUserUuid, setSelectedUserUuid] = useState(null);
+  const handleOpenModal = (uuid) => {
+    setSelectedUserUuid(uuid);
+    setModalOpen(true);
+  };
+
+  const handleDeleteClick = async () => {
+    if (selectedUserUuid) {
+      await deleteUser(selectedUserUuid);
+      setModalOpen(false);
+      fetchUsers(); 
+    }
+  };
+  
 
   return (
     <div>
@@ -53,6 +69,12 @@ const UserTable = () => {
                         className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
                       >
                         Cuenta Creada
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
+                        Editar
                       </th>
                     </tr>
                   </thead>
@@ -122,6 +144,12 @@ const UserTable = () => {
                               }
                             )}
                           </td>
+                          <td>
+                          <button 
+                          onClick={() => handleOpenModal(user.uuid)}
+                          className="px-4 py-2 m-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                          >Eliminar</button>
+                          </td>
                         </tr>
                       );
                     })}
@@ -132,6 +160,13 @@ const UserTable = () => {
           </div>
         </div>
       </section>
+      <ConfirmationModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={handleDeleteClick}
+        title="Confirmar Borrado"
+        description={`¿Estás seguro de que quieres eliminar al usuario seleccionado?`}
+      />
     </div>
   );
 };

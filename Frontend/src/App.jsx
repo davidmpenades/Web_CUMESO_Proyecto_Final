@@ -44,6 +44,7 @@ function App() {
     import("./component/Admin/Users/UserTable")
   );
   const Profile = React.lazy(() => import("./pages/Client/Profile"));
+  const MachineCreate = React.lazy(() => import("./component/Admin/Machine/MachineCreate"));
 
   return (
     <div className="App">
@@ -101,6 +102,7 @@ function App() {
                           element={<ProviderList />}
                         />
                         <Route path="/dashboard/user" element={<UserTable />} />
+                        <Route path="/dashboard/create" element={<MachineCreate/>}/>
                       </Route>
                       <Route element={<AuthGuard />}>
                         <Route path="/profile" element={<Layout><Profile /></Layout>} />

@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import get_object_or_404, render
 from django.http.response import JsonResponse
 from django.http import HttpResponse
@@ -10,6 +11,29 @@ from CUMESO.CUMESO.core.permissions import IsAdmin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Machine
 from .serializers import MachineSerializer, MachineVisibilitySerializer
+from PIL import Image, ExifTags
+from io import BytesIO
+from django.core.files.base import ContentFile
+
+def fix_image_orientation(img):
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        exif = img._getexif()
+
+        if exif is not None:
+            exif = dict(exif.items())
+            if exif[orientation] == 3:
+                img = img.rotate(180, expand=True)
+            elif exif[orientation] == 6:
+                img = img.rotate(270, expand=True)
+            elif exif[orientation] == 8:
+                img = img.rotate(90, expand=True)
+    except (AttributeError, KeyError, IndexError, TypeError):
+        pass
+
+    return img
 
 class MachineList(viewsets.GenericViewSet):
     def get_permissions(self):
@@ -20,13 +44,44 @@ class MachineList(viewsets.GenericViewSet):
         return [permission() for permission in permission_classes]
 
     def create(self, request):
-        machine_data = request.data
-        machine_serializer = MachineSerializer(data=machine_data) 
+        # Construye un nuevo diccionario con los datos del formulario
+        machine_data = {
+            'name': request.data.get('name'),
+            'description': request.data.get('description'),
+            # Asume que 'characteristics' se envía como un JSON en string
+            'characteristics': json.loads(request.data.get('characteristics', '[]')),
+        }
+
+        # Agrega el archivo si está presente en la solicitud
+        if 'img' in request.FILES:
+            # Abre la imagen usando PIL
+            img = Image.open(request.FILES['img'])
+            
+            # Corrige la orientación si es necesario
+            img = fix_image_orientation(img)
+            
+            # Convierte y guarda la imagen en formato WEBP
+            img_converted = BytesIO()
+            img.save(img_converted, format='WEBP', quality=90)
+            img_converted.seek(0)
+
+            # Asigna el nombre basado en el nombre de la máquina
+            filename = f"{machine_data.get('name', 'machine')}.webp"
+
+            # Asigna el archivo convertido a 'img' en machine_data
+            machine_data['img'] = ContentFile(img_converted.getvalue(), name=filename)
+
+        machine_serializer = MachineSerializer(data=machine_data)
 
         if machine_serializer.is_valid():
             machine_serializer.save()
             return JsonResponse(machine_serializer.data, status=status.HTTP_201_CREATED)
+
         return JsonResponse(machine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
     
     def getAll(self, request):
         machines = Machine.objects.all()

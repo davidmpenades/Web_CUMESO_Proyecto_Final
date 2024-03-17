@@ -8,7 +8,7 @@ class Machine(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     name = models.CharField(max_length=150, unique=True)
     description = models.CharField(max_length=300, null=True)
-    characteristics = ArrayField(models.CharField(max_length=100), blank=True, null=True)
+    characteristics = ArrayField(models.CharField(max_length=200), default=list, blank=True, null=True)
     users = models.ManyToManyField('users.Users', through='MachineUserRelation', related_name='machines', blank=True)
     parts = models.ManyToManyField('part.Part', through='part.PartMachineRelation', related_name='related_machines', blank=True)
     price = models.DecimalField(max_digits=15, decimal_places=2, null=True)

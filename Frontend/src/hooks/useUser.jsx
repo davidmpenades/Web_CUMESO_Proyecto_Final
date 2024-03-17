@@ -14,6 +14,17 @@ const useUser = () => {
             console.error(error);
         });
     }, [setUsers]);
+
+    const deleteUser = useCallback(async (uuid) => {
+        console.log(uuid);
+        try {
+            await UserService.deleteUser(uuid);
+            setUsers(users.filter(user => user.uuid !== uuid));
+        } catch (error) {
+            console.error('Error eliminando usuario:', error);
+        }
+    }, [users, setUsers]);
+
     
     useEffect(() => {
         fetchUsers();
@@ -22,6 +33,7 @@ const useUser = () => {
     return {
         users,
         fetchUsers,
+        deleteUser
     };
     }
 

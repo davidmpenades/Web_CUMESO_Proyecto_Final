@@ -9,7 +9,6 @@ const MachinesList = ({ machine }) => {
     useMachine();
   const [modalOpen, setModalOpen] = useState(false);
   const pdf = machine.pdf_machine ? machine.pdf_machine.split("/").pop() : "aun no hay pdf";
-  console.log(pdf);
   useEffect(() => {
     if (machine && machine.slug) {
       getMachineImage(machine.slug).then((data) => {
@@ -48,6 +47,9 @@ const MachinesList = ({ machine }) => {
         <h1 className="text-xl font-bold text-gray-800 dark:text-white">
           {machine.name}
         </h1>
+        <h2 className="text-xl text-gray-800 dark:text-white p-2">
+          {machine.description}
+        </h2>
         <h3 className="mt-1">Características:</h3>
         <div className="list-machine m-3 text-sm text-gray-600 dark:text-gray-400">
           <ul>

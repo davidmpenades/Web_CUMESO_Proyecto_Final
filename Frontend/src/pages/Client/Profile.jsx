@@ -6,11 +6,10 @@ import PictureUploadModal from "../../component/Client/Modals/PictureUploadModal
 const Profile = () => {
   const { profile, setProfile } = useContext(ProfileContext);
   const { machines } = useContext(MachineContext);
-  console.log(machines);
   const baseURL = "http://localhost:8001";
   const defaultProfileSVG = (
     <svg
-      className="w-48 h-48 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24"
+      className="w-48 h-48 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0"
       fill="currentColor"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
@@ -42,15 +41,17 @@ const Profile = () => {
       <div className="bg-gray-100 shadow mt-8 md:mt-12 rounded-lg overflow-hidden">
         <div className="md:grid md:grid-cols-3 md:gap-4">
           <div className="md:col-span-1">
-            <div className="flex flex-col items-center md:items-start p-4">
+            <div className="relative flex flex-col items-center md:items-start p-4">
               {profile.image ? (
                 <img
                   src={`${baseURL}${profile.image}?${new Date().getTime()}`}
                   alt="Profile"
-                  className="w-48 h-48 object-contain mx-auto rounded-full shadow-2xl" 
+                  className="w-48 h-48 object-contain mx-auto rounded-full shadow-2xl"
                 />
               ) : (
-                defaultProfileSVG
+                <div className="w-48 h-48 mx-auto">
+                  {defaultProfileSVG}
+                </div>
               )}
             </div>
 
@@ -106,8 +107,9 @@ const Profile = () => {
                 <div className="px-6 py-4">
                   <div className="font-bold text-xl mb-2">{machine.name}</div>
                   <a
-                    href={`${baseURL}${machine.pdf_machine}`} // Asegúrate de que esta es la URL correcta del PDF
-                    download={`${machine.name.replace(/\s+/g, "_")}.pdf`} // Usa el nombre de la máquina, reemplazando espacios con guiones bajos, y añade la extensión .pdf
+                    target="_blank"
+                    href={`${baseURL}${machine.pdf_machine}`} 
+                    download={`${machine.name.replace(/\s+/g, "_")}.pdf`} 
                     className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
                   >
                     Descargar PDF

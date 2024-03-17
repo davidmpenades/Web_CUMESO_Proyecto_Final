@@ -115,13 +115,6 @@ const ProviderList = ({ provider }) => {
                 Editar
               </button>
               <button
-                href="#"
-                className="text-gray-700 w-full block px-4 py-2 text-sm hover:bg-green-300"
-                role="menuitem"
-              >
-                Enviar
-              </button>
-              <button
                 onClick={() => setModalOpen(true)}
                 className="text-gray-700 w-full block px-4 py-2 text-sm hover:bg-red-400"
                 role="menuitem"

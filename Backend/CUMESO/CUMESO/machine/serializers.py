@@ -29,6 +29,10 @@ class MachineSerializer(serializers.ModelSerializer):
         queryset=Part.objects.all(),  
         required=False
     )
+    characteristics = serializers.ListField(
+        child=serializers.CharField(),
+        required=False
+    )
     def to_machine_image(self, instance):
         request = self.context.get('request')
         if instance.img and hasattr(instance.img, 'url'):
@@ -52,24 +56,25 @@ class MachineSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         parts_data = validated_data.pop('parts', [])
-        # Obtiene los datos de los usuarios asociados (si los hay)
         users_data = validated_data.pop('users', [])
-        # Obtiene el name del validated_data
+        characteristics_data = validated_data.get('characteristics', [])
         name = validated_data.get('name')
-        # Verifica si ya existe una máquina con el mismo name
+        
         if Machine.objects.filter(name=name).exists():
             raise serializers.ValidationError("Ya existe una máquina con este nombre.")
-        # Crea la instancia de Machine con los datos validados
+
         machine = Machine.objects.create(**validated_data)
+        machine.characteristics = characteristics_data
+        machine.save()
+
         # Asocia los usuarios a la máquina
-        for user_data in users_data:
-            # Crea una relación entre la máquina y el usuario
-            machine.users.set(user_data)
-        for part_data in parts_data:
-            # Crea una relación entre la máquina y la parte
-            machine.parts.set(part_data)        
-        # Retorna la instancia de la máquina creada
+        machine.users.set(users_data)
+
+        # Asocia las partes a la máquina
+        machine.parts.set(parts_data)
+        
         return machine
+
     
     def update(self, instance, validated_data):
         user_ids = [user.id for user in validated_data.pop('users', [])]  # Obtener los IDs de usuarios

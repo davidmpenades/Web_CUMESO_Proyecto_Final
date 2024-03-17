@@ -3,20 +3,22 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/imgs/Logo.webp";
 import "./Dashboard.css";
 import MachinsList from "../../component/Admin/Machine/MachineList";
-import useMachine  from "../../hooks/useMachine";
+import useMachine from "../../hooks/useMachine";
 import PartTable from "../../component/Admin/Part/PartTable";
 import ProvidersTable from "../../component/Admin/Providers/ProviderTable";
 import UserTable from "../../component/Admin/Users/UserTable";
-
+import MachineCreate from "../../component/Admin/Machine/MachineCreate";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
-  const {machines} = useMachine();
-
+  const { machines } = useMachine();
   const [selectedItem, setSelectedItem] = useState("machines");
+  const [currentView, setCurrentView] = useState(null);
+
   const handleSelectItem = (item) => {
     setSelectedItem(item);
+    setCurrentView(null);
   };
 
   const handlerClickShop = () => {
@@ -24,23 +26,44 @@ const Dashboard = () => {
     navigate("/machine");
   };
 
+  const handerClickCreate = (item) => {
+    switch (item) {
+      case "machine":
+        setCurrentView("machineCreate");
+        break;
+      default:
+        setCurrentView(null);
+    }
+  };
+
+  const buttonText = {
+    machines: "una Máquina",
+    parts: "una Pieza",
+    providers: "un Proveedor",
+    users: "un Usuario",
+  };
+
   const renderContent = () => {
-    switch (selectedItem) {
-      
+    if (currentView === "machineCreate") {
+      return <MachineCreate onCreationSuccess={() => handleSelectItem("machines")} />;
+    }
+    switch (selectedItem) {      
       case "machines":
         if (!machines) {
-          // Muestra algún indicador de carga o mensaje mientras los datos se cargan
           return <div>Cargando máquinas...</div>;
         }
-        const sortedMachines = machines.sort((a, b) => b.visibility - a.visibility);
+        const sortedMachines = machines.sort(
+          (a, b) => b.visibility - a.visibility
+        );
 
-        return sortedMachines.map((machine) => <MachinsList key={machine.id} machine={machine} />);
-      case "parts":        
-        return  <PartTable />;
+        return sortedMachines.map((machine) => (
+          <MachinsList key={machine.id} machine={machine} />
+        ));
+      case "parts":
+        return <PartTable />;
       case "providers":
         return <ProvidersTable />;
       case "users":
-        
         return <UserTable />;
       default:
         return null;
@@ -64,7 +87,11 @@ const Dashboard = () => {
               <div className="py-2">
                 <a
                   onClick={() => handleSelectItem("machines")}
-                  className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${selectedItem === 'machines' || selectedItem === 'parts' ? 'active' : ''}`}
+                  className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${
+                    selectedItem === "machines" || selectedItem === "parts"
+                      ? "active"
+                      : ""
+                  }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +122,9 @@ const Dashboard = () => {
                 <li>
                   <a
                     onClick={() => handleSelectItem("providers")}
-                    className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${selectedItem === 'providers' ? 'active' : ''}`}
+                    className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${
+                      selectedItem === "providers" ? "active" : ""
+                    }`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +147,9 @@ const Dashboard = () => {
                 <li>
                   <a
                     onClick={() => handleSelectItem("users")}
-                    className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${selectedItem === 'users' ? 'active' : ''}`}
+                    className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${
+                      selectedItem === "users" ? "active" : ""
+                    }`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -174,25 +205,39 @@ const Dashboard = () => {
       <div className="flex-1 overflow-y-auto">
         {/* Encabezado del Panel de Administrador */}
         <div className="m-0">
-          <h1 className="text-3xl flex justify-center font-semibold text-white bg-gray-700 p-3">Panel de Administrador</h1>
+          <h1 className="text-3xl flex justify-center font-semibold text-white bg-gray-700 p-3">
+            Panel de Administrador
+          </h1>
           {/* Botones - Se muestran solo si selectedItem no es "providers" ni "users" */}
           {selectedItem !== "providers" && selectedItem !== "users" && (
             <div className="mt-4 flex justify-center">
-              <button 
+              <button
                 onClick={() => handleSelectItem("machines")}
-                className="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded-3xl mr-2">
+                className="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded-3xl mr-2"
+              >
                 Máquinas
               </button>
-              <button 
+              <button
                 onClick={() => handleSelectItem("parts")}
-                className="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-3xl">
+                className="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-3xl"
+              >
                 Piezas
               </button>
             </div>
           )}
+          {selectedItem !== "users" && (<div className="mt-4 flex justify-center">
+            <button
+               onClick={() => handerClickCreate("machine")}
+              className="bg-green-500 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-3xl mr-2"
+            >
+              Añadir {buttonText[selectedItem]}
+            </button>
+          </div>)}
         </div>
         {/* Contenido basado en la selección */}
-        <div className="content flex flex-wrap justify-center mt-4">{renderContent()}</div>
+        <div className="content flex flex-wrap justify-center mt-4">
+          {renderContent()}
+        </div>
       </div>
     </div>
   );

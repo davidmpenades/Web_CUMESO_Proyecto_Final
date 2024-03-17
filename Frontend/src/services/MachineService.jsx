@@ -1,4 +1,5 @@
 import api from './api';
+import api_form from './api_form';
 
 const MachineService = {
     getAll() {
@@ -12,9 +13,11 @@ const MachineService = {
         return api().patch(`/machineImageUpd/${slug}/`, visibilityData);
     },
     delete(slug) {
-        // console.log("Delete");
         return api().delete(`/machineDel/${slug}/`);
-    }
+    },
+    create(data) {
+        return api_form().post('/machine/', data);
+    },
 };
 
 export default MachineService;

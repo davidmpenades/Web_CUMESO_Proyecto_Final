@@ -13,8 +13,17 @@ export default function Header() {
   const { profile } = useContext(ProfileContext);
   const baseURL = "http://localhost:8001";
   const defaultProfileSVG = (
-    <svg className="w-10 h-10 rounded-full" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path fillRule="evenodd" d="M10 10a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+    <svg
+      className="w-10 h-10 rounded-full"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        d="M10 10a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+        clipRule="evenodd"
+      />
     </svg>
   );
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,7 +36,7 @@ export default function Header() {
   const closeDropdown = () => {
     setIsDropdownOpen(false);
   };
-  
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -48,7 +57,7 @@ export default function Header() {
   };
 
   const handleNavigation = () => {
-    navigate('/login'); 
+    navigate("/login");
   };
 
   return (
@@ -95,25 +104,27 @@ export default function Header() {
         {/* Right Section */}
         {!isAuth ? (
           <button
-          onClick={handleNavigation}
-          className="w-[150px] bg-black h-[40px] my-3 flex items-center justify-center rounded-full cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#7c7979] before:to-[rgb(0, 0, 0, 0.1)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff] mx-2 py-2 font-medium text-sm"
-        >
-          Entrar
-        </button>
-        ) : (         
+            onClick={handleNavigation}
+            className="w-[150px] bg-black h-[40px] my-3 flex items-center justify-center rounded-full cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#7c7979] before:to-[rgb(0, 0, 0, 0.1)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff] mx-2 py-2 font-medium text-sm"
+          >
+            Entrar
+          </button>
+        ) : (
           <div className="relative flex items-center">
-      <div onClick={toggleDropdown} className="cursor-pointer z-10"> 
-      {profile.image ? (
+            <div onClick={toggleDropdown} className="cursor-pointer z-10">
+              {profile.image ? (
                 <img
                   alt="User settings"
                   src={`${baseURL}${profile.image}`}
-                  style={{width:"42px", height:"42px"}}
+                  style={{ width: "42px", height: "42px" }}
                   className="rounded-full"
                 />
-              ) : defaultProfileSVG}
-      </div>
-      {isDropdownOpen && (
-        <div className="absolute right-0 top-full mt-1 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+              ) : (
+                defaultProfileSVG
+              )}
+            </div>
+            {isDropdownOpen && (
+              <div className="absolute right-0 top-full mt-1 py-2 w-48 bg-white rounded-md shadow-xl z-20">
                 <div className="block px-4 py-2 text-sm text-gray-700">
                   {user.username}
                 </div>
@@ -151,8 +162,9 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden btn-primary"
+          className="fixed top-0 right-0 m-4 z-50 md:hidden btn-primary"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          style={{ zIndex: 1000 }} // Asegúrate de que este z-index sea mayor que cualquier otro componente
         >
           {/* Icono de menú */}
           <svg

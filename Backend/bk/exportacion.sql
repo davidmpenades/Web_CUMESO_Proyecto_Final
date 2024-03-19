@@ -665,12 +665,9 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at, pdf_machine) FROM stdin;
-2	rc-1400-l-nvz8kn	RC-1400-L	Rebobinadora Cortadora de 1400mm	{"\\"revoluciones 800m/s\\"","\\"Area de trabajo fluida\\"","\\"Laser para centrar\\"","\\"Descarga a la izquierda\\""}	\N	t	machine_image/Foto5_hsMryiT.webp	2024-03-11 08:27:04.168396+00	2024-03-13 18:47:15.280844+00	\N	
-3	rc-1400-r-zc0i6w	RC-1400-R	Rebobinadora Cortadora de 1400mm	{"\\"revoluciones 800m/s\\"","\\"Area de trabajo fluida\\"","\\"Laser para centrar\\"","\\"Descarga a la derecha\\""}	\N	t	machine_image/Foto1_GhuSGtV.webp	2024-03-11 08:27:24.888153+00	2024-03-14 17:03:52.193687+00	\N	
-1	rc-1400-t-wy0qj4	RC-1400-T	Rebobinadora Cortadora de 1400mm, Turbo	{"\\"revoluciones 1000m/s\\"","\\"Area de trabajo fluida\\"","\\"Laser para centrar\\"","\\"Mas bonica que nah\\""}	\N	f	machine_image/Foto6_owifF36.webp	2024-03-11 08:25:50.319033+00	2024-03-14 17:21:40.881366+00	\N	machine_pdf/DNI_David_Moreno.pdf
-42	rc-1200-t-adpw5v	RC-1200-T	La peque con caracter	{"Anchura maxima de trabajo 1200mm","Trabajo turbo de max. 1000m/min"}	\N	f	machine_image/RC-1200-T_E0bgvOd.webp	2024-03-17 10:20:41.602116+00	2024-03-17 10:20:43.712165+00	\N	
-49	rc-1200-l-cbk7go	RC-1200-L	La otra peque	{"velocidad 800m/min","extracción automática","1200 mm de anchura m"}	\N	f	machine_image/RC-1200-L.webp	2024-03-17 11:01:08.175295+00	2024-03-17 11:01:10.350771+00	\N	
-58	rc-1200-x8b1nx	RC-1200	La peque	{}	\N	f	machine_image/RC-1200.webp	2024-03-17 11:56:45.524982+00	2024-03-17 11:56:45.525005+00	\N	
+49	rc-1200-l-0omohf	RC-1200-L	La otra peque	{"velocidad 800m/min","extracción automática","1200 mm de anchura m","Extracción izquierda"}	\N	t	machine_image/RC-1200-L.webp	2024-03-17 11:01:08.175295+00	2024-03-19 11:19:29.574919+00	\N	machine_pdf/David_Moreno_Penadés_IfaD3TS.pdf
+42	rc-1200-t-481yvy	RC-1200-T	La peque con caracter, la más rápida en su especie	{"Anchura max. 1200mm","Velocidad 1000m/min","Pantalla de lence 24\\""}	\N	t	machine_image/RC-1200-T.webp	2024-03-17 10:20:41.602116+00	2024-03-19 11:20:19.256183+00	\N	machine_pdf/David_Moreno_Penadés.pdf
+60	rc-1200-kumta5	RC-1200	La peque	{"1200mm de ancho","800m/min de velocidad","extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-17 12:16:44.568816+00	2024-03-19 11:22:19.895732+00	\N	machine_pdf/David_Moreno_Penadés_saqDuJx.pdf
 \.
 
 
@@ -679,8 +676,9 @@ COPY public.machine_machine (id, slug, name, description, characteristics, price
 --
 
 COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
-1	2	2
-3	3	6
+10	60	3
+14	49	6
+15	42	1
 \.
 
 
@@ -706,6 +704,9 @@ COPY public.part_part_providers (id, part_id, providers_id) FROM stdin;
 --
 
 COPY public.part_partmachinerelation (id, machine_id, part_id) FROM stdin;
+1	60	1
+2	49	1
+3	42	1
 \.
 
 
@@ -732,11 +733,10 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 --
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, created_at, type) FROM stdin;
-2	pbkdf2_sha256$720000$Y8q5LcL7jXi4jCcElaFwaR$gRyego+4EpxEhqsRZHx+t6z91FrtA9K3XMblwIfagjo=	\N	f	ea7b0291-f0fb-d2d4-dbaf-26fcb08e61a5	Pau	pau@gmail.com	L'Estació		2024-03-11 07:58:04.730335+00	client
 6	pbkdf2_sha256$720000$VNc12KtOijNCebrAmIX0wO$hdZP33Lz4J0ColZkXR3jatF1Y9FUmkYYYVho/hsettk=	2024-03-11 12:21:41.777536+00	f	08d6c09a-489d-eb8c-6974-4c20aa2cdfd6	Miguelon	miguel@gmail.com	L'Estació	img_profile/photo_2023-06-27_11-47-03.jpg	2024-03-11 08:06:15.045689+00	client
 3	pbkdf2_sha256$720000$xfwFTwvuEHrQX739Syp4Nz$q0jvD2jbYCSA5pVS0BTdzD19yx+po+kuaMck3VRK5hg=	2024-03-11 15:33:15.249636+00	f	ea196717-3466-2cf7-fbab-a8081fab865f	Jose	jose@gmail.com	L'Estació	img_profile/Jose.webp	2024-03-11 07:58:12.769722+00	client
-5	pbkdf2_sha256$720000$QchDEY3Mu8kxfYdTK4I32Y$poQND7wSQPQzKJLnDbsNoyt5V5OMV52QRxjb+qaBunQ=	2024-03-17 11:56:09.649035+00	t	ae971efb-5f96-b409-727f-09d051d1bb3c	David	david@gmail.com	CUMESO	img_profile/David.webp	2024-03-11 07:58:43.237917+00	admin
 1	pbkdf2_sha256$720000$vxrexCWKdMIXLXi6gjFbCo$HatV/jSpfB4lWcM5g0orpwN/gAqlk5jAw0XaUa+fThk=	2024-03-13 17:52:47.481017+00	f	7e227383-a372-fc74-2aa7-9fcba2147a33	Yolanda	yolanda@gmail.com	L'Estació	img_profile/Yolanda.webp	2024-03-11 07:57:50.26853+00	client
+5	pbkdf2_sha256$720000$QchDEY3Mu8kxfYdTK4I32Y$poQND7wSQPQzKJLnDbsNoyt5V5OMV52QRxjb+qaBunQ=	2024-03-19 19:26:26.91706+00	t	ae971efb-5f96-b409-727f-09d051d1bb3c	David	david@gmail.com	CUMESO	img_profile/David.webp	2024-03-11 07:58:43.237917+00	admin
 \.
 
 
@@ -802,14 +802,14 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 27, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 58, true);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 60, true);
 
 
 --
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 3, true);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 15, true);
 
 
 --
@@ -830,7 +830,7 @@ SELECT pg_catalog.setval('public.part_part_providers_id_seq', 1, false);
 -- Name: part_partmachinerelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 3, true);
 
 
 --

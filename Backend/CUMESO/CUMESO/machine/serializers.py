@@ -45,11 +45,9 @@ class MachineSerializer(serializers.ModelSerializer):
     
     def validate_name(self, value):
         if self.instance is None:
-            # Creación
             if Machine.objects.filter(name=value).exists():
                 raise serializers.ValidationError("Ya existe una máquina con este nombre.")
         else:
-            # Actualización
             if Machine.objects.filter(name=value).exclude(pk=self.instance.pk).exists():
                 raise serializers.ValidationError("Ya existe una máquina con este nombre.")
         return value
@@ -67,55 +65,46 @@ class MachineSerializer(serializers.ModelSerializer):
         machine.characteristics = characteristics_data
         machine.save()
 
-        # Asocia los usuarios a la máquina
         machine.users.set(users_data)
 
-        # Asocia las partes a la máquina
         machine.parts.set(parts_data)
         
         return machine
 
     
     def update(self, instance, validated_data):
-        user_ids = [user.id for user in validated_data.pop('users', [])]  # Obtener los IDs de usuarios
-        part_ids = [part.id for part in validated_data.pop('parts', [])]  # Obtener los IDs de partes
+        print("Actualizando máquina:", instance.name)
 
-        # Actualizar la relación ManyToMany para 'users'
+        user_ids = [user.id for user in validated_data.pop('users', [])]
+        part_ids = [part.id for part in validated_data.pop('parts', [])]
+
+        # Actualización de usuarios
         if user_ids is not None:
+            print("IDs de usuarios para actualizar:", user_ids)
             if not user_ids:
                 instance.users.clear()
             else:
                 new_user_instances = Users.objects.filter(id__in=user_ids)
                 instance.users.set(new_user_instances)
         
-        # Actualizar la relación ManyToMany para 'parts'
+        # Actualización de partes
         if part_ids is not None:
+            print("IDs de partes para actualizar:", part_ids)
             if not part_ids:
                 instance.parts.clear()
             else:
                 new_part_instances = Part.objects.filter(id__in=part_ids)
-                instance.parts.set(new_part_instances)    
+                instance.parts.set(new_part_instances)
+
+        # Otros campos
+        for attr, value in validated_data.items():
+            print(f"Actualizando {attr} a {value}")
+            setattr(instance, attr, value)
         
-        # Actualización de campos normales y slug si es necesario
-        new_name = validated_data.get('name', instance.name)
-        if new_name != instance.name:
-            # Si el nombre ha cambiado, actualiza el nombre y genera un nuevo slug
-            instance.name = new_name
-            instance.slug = slugify(new_name)
-            # No necesitas comprobar si el nombre ya existe aquí,
-            # porque el método 'validate_name' ya lo hace.
-        else:
-            # Si el nombre no ha cambiado, actualiza solo los otros campos.
-            for attr, value in validated_data.items():
-                setattr(instance, attr, value)
-                
-        pdf_machine_file = validated_data.pop('pdf_machine', None)
-        if pdf_machine_file is not None:
-            instance.pdf_machine.save(pdf_machine_file.name, pdf_machine_file, save=False)
-        # Guardar todos los cambios en la instancia
         instance.save()
-        
+        print("Actualización completada para:", instance.name)
         return instance
+
 
 class MachineVisibilitySerializer(serializers.ModelSerializer):
     class Meta:

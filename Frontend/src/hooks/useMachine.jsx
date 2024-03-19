@@ -2,12 +2,9 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import MachineService from "../services/MachineService";
 import MachineContext from "../context/MachineContext";
 import {toast} from "sonner"
-import { useNavigate } from "react-router-dom";
 
 const useMachine = () => {
   const { machines, setMachines } = useContext(MachineContext);
-  const navigate = useNavigate(); 
-
   const updateMachineVisibility = useCallback((slug, newVisibility) => {
     MachineService.updateVisibility(slug, newVisibility)
       .then((data) => {
@@ -65,6 +62,20 @@ const useMachine = () => {
     }
   }, [setMachines]);
 
+  const updateMachine = useCallback(async (slug, formData) => {
+    try {
+      const response = await MachineService.updateMachine(slug, formData);
+      setMachines(prevMachines => prevMachines.map(machine => 
+        machine.slug === slug ? response.data : machine
+      ));  
+      toast.success("Máquina actualizada correctamente");
+      return true; 
+    } catch (error) {
+      console.error(error);
+      toast.error("Error al actualizar la máquina");
+      return false; 
+    }
+  })
   useEffect(() => {
     fetchMachines();
   }, [fetchMachines]);
@@ -76,6 +87,7 @@ const useMachine = () => {
     updateMachineVisibility, 
     deleteMachine,
     createMachine,
+    updateMachine,
   };
 };
 

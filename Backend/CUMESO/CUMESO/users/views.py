@@ -11,6 +11,10 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from PIL import Image
 import io
 from django.core.files.base import ContentFile
+from rest_framework.decorators import api_view
+from CUMESO.CUMESO.machine.models import Machine
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAdminUser
 
 def convert_to_webp(image_input):
         image = Image.open(image_input)
@@ -56,6 +60,7 @@ class UserInfoView(viewsets.GenericViewSet):
         return Response()
 
 class UserAdminView(viewsets.GenericViewSet):
+    queryset = Users.objects.all() 
     permission_classes = [IsAdmin]
 
     def getAllUsers(self, request):
@@ -73,6 +78,19 @@ class UserAdminView(viewsets.GenericViewSet):
         print(user)
         user.delete()
         return Response({'data': 'User deleted successfully'})
+    action(detail=True, methods=['patch'])
+    def assign_machines(self, request, pk=None):
+        user = self.get_object()
+        machine_ids = request.data.get('machines', [])
+        
+        # Asegúrate de que todas las máquinas existan
+        machines = Machine.objects.filter(id__in=machine_ids)
+        if len(machines) != len(machine_ids):
+            return Response({'error': 'Una o más máquinas no existen'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Asigna las máquinas al usuario
+        user.machines.set(machines)
+        return Response({'message': 'Máquinas asignadas correctamente al usuario'})
     
 class UserProtectedView(viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)

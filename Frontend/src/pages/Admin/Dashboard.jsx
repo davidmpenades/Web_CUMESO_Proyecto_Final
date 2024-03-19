@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/imgs/Logo.webp";
 import "./Dashboard.css";
@@ -8,14 +8,19 @@ import PartTable from "../../component/Admin/Part/PartTable";
 import ProvidersTable from "../../component/Admin/Providers/ProviderTable";
 import UserTable from "../../component/Admin/Users/UserTable";
 import MachineCreate from "../../component/Admin/Machine/MachineCreate";
+import MachineUpdate from "../../component/Admin/Machine/machineUpdate";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
-  const { machines } = useMachine();
+  const { machines, fetchMachines } = useMachine();
   const [selectedItem, setSelectedItem] = useState("machines");
   const [currentView, setCurrentView] = useState(null);
+  const [updateMachine, setUpdateMachine] = useState(null);
 
+  useEffect(() => {
+    fetchMachines();
+  }, []);
   const handleSelectItem = (item) => {
     setSelectedItem(item);
     setCurrentView(null);
@@ -26,11 +31,15 @@ const Dashboard = () => {
     navigate("/machine");
   };
 
+  const handleUpdateSuccess = () => {
+    handleSelectItem("machines");
+  };
+
   const handerClickCreate = (item) => {
     switch (item) {
       case "machine":
         setCurrentView("machineCreate");
-        break;
+        break;      
       default:
         setCurrentView(null);
     }
@@ -42,10 +51,17 @@ const Dashboard = () => {
     providers: "un Proveedor",
     users: "un Usuario",
   };
+  const showUpdateForm = (machine) => {
+    setUpdateMachine(machine); 
+    setCurrentView('updateMachine'); 
+  };
 
   const renderContent = () => {
     if (currentView === "machineCreate") {
       return <MachineCreate onCreationSuccess={() => handleSelectItem("machines")} />;
+    }
+    if (currentView === 'updateMachine' && updateMachine) {
+      return <MachineUpdate machine={updateMachine} onUpdateSuccess={handleUpdateSuccess}/>;
     }
     switch (selectedItem) {      
       case "machines":
@@ -57,7 +73,7 @@ const Dashboard = () => {
         );
 
         return sortedMachines.map((machine) => (
-          <MachinsList key={machine.id} machine={machine} />
+          <MachinsList key={machine.id} machine={machine} onShowUpdateForm={showUpdateForm} />
         ));
       case "parts":
         return <PartTable />;

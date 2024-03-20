@@ -1,8 +1,12 @@
+from io import BytesIO
 from django.db import models
 from django.forms import ValidationError
 from django.utils.text import slugify
 from ..machine.models import Machine
 from ..providers.models import Providers
+from PIL import Image
+import os
+from django.core.files.base import ContentFile
 
 class Part(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True)
@@ -34,7 +38,62 @@ class Part(models.Model):
         if not self.pk or 'name' in kwargs.get('update_fields', []):
             self.slug = self._generate_unique_slug()
 
+        if self.img:
+            # Asegurarte de que estamos trabajando con una nueva imagen o una imagen actualizada
+            if not self._state.adding and hasattr(self, '_original_img') and self._original_img != self.img.name:
+                old_img_path = self._original_img
+            else:
+                old_img_path = None
+
+            pil_img = Image.open(self.img)
+            pil_img = pil_img.convert('RGB')
+            new_img_io = BytesIO()
+            pil_img.save(new_img_io, format='WEBP')
+
+            # Temporalmente guardar la imagen original para luego eliminarla si es necesario
+            if old_img_path:
+                self._temp_old_img_path = old_img_path
+
+            # Reiniciar el puntero al inicio del BytesIO
+            new_img_io.seek(0)
+            self.img.save(f'{self.name}.webp', content=ContentFile(new_img_io.read()), save=False)
+
         super().save(*args, **kwargs)
+
+        # Eliminar la imagen antigua si existe y es diferente a la actual
+        if hasattr(self, '_temp_old_img_path'):
+            old_img_path = self._temp_old_img_path
+            if old_img_path and old_img_path != self.img.path:
+                try:
+                    os.remove(old_img_path)
+                except OSError:
+                    pass
+            del self._temp_old_img_path
+        
+
+    def convert_image(self, img_field, new_name):
+        pil_img = Image.open(img_field)
+        pil_img = pil_img.convert('RGB')  # Convertir a RGB en caso de que sea una imagen PNG
+        new_img_path = f'part_images/{new_name}.webp'
+        
+        # Guardar la imagen convertida
+        pil_img.save(new_img_path, format='WEBP')
+        
+        return new_img_path
+    def convert_image(self, img_field, new_name):
+        pil_img = Image.open(img_field)
+        pil_img = pil_img.convert('RGB')  # Convertir a RGB en caso de que sea una imagen PNG
+        new_img_path = f'part_images/{new_name}.webp'
+        
+        # Guardar la imagen convertida
+        pil_img.save(new_img_path, format='WEBP')
+        
+        return new_img_path
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Guardar el estado original de la imagen para verificar cambios
+        self.__original_img = self.img
 
     def _generate_unique_slug(self):
         new_slug = slugify(self.name)

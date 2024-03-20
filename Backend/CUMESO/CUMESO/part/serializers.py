@@ -8,20 +8,18 @@ class PartSerializer(serializers.ModelSerializer):
         queryset=Machine.objects.all(),
         write_only=True
     )
-    img = serializers.ImageField(required=True)
-    cad_file = serializers.FileField(required=True)
-    pdf_file = serializers.FileField(required=True)
+    img = serializers.ImageField(required=False, allow_null=True)
+    cad_file = serializers.FileField(required=False, allow_null=True)
+    pdf_file = serializers.FileField(required=False, allow_null=True)
 
     class Meta:
         model = Part
         fields = ['id', 'slug', 'name', 'description', 'quantity', 'price','status', 'img', 'cad_file', 'pdf_file', 'machines','updated_at','created_at']
 
     def to_internal_value(self, data):
-        # Llama primero a la implementación de la superclase para obtener un diccionario de datos validados
         data = super().to_internal_value(data)
         machine_data = data.get('machines')
 
-        # Verifica si machine_data es una lista que contiene cadenas que representan números
         if isinstance(machine_data, list):
             new_machine_list = []
             for machine_id in machine_data:
@@ -36,7 +34,6 @@ class PartSerializer(serializers.ModelSerializer):
         return data
     
     def update(self, instance, validated_data):
-        # Actualiza los campos normales
         instance.slug = validated_data.get('slug', instance.slug)
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
@@ -47,12 +44,27 @@ class PartSerializer(serializers.ModelSerializer):
         instance.cad_file = validated_data.get('cad_file', instance.cad_file)
         instance.pdf_file = validated_data.get('pdf_file', instance.pdf_file)
         
-        # Guarda los cambios en el objeto 'Part'
+        for attr, value in validated_data.items():
+            if attr in ['cad_file', 'pdf_file']:
+                old_file = getattr(instance, attr)
+                if old_file:
+                    old_file.delete(save=False)
+
+            setattr(instance, attr, value)
+
         instance.save()
 
-        # Actualiza la relación ManyToMany 'machines'
         if 'machines' in validated_data:
             machines_ids = validated_data['machines']
             instance.machines.set(machines_ids)
 
         return instance
+    def create(self, validated_data):
+        machines_data = validated_data.pop('machines', None)
+
+        part = Part.objects.create(**validated_data)
+
+        if machines_data is not None:
+            part.machines.set(machines_data)
+
+        return part

@@ -9,6 +9,8 @@ import ProvidersTable from "../../component/Admin/Providers/ProviderTable";
 import UserTable from "../../component/Admin/Users/UserTable";
 import MachineCreate from "../../component/Admin/Machine/MachineCreate";
 import MachineUpdate from "../../component/Admin/Machine/machineUpdate";
+import ProviderCreate from "../../component/Admin/Providers/ProviderCreate";
+import PartCreate from "../../component/Admin/Part/PartCreate";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ const Dashboard = () => {
   };
 
   const handlerClickShop = () => {
+    event.preventDefault();
     setUser({});
     navigate("/machine");
   };
@@ -36,11 +39,22 @@ const Dashboard = () => {
   };
 
   const handerClickCreate = (item) => {
+    console.log("handerClickCreate", item);
     switch (item) {
-      case "machine":
+      case "machines":
+        console.log("machineCreate");
         setCurrentView("machineCreate");
-        break;      
+        break;
+      case "providers":
+        console.log("providerCreate");
+        setCurrentView("providerCreate");
+        break;
+      case "parts":
+        console.log("partCreate");
+        setCurrentView("partCreate");
+        break;
       default:
+        console.log("default");
         setCurrentView(null);
     }
   };
@@ -52,18 +66,35 @@ const Dashboard = () => {
     users: "un Usuario",
   };
   const showUpdateForm = (machine) => {
-    setUpdateMachine(machine); 
-    setCurrentView('updateMachine'); 
+    setUpdateMachine(machine);
+    setCurrentView("updateMachine");
   };
 
   const renderContent = () => {
     if (currentView === "machineCreate") {
-      return <MachineCreate onCreationSuccess={() => handleSelectItem("machines")} />;
+      return (
+        <MachineCreate onCreationSuccess={() => handleSelectItem("machines")} />
+      );
     }
-    if (currentView === 'updateMachine' && updateMachine) {
-      return <MachineUpdate machine={updateMachine} onUpdateSuccess={handleUpdateSuccess}/>;
+    if (currentView === "providerCreate") {
+      return (
+        <ProviderCreate
+          onCreationSuccess={() => handleSelectItem("providers")}
+        />
+      );
     }
-    switch (selectedItem) {      
+    if (currentView === "partCreate") {
+      return <PartCreate onCreationSuccess={() => handleSelectItem("parts")} />;
+    }
+    if (currentView === "updateMachine" && updateMachine) {
+      return (
+        <MachineUpdate
+          machine={updateMachine}
+          onUpdateSuccess={handleUpdateSuccess}
+        />
+      );
+    }
+    switch (selectedItem) {
       case "machines":
         if (!machines) {
           return <div>Cargando máquinas...</div>;
@@ -73,7 +104,11 @@ const Dashboard = () => {
         );
 
         return sortedMachines.map((machine) => (
-          <MachinsList key={machine.id} machine={machine} onShowUpdateForm={showUpdateForm} />
+          <MachinsList
+            key={machine.id}
+            machine={machine}
+            onShowUpdateForm={showUpdateForm}
+          />
         ));
       case "parts":
         return <PartTable />;
@@ -241,14 +276,16 @@ const Dashboard = () => {
               </button>
             </div>
           )}
-          {selectedItem !== "users" && (<div className="mt-4 flex justify-center">
-            <button
-               onClick={() => handerClickCreate("machine")}
-              className="bg-green-500 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-3xl mr-2"
-            >
-              Añadir {buttonText[selectedItem]}
-            </button>
-          </div>)}
+          {selectedItem !== "users" && (
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={() => handerClickCreate(selectedItem)} 
+                className="bg-green-500 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-3xl mr-2"
+              >
+                Añadir {buttonText[selectedItem]}
+              </button>
+            </div>
+          )}
         </div>
         {/* Contenido basado en la selección */}
         <div className="content flex flex-wrap justify-center mt-4">

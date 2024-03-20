@@ -25,6 +25,17 @@ const useProvider = () => {
             alert("Hubo un error al borrar la pieza.");
         });
     }, [setProviders]);
+
+    const createProvider = useCallback(async (formData) => {
+        try {
+            const response = await ProviderService.create(formData);
+            setProviders(prevProviders => [...prevProviders, response.data]);
+            return true;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }, [setProviders]);
     
     useEffect(() => {
         fetchProviders();
@@ -33,7 +44,8 @@ const useProvider = () => {
     return {
         providers,
         fetchProviders,
-        deleteProvider
+        deleteProvider,
+        createProvider,
     };
     }
 

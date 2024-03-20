@@ -6,6 +6,9 @@ const ProviderService = {
     },
     delete(slug) {
         return api().delete(`/providerDel/${slug}/`);
+    },
+    create(data) {
+        return api().post('/provider/', data);
     }
 };
 

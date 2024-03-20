@@ -26,6 +26,17 @@ const usePart = () => {
         });
     }, [setParts]);
     
+    const createPart = useCallback(async (formData) => {
+        try {
+            const response = await PartService.create(formData);
+            setParts(prevParts => [...prevParts, response.data]);
+            return true;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }, [setParts]);
+
     useEffect(() => {
         fetchParts();
     }, [fetchParts]);
@@ -33,7 +44,8 @@ const usePart = () => {
     return {
         parts,
         fetchParts,
-        deletePart
+        deletePart,
+        createPart,
     };
     }
 

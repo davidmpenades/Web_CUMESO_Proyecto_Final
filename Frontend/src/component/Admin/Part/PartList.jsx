@@ -6,9 +6,9 @@ const PartList = ({ part }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const toggleDropdown = () => setShowDropdown(!showDropdown);
   const { deletePart } = usePart();
-  const imageName = part.img.split("/").pop();
-  const cad = part.cad_file.split("/").pop();
-  const pdf = part.pdf_file.split("/").pop();
+  const imageName = part.img?.split("/").pop() ?? '';
+  const cad = part.cad_file?.split("/").pop() ?? '';
+  const pdf = part.pdf_file?.split("/").pop() ?? '';
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleDeleteClick = () => {

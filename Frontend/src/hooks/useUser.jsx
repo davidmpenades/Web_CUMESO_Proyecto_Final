@@ -28,7 +28,7 @@ const useUser = () => {
     
     useEffect(() => {
         fetchUsers();
-    }, [fetchUsers]);
+    }, []);
     
     return {
         users,

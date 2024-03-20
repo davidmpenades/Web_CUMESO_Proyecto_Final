@@ -14,5 +14,7 @@ urlpatterns = [
     path('user/<str:uuid>/', UserAdminView.as_view({'get': 'getUser'})), 
     path('users/', UserAdminView.as_view({'get': 'getAllUsers'})),
     path('user/delete/<str:uuid>/', UserAdminView.as_view({'delete': 'delete'})), 
+    path('users/<int:pk>/assign-machines/', UserAdminView.as_view({'patch': 'assign_machines'}), name='assign-machines-to-user'),
+
 ]
 

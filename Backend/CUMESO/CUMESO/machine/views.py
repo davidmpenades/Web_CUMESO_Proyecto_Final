@@ -1,11 +1,11 @@
 import json
-from django.shortcuts import get_object_or_404, render
+from venv import logger
+from django.shortcuts import get_object_or_404
 from django.http.response import JsonResponse
 from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from django.urls import reverse
 from rest_framework import viewsets
 from CUMESO.CUMESO.core.permissions import IsAdmin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -14,6 +14,11 @@ from .serializers import MachineSerializer, MachineVisibilitySerializer
 from PIL import Image, ExifTags
 from io import BytesIO
 from django.core.files.base import ContentFile
+from PIL.ExifTags import TAGS
+from PIL import Image, ExifTags
+from .models import MachineUserRelation
+from CUMESO.CUMESO.users.models import Users
+from django.db import transaction
 
 def fix_image_orientation(img):
     try:
@@ -24,16 +29,22 @@ def fix_image_orientation(img):
 
         if exif is not None:
             exif = dict(exif.items())
-            if exif[orientation] == 3:
+            orientation_value = exif.get(orientation)
+            if orientation_value == 3:
                 img = img.rotate(180, expand=True)
-            elif exif[orientation] == 6:
+            elif orientation_value == 6:
                 img = img.rotate(270, expand=True)
-            elif exif[orientation] == 8:
+            elif orientation_value == 8:
                 img = img.rotate(90, expand=True)
-    except (AttributeError, KeyError, IndexError, TypeError):
-        pass
 
-    return img
+        data = list(img.getdata())
+        new_image = Image.new(img.mode, img.size)
+        new_image.putdata(data)
+        img = img.convert('RGB')
+        return img
+
+    except (AttributeError, KeyError, IndexError, TypeError):
+        return img
 
 class MachineList(viewsets.GenericViewSet):
     def get_permissions(self):
@@ -44,31 +55,23 @@ class MachineList(viewsets.GenericViewSet):
         return [permission() for permission in permission_classes]
 
     def create(self, request):
-        # Construye un nuevo diccionario con los datos del formulario
         machine_data = {
             'name': request.data.get('name'),
             'description': request.data.get('description'),
-            # Asume que 'characteristics' se envía como un JSON en string
             'characteristics': json.loads(request.data.get('characteristics', '[]')),
         }
 
-        # Agrega el archivo si está presente en la solicitud
         if 'img' in request.FILES:
-            # Abre la imagen usando PIL
             img = Image.open(request.FILES['img'])
             
-            # Corrige la orientación si es necesario
             img = fix_image_orientation(img)
             
-            # Convierte y guarda la imagen en formato WEBP
             img_converted = BytesIO()
             img.save(img_converted, format='WEBP', quality=90)
             img_converted.seek(0)
 
-            # Asigna el nombre basado en el nombre de la máquina
             filename = f"{machine_data.get('name', 'machine')}.webp"
 
-            # Asigna el archivo convertido a 'img' en machine_data
             machine_data['img'] = ContentFile(img_converted.getvalue(), name=filename)
 
         machine_serializer = MachineSerializer(data=machine_data)
@@ -78,10 +81,6 @@ class MachineList(viewsets.GenericViewSet):
             return JsonResponse(machine_serializer.data, status=status.HTTP_201_CREATED)
 
         return JsonResponse(machine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
     
     def getAll(self, request):
         machines = Machine.objects.all()
@@ -97,38 +96,70 @@ class MachineList(viewsets.GenericViewSet):
         try:
             machine = Machine.objects.get(slug=slug)
             machine.delete()
-            # Usar HttpResponse para enviar el código de estado sin contenido.
             return HttpResponse(status=status.HTTP_204_NO_CONTENT)
         except Machine.DoesNotExist:
-            # Enviar una respuesta 404 si no se encuentra el objeto
             return HttpResponse(status=status.HTTP_404_NOT_FOUND)
         
     def partial_update(self, request, slug=None):
+        logger.info(f"Comenzando actualización de la máquina con slug: {slug}")
+
         try:
-            # Intenta obtener la instancia de Machine basada en el slug.
             machine = Machine.objects.get(slug=slug)
         except Machine.DoesNotExist:
-            # Si no se encuentra la instancia, devuelve una respuesta 404.
             return JsonResponse({'message': 'La máquina no existe'}, status=status.HTTP_404_NOT_FOUND)
 
-        # Utiliza el serializador para actualizar parcialmente la instancia con los datos proporcionados en la solicitud.
-        # El argumento 'partial=True' permite la actualización parcial de campos.
+        logger.info(f"Instancia de máquina obtenida: {machine.name}")
+
         machine_serializer = MachineSerializer(machine, data=request.data, partial=True)
         if machine_serializer.is_valid():
-            # Si los datos son válidos, guarda la instancia actualizada.
-            machine_serializer.save()
+            logger.info(f"Datos validados para: {machine.name}")
+            updated_machine = machine_serializer.save()  # Llamada explícita al método save del serializador
+            logger.info(f"Máquina actualizada: {updated_machine.name}")
+        if machine_serializer.is_valid():
+            if 'img' in request.FILES:
+                new_img = request.FILES['img']
+                image = Image.open(new_img)
+                image = fix_image_orientation(image) 
+                image_io = BytesIO()
+                image.save(image_io, format='WEBP', quality=90)
+                image_io.seek(0)
+
+                filename = f"{machine.name}.webp"
+
+                if machine.img:
+                    try:
+                        machine.img.delete(save=False)
+                    except Exception as e:
+                        print(f"No se pudo eliminar la imagen anterior: {e}")
+
+                machine.img.save(filename, ContentFile(image_io.getvalue()), save=False)
+
+            if 'pdf' in request.FILES:
+                new_pdf = request.FILES['pdf']
+                
+                if machine.pdf_machine:
+                    try:
+                        machine.pdf_machine.delete(save=False)
+                    except Exception as e:
+                        print(f"No se pudo eliminar el PDF anterior: {e}")
+                
+                pdf_filename = f"{machine.name}.pdf"
+                
+                machine.pdf_machine.save(pdf_filename, new_pdf)
+
+            machine.save()
             return JsonResponse(machine_serializer.data)
-        # Si los datos no son válidos, devuelve los errores.
+
+        logger.error(f"Errores de validación: {machine_serializer.errors}")
         return JsonResponse(machine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
     def getMachineImage(self, request, slug):
         try:
             machine = Machine.objects.get(slug=slug)
-            # Asegúrate de pasar el contexto con la solicitud al serializador.
             machine_serializer = MachineSerializer(machine, context={'request': request})
             return JsonResponse(machine_serializer.to_machine_image(machine), safe=False)
         except Machine.DoesNotExist:
-            # Enviar una respuesta 404 si no se encuentra el objeto
             return HttpResponse(status=status.HTTP_404_NOT_FOUND)
         
     @action(detail=True, methods=['patch'])

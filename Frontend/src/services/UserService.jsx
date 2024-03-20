@@ -7,7 +7,10 @@ const UserService = {
     deleteUser(uuid) {
         console.log(uuid);
         return api().delete(`/user/${uuid}/`);
-    }
+    },
+    updateMachineUsers(userId, machineIds) {
+        return api().patch(`/users/${userId}/assign-machines/`, { machines: machineIds });
+    }    
 };
 
-export default UserService;
+export default UserService; 

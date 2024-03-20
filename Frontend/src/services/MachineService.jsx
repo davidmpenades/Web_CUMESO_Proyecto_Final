@@ -9,14 +9,17 @@ const MachineService = {
         return api().get(`/machineImage/${slug}/`);
     },
     updateVisibility(slug, visibilityData) {
-        console.log(slug, visibilityData);
         return api().patch(`/machineImageUpd/${slug}/`, visibilityData);
     },
+    updateMachine(slug, formdata) {
+        console.log(slug, formdata);
+        return api_form().patch(`/machineUpd/${slug}/`, formdata);
+    },    
     delete(slug) {
         return api().delete(`/machineDel/${slug}/`);
     },
-    create(data) {
-        return api_form().post('/machine/', data);
+    create(formdata) {
+        return api_form().post('/machine/', formdata);
     },
 };
 

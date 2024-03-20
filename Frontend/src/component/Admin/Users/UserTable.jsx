@@ -1,25 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Select from "react-select";
 import useUser from "../../../hooks/useUser";
 import useMachine from "../../../hooks/useMachine";
 import ConfirmationModal from "../Modals/ConfirmationModal";
+import UserService from "../../../services/UserService";
+import { toast } from "sonner";
 
 const UserTable = () => {
   const { users, deleteUser, fetchUsers } = useUser();
   const { machines } = useMachine();
   const [modalOpen, setModalOpen] = useState(false);
+  const [userMachineSelections, setUserMachineSelections] = useState({});
   const [selectedUserUuid, setSelectedUserUuid] = useState(null);
-  const handleOpenModal = (uuid) => {
-    setSelectedUserUuid(uuid);
-    setModalOpen(true);
-  };
+  const machineOptions = machines.map((machine) => ({
+    value: machine.id,
+    label: machine.name,
+  }));
+
+  useEffect(() => {
+    const selections = {};
+    users.forEach((user) => {
+      selections[user.id] = machines
+        .filter((machine) => machine.users.includes(user.id))
+        .map((machine) => machine.id); 
+    });
+    setUserMachineSelections(selections);
+    fetchUsers();
+  }, [users, machines]);
+  
 
   const handleDeleteClick = async () => {
     if (selectedUserUuid) {
       await deleteUser(selectedUserUuid);
       setModalOpen(false);
-      fetchUsers(); 
+      fetchUsers();
     }
   };
+
+  const handleMachineChange = async (userId, selectedOptions) => {
+    const selectedMachineIds = selectedOptions.map(option => option.value);
+    fetchUsers();
+    try {
+      await UserService.updateMachineUsers(userId, selectedMachineIds);
+      fetchUsers();
+      toast.success("Usuarios actualizados.");
+    } catch (error) {
+      console.error("Error al asignar máquinas al usuario:", error);
+      toast.error("Error al asignar máquinas al usuario.");
+    }
+  };
+  
   
 
   return (
@@ -97,27 +127,28 @@ const UserTable = () => {
                             {user.company}
                           </td>
                           <td className="px-4 py-4 text-sm text-gray-500 items-center dark:text-gray-300">
-                            <div>
-                              <select
-                                name={`machine-select-${index}`}
-                                id={`machine-select-${index}`}
-                                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-black focus:border-black sm:text-sm rounded-md"
-                                defaultValue="Listado de Máquinas"
-                              >
-                                <option disabled value="">
-                                  Listado de Máquinas
-                                </option>
-                                {userMachines.map((machine) => (
-                                  <option key={machine.id} value={machine.id}>
-                                    {machine.name}
-                                  </option>
-                                ))}
-                                {userMachines.length === 0 && (
-                                  <option value="">
-                                    No hay máquinas asignadas
-                                  </option>
+                            <div style={{ position: "relative" }}>
+                              <Select
+                                isMulti
+                                name={`machine-select-${user.id}`}
+                                options={machineOptions}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                value={machineOptions.filter((option) =>
+                                  userMachineSelections[user.id]?.includes(option.value)
                                 )}
-                              </select>
+                                onChange={(selectedOptions) =>
+                                  handleMachineChange(user.id, selectedOptions)
+                                }
+                                menuPortalTarget={document.body} // Renderiza el menú fuera del flujo normal del documento
+                                styles={{
+                                  // Aplica estilos personalizados
+                                  menuPortal: (base) => ({
+                                    ...base,
+                                    zIndex: 9999,
+                                  }), // Asegura que el menú esté por encima de otros elementos
+                                }}
+                              />
                             </div>
                           </td>
                           <td className="px-4 py-4 text-sm text-gray-500 text-center dark:text-gray-300">
@@ -145,10 +176,12 @@ const UserTable = () => {
                             )}
                           </td>
                           <td>
-                          <button 
-                          onClick={() => handleOpenModal(user.uuid)}
-                          className="px-4 py-2 m-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                          >Eliminar</button>
+                            <button
+                              onClick={() => handleOpenModal(user.uuid)}
+                              className="px-4 py-2 m-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                            >
+                              Eliminar
+                            </button>
                           </td>
                         </tr>
                       );

@@ -6,7 +6,8 @@ from rest_framework import serializers
 from .models import Machine
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-
+import logging
+logger = logging.getLogger(__name__)
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
@@ -73,38 +74,29 @@ class MachineSerializer(serializers.ModelSerializer):
 
     
     def update(self, instance, validated_data):
-        print("Actualizando máquina:", instance.name)
+        logger.info(f"Actualizando máquina: {instance.name}")
 
-        user_ids = [user.id for user in validated_data.pop('users', [])]
-        part_ids = [part.id for part in validated_data.pop('parts', [])]
+        instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
 
-        # Actualización de usuarios
-        if user_ids is not None:
-            print("IDs de usuarios para actualizar:", user_ids)
-            if not user_ids:
-                instance.users.clear()
-            else:
-                new_user_instances = Users.objects.filter(id__in=user_ids)
-                instance.users.set(new_user_instances)
-        
-        # Actualización de partes
-        if part_ids is not None:
-            print("IDs de partes para actualizar:", part_ids)
-            if not part_ids:
-                instance.parts.clear()
-            else:
-                new_part_instances = Part.objects.filter(id__in=part_ids)
-                instance.parts.set(new_part_instances)
+        characteristics = validated_data.get('characteristics')
+        if characteristics is not None:
+            instance.characteristics = characteristics 
+        parts = validated_data.get('parts')
+        if 'parts' not in validated_data:
+            instance.parts.clear()
+        elif parts:
+            instance.parts.set(parts)
 
-        # Otros campos
-        for attr, value in validated_data.items():
-            print(f"Actualizando {attr} a {value}")
-            setattr(instance, attr, value)
-        
+        pdf = validated_data.get('pdf_machine')
+        if pdf:
+            new_pdf_name = f"{instance.name}.pdf"
+            instance.pdf_machine.delete(save=False)
+            instance.pdf_machine.save(new_pdf_name, pdf, save=False)
+
         instance.save()
-        print("Actualización completada para:", instance.name)
+        logger.info(f"Actualización completada para: {instance.name}")
         return instance
-
 
 class MachineVisibilitySerializer(serializers.ModelSerializer):
     class Meta:

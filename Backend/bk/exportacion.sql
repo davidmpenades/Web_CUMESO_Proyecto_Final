@@ -665,9 +665,9 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at, pdf_machine) FROM stdin;
-49	rc-1200-l-0omohf	RC-1200-L	La otra peque	{"velocidad 800m/min","extracción automática","1200 mm de anchura m","Extracción izquierda"}	\N	t	machine_image/RC-1200-L.webp	2024-03-17 11:01:08.175295+00	2024-03-19 11:19:29.574919+00	\N	machine_pdf/David_Moreno_Penadés_IfaD3TS.pdf
-42	rc-1200-t-481yvy	RC-1200-T	La peque con caracter, la más rápida en su especie	{"Anchura max. 1200mm","Velocidad 1000m/min","Pantalla de lence 24\\""}	\N	t	machine_image/RC-1200-T.webp	2024-03-17 10:20:41.602116+00	2024-03-19 11:20:19.256183+00	\N	machine_pdf/David_Moreno_Penadés.pdf
-60	rc-1200-kumta5	RC-1200	La peque	{"1200mm de ancho","800m/min de velocidad","extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-17 12:16:44.568816+00	2024-03-19 11:22:19.895732+00	\N	machine_pdf/David_Moreno_Penadés_saqDuJx.pdf
+60	rc-1200-wngx2h	RC-1200	La peque	{"1200mm de ancho","800m/min de velocidad","extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-17 12:16:44.568816+00	2024-03-19 20:21:01.801092+00	\N	machine_pdf/David_Moreno_Penadés_saqDuJx.pdf
+49	rc-1200-l-j25nfl	RC-1200-L	La otra peque	{"velocidad 800m/min","extracción automática","1200 mm de anchura m","Extracción izquierda"}	\N	t	machine_image/RC-1200-L.webp	2024-03-17 11:01:08.175295+00	2024-03-20 10:23:57.80208+00	\N	machine_pdf/RC-1200-L.pdf
+42	rc-1200-turbo-4jqkrh	RC-1200-TURBO	La peque con caracter, la más rápida en su especie, asegurado	{"Anchura max. 1200mm","Velocidad 1000m/min"}	\N	t	machine_image/RC-1200-T.webp	2024-03-17 10:20:41.602116+00	2024-03-20 10:44:51.508923+00	\N	machine_pdf/RC-1200-T.pdf
 \.
 
 
@@ -676,9 +676,15 @@ COPY public.machine_machine (id, slug, name, description, characteristics, price
 --
 
 COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
-10	60	3
-14	49	6
-15	42	1
+16	42	6
+24	49	6
+25	60	6
+26	49	3
+27	42	3
+33	49	1
+37	42	5
+38	42	1
+40	49	5
 \.
 
 
@@ -734,9 +740,9 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, created_at, type) FROM stdin;
 6	pbkdf2_sha256$720000$VNc12KtOijNCebrAmIX0wO$hdZP33Lz4J0ColZkXR3jatF1Y9FUmkYYYVho/hsettk=	2024-03-11 12:21:41.777536+00	f	08d6c09a-489d-eb8c-6974-4c20aa2cdfd6	Miguelon	miguel@gmail.com	L'Estació	img_profile/photo_2023-06-27_11-47-03.jpg	2024-03-11 08:06:15.045689+00	client
+5	pbkdf2_sha256$720000$QchDEY3Mu8kxfYdTK4I32Y$poQND7wSQPQzKJLnDbsNoyt5V5OMV52QRxjb+qaBunQ=	2024-03-20 10:44:31.909136+00	t	ae971efb-5f96-b409-727f-09d051d1bb3c	David	david@gmail.com	CUMESO	img_profile/David.webp	2024-03-11 07:58:43.237917+00	admin
 3	pbkdf2_sha256$720000$xfwFTwvuEHrQX739Syp4Nz$q0jvD2jbYCSA5pVS0BTdzD19yx+po+kuaMck3VRK5hg=	2024-03-11 15:33:15.249636+00	f	ea196717-3466-2cf7-fbab-a8081fab865f	Jose	jose@gmail.com	L'Estació	img_profile/Jose.webp	2024-03-11 07:58:12.769722+00	client
 1	pbkdf2_sha256$720000$vxrexCWKdMIXLXi6gjFbCo$HatV/jSpfB4lWcM5g0orpwN/gAqlk5jAw0XaUa+fThk=	2024-03-13 17:52:47.481017+00	f	7e227383-a372-fc74-2aa7-9fcba2147a33	Yolanda	yolanda@gmail.com	L'Estació	img_profile/Yolanda.webp	2024-03-11 07:57:50.26853+00	client
-5	pbkdf2_sha256$720000$QchDEY3Mu8kxfYdTK4I32Y$poQND7wSQPQzKJLnDbsNoyt5V5OMV52QRxjb+qaBunQ=	2024-03-19 19:26:26.91706+00	t	ae971efb-5f96-b409-727f-09d051d1bb3c	David	david@gmail.com	CUMESO	img_profile/David.webp	2024-03-11 07:58:43.237917+00	admin
 \.
 
 
@@ -809,7 +815,7 @@ SELECT pg_catalog.setval('public.machine_machine_id_seq', 60, true);
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 15, true);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 41, true);
 
 
 --

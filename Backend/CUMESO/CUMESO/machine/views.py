@@ -1,4 +1,5 @@
 import json
+from venv import logger
 from django.shortcuts import get_object_or_404
 from django.http.response import JsonResponse
 from django.http import HttpResponse
@@ -100,12 +101,20 @@ class MachineList(viewsets.GenericViewSet):
             return HttpResponse(status=status.HTTP_404_NOT_FOUND)
         
     def partial_update(self, request, slug=None):
+        logger.info(f"Comenzando actualización de la máquina con slug: {slug}")
+
         try:
             machine = Machine.objects.get(slug=slug)
         except Machine.DoesNotExist:
             return JsonResponse({'message': 'La máquina no existe'}, status=status.HTTP_404_NOT_FOUND)
 
+        logger.info(f"Instancia de máquina obtenida: {machine.name}")
+
         machine_serializer = MachineSerializer(machine, data=request.data, partial=True)
+        if machine_serializer.is_valid():
+            logger.info(f"Datos validados para: {machine.name}")
+            updated_machine = machine_serializer.save()  # Llamada explícita al método save del serializador
+            logger.info(f"Máquina actualizada: {updated_machine.name}")
         if machine_serializer.is_valid():
             if 'img' in request.FILES:
                 new_img = request.FILES['img']
@@ -117,20 +126,33 @@ class MachineList(viewsets.GenericViewSet):
 
                 filename = f"{machine.name}.webp"
 
-                # Borra la imagen anterior si existe
                 if machine.img:
                     try:
-                        machine.img.delete(save=False)  
+                        machine.img.delete(save=False)
                     except Exception as e:
                         print(f"No se pudo eliminar la imagen anterior: {e}")
 
-                # Guarda la nueva imagen
                 machine.img.save(filename, ContentFile(image_io.getvalue()), save=False)
 
-            machine.save()  
+            if 'pdf' in request.FILES:
+                new_pdf = request.FILES['pdf']
+                
+                if machine.pdf_machine:
+                    try:
+                        machine.pdf_machine.delete(save=False)
+                    except Exception as e:
+                        print(f"No se pudo eliminar el PDF anterior: {e}")
+                
+                pdf_filename = f"{machine.name}.pdf"
+                
+                machine.pdf_machine.save(pdf_filename, new_pdf)
+
+            machine.save()
             return JsonResponse(machine_serializer.data)
 
+        logger.error(f"Errores de validación: {machine_serializer.errors}")
         return JsonResponse(machine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
     def getMachineImage(self, request, slug):
         try:

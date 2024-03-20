@@ -19,7 +19,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import useMachine from "../../../hooks/useMachine";
 import usePart from "../../../hooks/usePart";
 
-const MachineUpdate = ({ onUpdateSuccess,machine }) => {
+const MachineUpdate = ({ onUpdateSuccess, machine }) => {
   const { updateMachine, getMachineImage } = useMachine();
   const { parts } = usePart();
   const [machineData, setMachineData] = useState({
@@ -63,24 +63,37 @@ const MachineUpdate = ({ onUpdateSuccess,machine }) => {
     const formData = new FormData();
     formData.append("name", machineData.name);
     formData.append("description", machineData.description);
+  
     machineData.characteristics.forEach((characteristic) => {
       formData.append("characteristics", characteristic);
     });
-    machineData.associatedParts.forEach((partId) => {
-      formData.append("parts", partId);
-    });
+  
+    if (machineData.associatedParts.length > 0) {
+      machineData.associatedParts.forEach((partId) => {
+        formData.append("parts", String(partId));
+      });
+    } 
+  
     if (machineData.img) {
       formData.append("img", machineData.img);
     }
+  
     if (machineData.pdf) {
       formData.append("pdf", machineData.pdf);
     }
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
+  
+    try {
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+      await updateMachine(machine.slug, formData);
+      onUpdateSuccess();
+    } catch (error) {
+      console.error("Error al actualizar la máquina:", error);
     }
-    await updateMachine(machine.slug, formData);
-    onUpdateSuccess();
   };
+  
+
   const addCharacteristic = () => {
     setMachineData((prevData) => ({
       ...prevData,

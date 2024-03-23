@@ -47,6 +47,7 @@ function App() {
   const MachineCreate = React.lazy(() => import("./component/Admin/Machine/MachineCreate"));
   const MachineUpdate = React.lazy(() => import("./component/Admin/Machine/machineUpdate"));
   const ProviderCreate = React.lazy(() => import("./component/Admin/Providers/ProviderCreate"));
+  const ProviderUpdate = React.lazy(() => import("./component/Admin/Providers/ProviderUpdate"));
   const PartCreate = React.lazy(() => import("./component/Admin/Part/PartCreate"));
 
   return (
@@ -108,6 +109,7 @@ function App() {
                         <Route path="/dashboard/create" element={<MachineCreate/>}/>
                         <Route path="/dashboard/update" element={<MachineUpdate/>}/>
                         <Route path="/dashboard/providercreate" element={<ProviderCreate/>}/>
+                        <Route path="/dashboard/providerupdate" element={<ProviderUpdate/>}/>
                         <Route path="/dashboard/partcreate" element={<PartCreate/>}/>
                       </Route>
                       <Route element={<AuthGuard />}>

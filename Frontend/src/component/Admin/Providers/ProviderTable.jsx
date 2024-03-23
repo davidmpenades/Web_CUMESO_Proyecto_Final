@@ -2,9 +2,8 @@ import React from "react";
 import useProvider from "../../../hooks/useProvider";
 import ProviderList from "./ProviderList";
 
-const ProviderTable = () => {
+const ProviderTable = ({showProviderUpdateForm}) => {
   const { providers } = useProvider();
-
   return (
     <div>
       <section className="sm:-mx-1 lg:-mx-2">
@@ -15,40 +14,68 @@ const ProviderTable = () => {
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-300 dark:bg-gray-800">
                     <tr>
-                      <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-7700">
+                      <th
+                        scope="col"
+                        className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-7700"
+                      >
                         <div className="flex items-center justify-center gap-x-3">
                           <span>Nombre de Proveedor</span>
                         </div>
                       </th>
-                      <th scope="col" className="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                      <th
+                        scope="col"
+                        className="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
                         Encargado
                       </th>
-                      <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
                         Dirección
                       </th>
-                      <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
                         Email
                       </th>
-                      <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
                         Teléfono
                       </th>
-                      <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
                         Ciudad
                       </th>
-                      <th scope="col" className="hidden sm:table-cell px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                      <th
+                        scope="col"
+                        className="hidden sm:table-cell px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
                         CIF
                       </th>
-                      <th scope="col" className="hidden sm:table-cell px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                      <th
+                        scope="col"
+                        className="hidden sm:table-cell px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
                         Piezas suministradas
-                      </th>                      
+                      </th>
                       <th scope="col" className="relative py-3.5 px-4">
                         Editar
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                    {providers.map((provider) => (
-                      <ProviderList key={provider.id} provider={provider} />
+                  {providers.map((provider) => (
+                      <ProviderList
+                        key={provider.id}
+                        provider={provider}
+                        onShowUpdateForm={showProviderUpdateForm} 
+                      />
                     ))}
                   </tbody>
                 </table>

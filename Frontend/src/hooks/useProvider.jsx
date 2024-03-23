@@ -1,6 +1,7 @@
 import { useContext, useCallback, useEffect } from "react";
 import ProviderService from "../services/ProviderService";
 import ProviderContext from "../context/ProviderContext";
+import { toast } from "sonner";
 
 const useProvider = () => {
     const { providers, setProviders } = useContext(ProviderContext);
@@ -36,6 +37,19 @@ const useProvider = () => {
             return false;
         }
     }, [setProviders]);
+
+    const updateProvider = useCallback(async (slug, formData) => {
+        try {
+            await ProviderService.update(slug, formData);
+            fetchProviders();
+            toast.success("Proveedor actualizado correctamente");
+            return true;
+        } catch (error) {
+            toast.error("Error al actualizar el proveedor");
+            console.error(error);
+            return false;
+        }
+    }, []);
     
     useEffect(() => {
         fetchProviders();
@@ -46,6 +60,7 @@ const useProvider = () => {
         fetchProviders,
         deleteProvider,
         createProvider,
+        updateProvider,
     };
     }
 

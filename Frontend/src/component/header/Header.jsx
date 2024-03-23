@@ -114,11 +114,12 @@ export default function Header() {
             <div onClick={toggleDropdown} className="cursor-pointer z-10">
               {profile.image ? (
                 <img
-                  alt="User settings"
-                  src={`${baseURL}${profile.image}`}
-                  style={{ width: "42px", height: "42px" }}
-                  className="rounded-full"
-                />
+                alt="User settings"
+                src={`${baseURL}${profile.image}?${new Date().getTime()}`}
+                style={{ width: "42px", height: "42px" }}
+                className="rounded-full"
+              />
+              
               ) : (
                 defaultProfileSVG
               )}

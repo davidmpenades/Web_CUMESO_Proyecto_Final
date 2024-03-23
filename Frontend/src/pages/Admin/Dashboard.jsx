@@ -11,6 +11,7 @@ import MachineCreate from "../../component/Admin/Machine/MachineCreate";
 import MachineUpdate from "../../component/Admin/Machine/machineUpdate";
 import ProviderCreate from "../../component/Admin/Providers/ProviderCreate";
 import PartCreate from "../../component/Admin/Part/PartCreate";
+import ProviderUpdate from "../../component/Admin/Providers/ProviderUpdate";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Dashboard = () => {
   const [selectedItem, setSelectedItem] = useState("machines");
   const [currentView, setCurrentView] = useState(null);
   const [updateMachine, setUpdateMachine] = useState(null);
+  const [updateProvider, setUpdateProvider] = useState(null);
 
   useEffect(() => {
     fetchMachines();
@@ -35,7 +37,9 @@ const Dashboard = () => {
   };
 
   const handleUpdateSuccess = () => {
-    handleSelectItem("machines");
+    setCurrentView("someDefaultView");
+    // También podrías querer resetear updateProvider aquí
+    setUpdateProvider(null);
   };
 
   const handerClickCreate = (item) => {
@@ -69,6 +73,10 @@ const Dashboard = () => {
     setUpdateMachine(machine);
     setCurrentView("updateMachine");
   };
+  const showProviderUpdateForm = (provider) => {
+    setUpdateProvider(provider);
+    setCurrentView("updateProvider");
+  };
 
   const renderContent = () => {
     if (currentView === "machineCreate") {
@@ -94,6 +102,14 @@ const Dashboard = () => {
         />
       );
     }
+    if (currentView === "updateProvider" && updateProvider) {
+      return (
+        <ProviderUpdate
+          provider={updateProvider}
+          onUpdateSuccess={handleUpdateSuccess}
+        />
+      );
+    }
     switch (selectedItem) {
       case "machines":
         if (!machines) {
@@ -113,7 +129,7 @@ const Dashboard = () => {
       case "parts":
         return <PartTable />;
       case "providers":
-        return <ProvidersTable />;
+        return <ProvidersTable showProviderUpdateForm={showProviderUpdateForm} />;
       case "users":
         return <UserTable />;
       default:
@@ -279,7 +295,7 @@ const Dashboard = () => {
           {selectedItem !== "users" && (
             <div className="mt-4 flex justify-center">
               <button
-                onClick={() => handerClickCreate(selectedItem)} 
+                onClick={() => handerClickCreate(selectedItem)}
                 className="bg-green-500 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-3xl mr-2"
               >
                 Añadir {buttonText[selectedItem]}

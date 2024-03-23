@@ -35,6 +35,7 @@ const Profile = () => {
     }));
     setModalOpen(false);
   };
+  
 
   return (
     <div className="p-4 md:p-16">
@@ -44,10 +45,11 @@ const Profile = () => {
             <div className="relative flex flex-col items-center md:items-start p-4">
               {profile.image ? (
                 <img
-                  src={`${baseURL}${profile.image}?${new Date().getTime()}`}
-                  alt="Profile"
-                  className="w-48 h-48 object-contain mx-auto rounded-full shadow-2xl"
-                />
+                src={`${baseURL}${profile.image}?${new Date().getTime()}`}
+                alt="Profile"
+                className="w-48 h-48 object-contain mx-auto rounded-full shadow-2xl"
+              />
+              
               ) : (
                 <div className="w-48 h-48 mx-auto">
                   {defaultProfileSVG}

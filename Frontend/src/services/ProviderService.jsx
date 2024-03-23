@@ -9,7 +9,10 @@ const ProviderService = {
     },
     create(data) {
         return api().post('/provider/', data);
-    }
+    },
+    update(slug, data) {
+        return api().patch(`/providerUpd/${slug}/`, data);
+    },
 };
 
 export default ProviderService;

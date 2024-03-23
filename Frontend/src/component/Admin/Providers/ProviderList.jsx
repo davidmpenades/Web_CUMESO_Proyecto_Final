@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import usePart from "../../../hooks/usePart";
 import useProvider from "../../../hooks/useProvider";
 import ConfirmationModal from "../Modals/ConfirmationModal";
+import ProviderUpdate from "./ProviderUpdate";
 
-const ProviderList = ({ provider }) => {
+const ProviderList = ({ provider, onShowUpdateForm }) => {
   const { parts } = usePart();
   const [showDropdown, setShowDropdown] = useState(false);
   const toggleDropdown = () => setShowDropdown(!showDropdown);
@@ -12,13 +13,14 @@ const ProviderList = ({ provider }) => {
     provider.parts.some((p) => p === part.id)
   );
   const [modalOpen, setModalOpen] = useState(false);
+  const [updateProvider, setUpdateProvider] = useState(null);
+  const [currentView, setCurrentView] = useState("providerList");
 
-  const handleDeleteClick = () => {    
-      deleteProvider(provider.slug);
-      setModalOpen(false);
-  }
+  const handleDeleteClick = () => {
+    deleteProvider(provider.slug);
+    setModalOpen(false);
+  };
 
-  // Función para obtener el color basado en el estado de la pieza
   const getColorForStatus = (status) => {
     switch (status) {
       case "pendiente":
@@ -85,7 +87,7 @@ const ProviderList = ({ provider }) => {
       </td>
 
       <td className="px-4 py-4 text-sm whitespace-nowrap">
-      <button
+        <button
           onClick={toggleDropdown}
           className="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100"
         >
@@ -108,12 +110,12 @@ const ProviderList = ({ provider }) => {
           <div className="relative right-0 z-10 mt-2 w-36 origin-top-left rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
             <div className="py-1" role="none">
               <button
-                href="#"
+                onClick={() => onShowUpdateForm(provider)}
                 className="text-gray-700 w-full block px-4 py-2 text-sm hover:bg-blue-300"
-                role="menuitem"
               >
                 Editar
               </button>
+
               <button
                 onClick={() => setModalOpen(true)}
                 className="text-gray-700 w-full block px-4 py-2 text-sm hover:bg-red-400"
@@ -128,7 +130,8 @@ const ProviderList = ({ provider }) => {
                 title="Confirmar Borrado"
                 description={
                   <span>
-                    Estás seguro que quieres eliminar al proveedor <strong>{provider.name}</strong>?
+                    Estás seguro que quieres eliminar al proveedor{" "}
+                    <strong>{provider.name}</strong>?
                   </span>
                 }
               />

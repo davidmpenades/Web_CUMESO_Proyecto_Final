@@ -113,7 +113,7 @@ class MachineList(viewsets.GenericViewSet):
         machine_serializer = MachineSerializer(machine, data=request.data, partial=True)
         if machine_serializer.is_valid():
             logger.info(f"Datos validados para: {machine.name}")
-            updated_machine = machine_serializer.save()  # Llamada explícita al método save del serializador
+            updated_machine = machine_serializer.save() 
             logger.info(f"Máquina actualizada: {updated_machine.name}")
         if machine_serializer.is_valid():
             if 'img' in request.FILES:

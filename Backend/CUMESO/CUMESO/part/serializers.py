@@ -11,6 +11,12 @@ class PartSerializer(serializers.ModelSerializer):
     img = serializers.ImageField(required=False, allow_null=True)
     cad_file = serializers.FileField(required=False, allow_null=True)
     pdf_file = serializers.FileField(required=False, allow_null=True)
+    
+    def to_part_image(self, instance):
+        request = self.context.get('request')
+        if instance.img and hasattr(instance.img, 'url'):
+            return request.build_absolute_uri(instance.img.url)
+        return None
 
     class Meta:
         model = Part

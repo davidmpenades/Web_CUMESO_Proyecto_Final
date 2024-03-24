@@ -11,6 +11,12 @@ const PartService = {
     create(formdata) {
         return api_form().post('/part/', formdata);
     },
+    update(slug, formdata) {
+        return api_form().put(`/part/${slug}/`, formdata);
+    },
+    getImage(slug) {
+        return api().get(`/part/${slug}/image/`);
+    },
 };
 
 export default PartService;

@@ -13,6 +13,13 @@ const ProviderService = {
     update(slug, data) {
         return api().patch(`/providerUpd/${slug}/`, data);
     },
+    addPartToProvider(slug, partId) {
+        console.log(slug, partId);
+        return api().patch(`/providerUpd/${slug}/`, partId);
+    },
+    removePartFromProvider(slug, partId) {
+        return api().patch(`/providerUpd/${slug}/`, partId);
+    },
 };
 
 export default ProviderService;

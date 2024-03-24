@@ -36,6 +36,22 @@ const PartCreate = () => {
     "Fabricado",
   ];
 
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case "Presupuesto enviado":
+        return { backgroundColor: "#FFEB3B", color: "#000"}; 
+      case "Presupuesto recibido":
+        return { backgroundColor: "#FF9800", color: "#000" }; 
+      case "Fabricando":
+        return { backgroundColor: "#4299E1", color:  "#000" }; 
+      case "Fabricado":
+        return { backgroundColor: "#48BB78", color: "#000" }; 
+      default:
+        return {}; 
+    }
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -122,7 +138,7 @@ const PartCreate = () => {
           onChange={handleChange}
         >
           {statusOptions.map((option) => (
-            <MenuItem key={option} value={option}>
+            <MenuItem key={option} value={option} style={getStatusStyle(option)}>
               {option}
             </MenuItem>
           ))}

@@ -2,7 +2,7 @@ import React from "react";
 import usePart from "../../../hooks/usePart";
 import PartList from "./PartList";
 
-const PartTable = () => {
+const PartTable = ({showPartUpdateForm}) => {
   const { parts } = usePart();
   return (
     <div>
@@ -29,6 +29,12 @@ const PartTable = () => {
                         Estado
                       </th>
                       <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                        Máquina
+                      </th>
+                      <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                        Proveedor
+                      </th>
+                      <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
                         Fecha Actualización
                       </th>
                       <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
@@ -50,7 +56,7 @@ const PartTable = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                     {parts.map((part) => (
-                      <PartList key={part.id} part={part} />
+                      <PartList key={part.id} part={part} onShowUpdateForm={showPartUpdateForm} />
                     ))}
                   </tbody>
                 </table>

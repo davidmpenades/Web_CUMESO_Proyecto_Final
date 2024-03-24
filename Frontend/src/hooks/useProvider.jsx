@@ -50,6 +50,18 @@ const useProvider = () => {
             return false;
         }
     }, []);
+
+    const addPartToProvider = useCallback(async (providerSlug, partId) => {
+        try {
+          const response = await ProviderService.addPartToProvider(providerSlug, { parts: [partId] });
+          setProviders((prev) => prev.map((provider) => provider.slug === providerSlug ? { ...provider, parts: [...provider.parts, partId] } : provider));
+          toast.success("Pieza añadida al proveedor correctamente");
+        } catch (error) {
+          console.error("Error al añadir la pieza al proveedor:", error);
+          toast.error("Error al añadir la pieza al proveedor");
+        }
+      }, [setProviders]);
+      
     
     useEffect(() => {
         fetchProviders();
@@ -61,6 +73,7 @@ const useProvider = () => {
         deleteProvider,
         createProvider,
         updateProvider,
+        addPartToProvider,
     };
     }
 

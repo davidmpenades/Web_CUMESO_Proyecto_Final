@@ -108,7 +108,7 @@ const ProviderUpdate = ({ onUpdateSuccess, provider }) => {
                 sx={{ mb: 2 }}
             />
             <Button type="submit" variant="contained">
-                Guardar
+                Actializar proveedor
             </Button>
         </Paper>
     );

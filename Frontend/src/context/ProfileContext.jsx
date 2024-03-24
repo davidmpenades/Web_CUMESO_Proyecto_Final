@@ -1,34 +1,27 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  createContext,
-  useContext,
-} from "react";
+import React, { useEffect, useState, createContext } from "react";
 import ProfileService from "../services/ProfileService";
-import AuthContext from "./AuthContext";
 const ProfileContext = createContext();
 
 export function ProfileContextProvider({ children }) {
-  const [profile, setProfile] = useState([]);
-  const { isAuth } = useContext(AuthContext);
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    
-      ProfileService.getProfile()
-        .then(({ data, status }) => {
-          if (status === 200) {
-            setProfile(data);
-          }
-        })
-        .catch(({ error }) => {
-          console.error(error);
-        });
-    
-  }, [profile.image]);
+    getProfile();
+  }, []);
 
+  const getProfile = () => {
+    ProfileService.getProfile()
+      .then(({ data, status }) => {
+        if (status === 200) {
+          setProfile(data);
+        }
+      })
+      .catch(({ error }) => {
+        console.error(error);
+      });
+  };
   return (
-    <ProfileContext.Provider value={{ profile, setProfile }}>
+    <ProfileContext.Provider value={{ profile, setProfile, getProfile }}>
       {children}
     </ProfileContext.Provider>
   );

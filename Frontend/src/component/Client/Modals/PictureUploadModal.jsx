@@ -4,17 +4,16 @@ import "filepond/dist/filepond.min.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import ProfileService from "../../../services/ProfileService"; // Asumiendo que tienes este archivo en este path
+import ProfileService from "../../../services/ProfileService";
 
-// Registra los plugins de FilePond
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 const PictureUploadModal = ({ isOpen, onClose, onUploadComplete }) => {
   const [files, setFiles] = useState([]);
   const handleFileUpload = () => {
-    // Asegúrate de que haya un archivo seleccionado
+    
     if (files.length > 0) {
-      // Procesa el archivo como antes
+     
       handleProcessFile(files[0]);
     } else {
       alert("Por favor, selecciona un archivo para cargar.");
@@ -25,7 +24,7 @@ const PictureUploadModal = ({ isOpen, onClose, onUploadComplete }) => {
     const formData = new FormData();
     formData.append('image', fileItem.file); 
 
-    // Llama al servicio de actualización de imagen
+    
     ProfileService.updateImage(formData)
       .then(response => {
         onUploadComplete(response.data);

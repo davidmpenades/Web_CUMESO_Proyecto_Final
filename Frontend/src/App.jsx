@@ -44,84 +44,129 @@ function App() {
     import("./component/Admin/Users/UserTable")
   );
   const Profile = React.lazy(() => import("./pages/Client/Profile"));
-  const MachineCreate = React.lazy(() => import("./component/Admin/Machine/MachineCreate"));
-  const MachineUpdate = React.lazy(() => import("./component/Admin/Machine/machineUpdate"));
-  const ProviderCreate = React.lazy(() => import("./component/Admin/Providers/ProviderCreate"));
-  const ProviderUpdate = React.lazy(() => import("./component/Admin/Providers/ProviderUpdate"));
-  const PartCreate = React.lazy(() => import("./component/Admin/Part/PartCreate"));
+  const MachineCreate = React.lazy(() =>
+    import("./component/Admin/Machine/MachineCreate")
+  );
+  const MachineUpdate = React.lazy(() =>
+    import("./component/Admin/Machine/machineUpdate")
+  );
+  const ProviderCreate = React.lazy(() =>
+    import("./component/Admin/Providers/ProviderCreate")
+  );
+  const ProviderUpdate = React.lazy(() =>
+    import("./component/Admin/Providers/ProviderUpdate")
+  );
+  const PartCreate = React.lazy(() =>
+    import("./component/Admin/Part/PartCreate")
+  );
+  const PartUpdate = React.lazy(() =>
+    import("./component/Admin/Part/PartUpdate")
+  );
 
   return (
     <div className="App">
       <Suspense fallback={<SpinnerLoading />}>
         <BrowserRouter>
-          <AuthContextProvider>
-            <MachineContextProvider>
-              <PartContextProvider>
-                <ProviderContextProvider>
-                  <UserContextProvider>
-                    <ProfileContextProvider>
-                    <Toaster position="top-center" richColors expand={true} />
-                    <Routes>
-                      <Route
-                        path="/"
-                        element={
-                          <Layout>
-                            <Home />
-                          </Layout>
-                        }
-                      />
-                      <Route
-                        path="/contact"
-                        element={
-                          <Layout>
-                            <Contact />
-                          </Layout>
-                        }
-                      />
-                      <Route
-                        path="/login"
-                        element={
-                          <Layout>
-                            <Login />
-                          </Layout>
-                        }
-                      />
-                      <Route
-                        path="/machine"
-                        element={
-                          <Layout>
-                            <Machine />
-                          </Layout>
-                        }
-                      />
-                      <Route element={<AdminGuard />}>
-                        <Route path="/dashboard" element={<Dashboard />} />
+          <ProfileContextProvider>
+            <AuthContextProvider>
+              <MachineContextProvider>
+                <PartContextProvider>
+                  <ProviderContextProvider>
+                    <UserContextProvider>
+                      <Toaster position="top-center" richColors expand={true} />
+                      <Routes>
                         <Route
-                          path="/dashboard/machine"
-                          element={<MachineList />}
+                          path="/"
+                          element={
+                            <Layout>
+                              <Home />
+                            </Layout>
+                          }
                         />
-                        <Route path="/dashboard/part" element={<PartList />} />
                         <Route
-                          path="/dashboard/provider"
-                          element={<ProviderList />}
+                          path="/contact"
+                          element={
+                            <Layout>
+                              <Contact />
+                            </Layout>
+                          }
                         />
-                        <Route path="/dashboard/user" element={<UserTable />} />
-                        <Route path="/dashboard/create" element={<MachineCreate/>}/>
-                        <Route path="/dashboard/update" element={<MachineUpdate/>}/>
-                        <Route path="/dashboard/providercreate" element={<ProviderCreate/>}/>
-                        <Route path="/dashboard/providerupdate" element={<ProviderUpdate/>}/>
-                        <Route path="/dashboard/partcreate" element={<PartCreate/>}/>
-                      </Route>
-                      <Route element={<AuthGuard />}>
-                        <Route path="/profile" element={<Layout><Profile /></Layout>} />
-                      </Route>
-                    </Routes>
-                    </ProfileContextProvider>
-                  </UserContextProvider>
-                </ProviderContextProvider>
-              </PartContextProvider>
-            </MachineContextProvider>
-          </AuthContextProvider>
+                        <Route
+                          path="/login"
+                          element={
+                            <Layout>
+                              <Login />
+                            </Layout>
+                          }
+                        />
+                        <Route
+                          path="/machine"
+                          element={
+                            <Layout>
+                              <Machine />
+                            </Layout>
+                          }
+                        />
+                        <Route element={<AdminGuard />}>
+                          <Route path="/dashboard" element={<Dashboard />} />
+                          <Route
+                            path="/dashboard/machine"
+                            element={<MachineList />}
+                          />
+                          <Route
+                            path="/dashboard/part"
+                            element={<PartList />}
+                          />
+                          <Route
+                            path="/dashboard/provider"
+                            element={<ProviderList />}
+                          />
+                          <Route
+                            path="/dashboard/user"
+                            element={<UserTable />}
+                          />
+                          <Route
+                            path="/dashboard/create"
+                            element={<MachineCreate />}
+                          />
+                          <Route
+                            path="/dashboard/update"
+                            element={<MachineUpdate />}
+                          />
+                          <Route
+                            path="/dashboard/providercreate"
+                            element={<ProviderCreate />}
+                          />
+                          <Route
+                            path="/dashboard/providerupdate"
+                            element={<ProviderUpdate />}
+                          />
+                          <Route
+                            path="/dashboard/partcreate"
+                            element={<PartCreate />}
+                          />
+                          <Route
+                            path="/dashboard/partupdate"
+                            element={<PartUpdate />}
+                          />
+                        </Route>
+                        <Route element={<AuthGuard />}>
+                          <Route
+                            path="/profile"
+                            element={
+                              <Layout>
+                                <Profile />
+                              </Layout>
+                            }
+                          />
+                        </Route>
+                      </Routes>
+                    </UserContextProvider>
+                  </ProviderContextProvider>
+                </PartContextProvider>
+              </MachineContextProvider>
+            </AuthContextProvider>
+          </ProfileContextProvider>
         </BrowserRouter>
       </Suspense>
     </div>

@@ -6,4 +6,5 @@ urlpatterns = [
     path('parts/', PartList.as_view({'get': 'getAll'})),
     path('parts/<slug:slug>', PartList.as_view({'get': 'getBySlug'})),
     path('part/<slug:slug>/', PartList.as_view({'delete': 'delete', 'put': 'update'})),
+    path('part/<slug:slug>/image/', PartList.as_view({'get': 'getPartImage'}))
 ]

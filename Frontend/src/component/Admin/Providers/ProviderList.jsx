@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import usePart from "../../../hooks/usePart";
 import useProvider from "../../../hooks/useProvider";
 import ConfirmationModal from "../Modals/ConfirmationModal";
-import ProviderUpdate from "./ProviderUpdate";
 
 const ProviderList = ({ provider, onShowUpdateForm }) => {
   const { parts } = usePart();
@@ -13,8 +12,6 @@ const ProviderList = ({ provider, onShowUpdateForm }) => {
     provider.parts.some((p) => p === part.id)
   );
   const [modalOpen, setModalOpen] = useState(false);
-  const [updateProvider, setUpdateProvider] = useState(null);
-  const [currentView, setCurrentView] = useState("providerList");
 
   const handleDeleteClick = () => {
     deleteProvider(provider.slug);
@@ -23,15 +20,20 @@ const ProviderList = ({ provider, onShowUpdateForm }) => {
 
   const getColorForStatus = (status) => {
     switch (status) {
-      case "pendiente":
-        return "text-orange-500";
-      case "terminada":
-        return "text-green-500";
-      default:
-        return "text-black";
+        case "Sin especificar":
+            return ""; 
+        case "Presupuesto enviado":
+            return "text-yellow-400";
+        case "Presupuesto recibido":
+            return "text-orange-400"; 
+        case "Fabricando":
+            return "text-blue-500"; 
+        case "Fabricado":
+            return "text-green-500"; 
+        default:
+            return "text-gray-500";
     }
-  };
-
+};
   return (
     <tr>
       <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
@@ -79,6 +81,7 @@ const ProviderList = ({ provider, onShowUpdateForm }) => {
                 {part.name} - {part.status ? part.status : "Sin determinar"}
               </option>
             ))}
+
             {providerParts.length === 0 && (
               <option disabled>No hay partes asociadas</option>
             )}
@@ -113,7 +116,7 @@ const ProviderList = ({ provider, onShowUpdateForm }) => {
                 onClick={() => onShowUpdateForm(provider)}
                 className="text-gray-700 w-full block px-4 py-2 text-sm hover:bg-blue-300"
               >
-                Editar
+                Actualizar
               </button>
 
               <button

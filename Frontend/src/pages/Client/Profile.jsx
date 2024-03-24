@@ -4,7 +4,7 @@ import MachineContext from "../../context/MachineContext";
 import PictureUploadModal from "../../component/Client/Modals/PictureUploadModal";
 
 const Profile = () => {
-  const { profile, setProfile } = useContext(ProfileContext);
+  const { profile, setProfile, getProfile } = useContext(ProfileContext);
   const { machines } = useContext(MachineContext);
   const baseURL = "http://localhost:8001";
   const defaultProfileSVG = (
@@ -27,12 +27,7 @@ const Profile = () => {
   };
 
   const handleUploadComplete = (responseData) => {
-    console.log("Carga completada", responseData);
-    const updatedImagePath = responseData.image;
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      image: updatedImagePath,
-    }));
+    getProfile();
     setModalOpen(false);
   };
   

@@ -622,33 +622,33 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2024-03-11 07:54:39.135051+00
-2	contenttypes	0002_remove_content_type_name	2024-03-11 07:54:39.153632+00
-3	auth	0001_initial	2024-03-11 07:54:39.391085+00
-4	auth	0002_alter_permission_name_max_length	2024-03-11 07:54:39.407729+00
-5	auth	0003_alter_user_email_max_length	2024-03-11 07:54:39.43255+00
-6	auth	0004_alter_user_username_opts	2024-03-11 07:54:39.45254+00
-7	auth	0005_alter_user_last_login_null	2024-03-11 07:54:39.472079+00
-8	auth	0006_require_contenttypes_0002	2024-03-11 07:54:39.482031+00
-9	auth	0007_alter_validators_add_error_messages	2024-03-11 07:54:39.499877+00
-10	auth	0008_alter_user_username_max_length	2024-03-11 07:54:39.52544+00
-11	auth	0009_alter_user_last_name_max_length	2024-03-11 07:54:39.554954+00
-12	auth	0010_alter_group_name_max_length	2024-03-11 07:54:39.578662+00
-13	auth	0011_update_proxy_permissions	2024-03-11 07:54:39.59596+00
-14	auth	0012_alter_user_first_name_max_length	2024-03-11 07:54:39.616722+00
-15	users	0001_initial	2024-03-11 07:54:39.918278+00
-16	admin	0001_initial	2024-03-11 07:54:40.008658+00
-17	admin	0002_logentry_remove_auto_add	2024-03-11 07:54:40.028088+00
-18	admin	0003_logentry_add_action_flag_choices	2024-03-11 07:54:40.051915+00
-19	part	0001_initial	2024-03-11 07:54:40.142043+00
-20	machine	0001_initial	2024-03-11 07:54:40.262498+00
-21	machine	0002_initial	2024-03-11 07:54:40.404592+00
-22	providers	0001_initial	2024-03-11 07:54:40.666432+00
-23	part	0002_initial	2024-03-11 07:54:40.922862+00
-24	sessions	0001_initial	2024-03-11 07:54:40.998934+00
-25	users	0002_alter_users_image	2024-03-11 07:54:41.034713+00
-26	machine	0003_machine_pdf_machine	2024-03-11 13:41:02.456627+00
-27	machine	0004_alter_machine_characteristics	2024-03-17 12:02:34.075586+00
+1	contenttypes	0001_initial	2024-03-23 08:45:15.818246+00
+2	contenttypes	0002_remove_content_type_name	2024-03-23 08:45:15.829621+00
+3	auth	0001_initial	2024-03-23 08:45:15.925789+00
+4	auth	0002_alter_permission_name_max_length	2024-03-23 08:45:15.937059+00
+5	auth	0003_alter_user_email_max_length	2024-03-23 08:45:15.94793+00
+6	auth	0004_alter_user_username_opts	2024-03-23 08:45:15.958239+00
+7	auth	0005_alter_user_last_login_null	2024-03-23 08:45:15.971516+00
+8	auth	0006_require_contenttypes_0002	2024-03-23 08:45:15.976424+00
+9	auth	0007_alter_validators_add_error_messages	2024-03-23 08:45:15.985342+00
+10	auth	0008_alter_user_username_max_length	2024-03-23 08:45:15.994664+00
+11	auth	0009_alter_user_last_name_max_length	2024-03-23 08:45:16.004343+00
+12	auth	0010_alter_group_name_max_length	2024-03-23 08:45:16.013584+00
+13	auth	0011_update_proxy_permissions	2024-03-23 08:45:16.022256+00
+14	auth	0012_alter_user_first_name_max_length	2024-03-23 08:45:16.033788+00
+15	users	0001_initial	2024-03-23 08:45:16.156456+00
+16	admin	0001_initial	2024-03-23 08:45:16.201408+00
+17	admin	0002_logentry_remove_auto_add	2024-03-23 08:45:16.211325+00
+18	admin	0003_logentry_add_action_flag_choices	2024-03-23 08:45:16.222032+00
+19	part	0001_initial	2024-03-23 08:45:16.271081+00
+20	machine	0001_initial	2024-03-23 08:45:16.324621+00
+21	machine	0002_initial	2024-03-23 08:45:16.393626+00
+22	machine	0003_machine_pdf_machine	2024-03-23 08:45:16.407136+00
+23	machine	0004_alter_machine_characteristics	2024-03-23 08:45:16.456524+00
+24	providers	0001_initial	2024-03-23 08:45:16.558793+00
+25	part	0002_initial	2024-03-23 08:45:16.901938+00
+26	sessions	0001_initial	2024-03-23 08:45:16.936472+00
+27	users	0002_alter_users_image	2024-03-23 08:45:16.958809+00
 \.
 
 
@@ -665,9 +665,8 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at, pdf_machine) FROM stdin;
-42	rc-1200-t-6aqkz6	RC-1200-T	La peque con caracter, la más rápida en su especie	{"Anchura max. 1200mm","Velocidad 1000m/min","Pantalla Lence 24\\""}	\N	t	machine_image/RC-1200-T.webp	2024-03-17 10:20:41.602116+00	2024-03-20 10:55:22.1306+00	\N	machine_pdf/RC-1200-T.pdf
-49	rc-1200-l-mgl8zl	RC-1200-L	La otra peque	{"velocidad 800m/min","extracción automática","1200 mm de anchura m","Extracción izquierda"}	\N	t	machine_image/RC-1200-L.webp	2024-03-17 11:01:08.175295+00	2024-03-20 10:56:42.46939+00	\N	machine_pdf/RC-1200-L.pdf
-60	rc-1200-q6ihf2	RC-1200	La peque	{"1200mm de ancho","800m/min de velocidad","extracción automática","Pantalla Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-17 12:16:44.568816+00	2024-03-21 16:24:10.083594+00	\N	machine_pdf/David_Moreno_Penadés_saqDuJx.pdf
+2	rc-1400-1dcbk5	RC-1400	La reina de las rebobinadoras	{"1400mm de ancho","800m/min de velocidad","Extracción automática","Pantalla Lence 24\\""}	\N	f	machine_image/RC-1400.webp	2024-03-23 08:52:26.750055+00	2024-03-23 19:02:11.323619+00	\N	machine_pdf/RC-1400.pdf
+1	rc-1200-v3945x	RC-1200	Nuestra rebobinadora más pequeña	{"1200mm de ancho","800m/min de velocidad","Extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-23 08:48:57.36369+00	2024-03-23 19:02:34.7289+00	\N	machine_pdf/RC-1200.pdf
 \.
 
 
@@ -676,15 +675,11 @@ COPY public.machine_machine (id, slug, name, description, characteristics, price
 --
 
 COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
-16	42	6
-25	60	6
-26	49	3
-27	42	3
-37	42	5
-40	49	5
-42	49	6
-43	60	5
-46	42	1
+1	1	1
+4	2	4
+5	1	5
+6	1	3
+9	1	2
 \.
 
 
@@ -693,8 +688,8 @@ COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 --
 
 COPY public.part_part (id, slug, name, description, quantity, price, status, img, cad_file, pdf_file, created_at, updated_at) FROM stdin;
-1	rc-m1s2-u6oxq1	RC-M1S2	pieza de prueba	1	\N	\N	part_images/Logo_eBN3HfJ.png	part_cad/DNI_David_Moreno_PEUVDE6.pdf	part_pdf/CConducir_David_Moreno_jl725zv.pdf	2024-03-11 08:27:39.889252+00	2024-03-11 08:27:39.889284+00
-2	rcm0s2-0ggjoh	RCM0S2	Eje pivotante	1	\N	Sin especificar	part_images/RCM0S2.webp		part_pdf/David_Moreno_Penadés.pdf	2024-03-20 16:18:35.146792+00	2024-03-20 16:18:35.146822+00
+1	rc-m1s1-4z2bof	RC-M1S1	Eje desbobinador	2	\N	Presupuesto enviado	part_images/RC-M1S1_YKFJx2V.webp		part_pdf/David_Moreno_Penadés.pdf	2024-03-23 12:00:12.872036+00	2024-03-23 17:18:40.32416+00
+2	rc-m1s2-861ftc	RC-M1S2	Eje bobinador	1	\N	Fabricando	part_images/RC-M1S2_Zr2WJ7h.webp		part_pdf/David_Moreno_Penadés_RnDJ2wo.pdf	2024-03-23 18:09:25.5016+00	2024-03-23 18:09:25.590757+00
 \.
 
 
@@ -711,8 +706,9 @@ COPY public.part_part_providers (id, part_id, providers_id) FROM stdin;
 --
 
 COPY public.part_partmachinerelation (id, machine_id, part_id) FROM stdin;
-1	60	1
-4	42	1
+1	1	1
+3	2	2
+4	1	2
 \.
 
 
@@ -721,6 +717,10 @@ COPY public.part_partmachinerelation (id, machine_id, part_id) FROM stdin;
 --
 
 COPY public.providers_partproviderrelation (id, part_id, provider_id) FROM stdin;
+2	2	1
+3	1	1
+4	1	2
+5	2	2
 \.
 
 
@@ -729,8 +729,8 @@ COPY public.providers_partproviderrelation (id, part_id, provider_id) FROM stdin
 --
 
 COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, phone, responsible, created_at, updated_at) FROM stdin;
-1	suministros-navarro-ts78ua	Suministros Navarro	Carrer de la trama, sn	B-3454dafs	navarro@gmail.com	Ontinyent	65456433	Boira(Jefe), Tito(encargado almacen)	2024-03-11 08:27:52.779682+00	2024-03-11 08:27:52.779706+00
-3	talleres-nector-sl-uhwnm3	Talleres Nector, S.L.	Polígono el Altet, s/n	B-84252452	nector@gmail.com	Ontinyent	6763635622	Tito	2024-03-20 15:21:17.51962+00	2024-03-20 15:21:17.519634+00
+1	suministros-navarro-mx4b4f	Suministros Navarro	Carrer de la trama, 20	B-344635y3573	s.navarro@gmail.com	Ontinyent(Valencia)	6524354576	Boira(Jefe)  Tato(responsable almacen)	2024-03-23 11:59:08.413775+00	2024-03-23 18:29:49.313537+00
+2	talleres-nector-sl-rjqqbs	Talleres Nector, S.L.	Polígono el Altet, s/n	B-4820854924	nector@gmail.com	Ontinyent(Valencia)	655635422	Tito	2024-03-23 18:35:10.875541+00	2024-03-23 18:46:56.108582+00
 \.
 
 
@@ -739,10 +739,11 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 --
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, created_at, type) FROM stdin;
-6	pbkdf2_sha256$720000$VNc12KtOijNCebrAmIX0wO$hdZP33Lz4J0ColZkXR3jatF1Y9FUmkYYYVho/hsettk=	2024-03-11 12:21:41.777536+00	f	08d6c09a-489d-eb8c-6974-4c20aa2cdfd6	Miguelon	miguel@gmail.com	L'Estació	img_profile/photo_2023-06-27_11-47-03.jpg	2024-03-11 08:06:15.045689+00	client
-3	pbkdf2_sha256$720000$xfwFTwvuEHrQX739Syp4Nz$q0jvD2jbYCSA5pVS0BTdzD19yx+po+kuaMck3VRK5hg=	2024-03-11 15:33:15.249636+00	f	ea196717-3466-2cf7-fbab-a8081fab865f	Jose	jose@gmail.com	L'Estació	img_profile/Jose.webp	2024-03-11 07:58:12.769722+00	client
-1	pbkdf2_sha256$720000$vxrexCWKdMIXLXi6gjFbCo$HatV/jSpfB4lWcM5g0orpwN/gAqlk5jAw0XaUa+fThk=	2024-03-21 16:29:27.883775+00	f	7e227383-a372-fc74-2aa7-9fcba2147a33	Yolanda	yolanda@gmail.com	L'Estació	img_profile/Yolanda.webp	2024-03-11 07:57:50.26853+00	client
-5	pbkdf2_sha256$720000$QchDEY3Mu8kxfYdTK4I32Y$poQND7wSQPQzKJLnDbsNoyt5V5OMV52QRxjb+qaBunQ=	2024-03-22 08:50:29.178952+00	t	ae971efb-5f96-b409-727f-09d051d1bb3c	David	david@gmail.com	CUMESO	img_profile/David.webp	2024-03-11 07:58:43.237917+00	admin
+2	pbkdf2_sha256$720000$s1w5YXOwnd43EdwfrjJ8CP$Ryb4FH1SRkBQBpSmnkASfapkyOUYWKoiAS486J04gzU=	2024-03-23 14:46:11.9939+00	f	92f05021-ec20-ffb4-b8b7-79a6e66463fd	Yolanda	yolanda@gmail.com	L'estacio	img_profile/Yolanda.webp	2024-03-23 11:51:29.927765+00	client
+3	pbkdf2_sha256$720000$aJguPSPSmkpxXL33CZ5Muu$/Dsd9Ld9I9eeVyBUif12ffWVI5gGzHPEqR3+rByVSzw=	2024-03-23 11:53:53.499017+00	f	1f9f141b-74f0-ba5f-c75e-08f8a61225ec	Pau	pau@gmail.com	L'estacio		2024-03-23 11:53:41.311676+00	client
+4	pbkdf2_sha256$720000$fgzppUSf2l9JSlWM5qgcQd$JYMsv0srwuOcqOyH/ma81Slnk3agaFgs0F2xFhPCob8=	2024-03-23 11:55:57.570441+00	f	0ba8909f-aaea-6e89-3b01-6d5dd7328f8a	Cristian	cristian@gmail.com	L'estacio		2024-03-23 11:55:38.803345+00	client
+5	pbkdf2_sha256$720000$IcH7XR1WD3cGm2rvI8k9c7$GlJYXVgeCTg55HtyeKNt0dbRIrfVZtyNFiuc4L2mC7E=	2024-03-23 11:56:37.387824+00	f	c36b4a90-620a-209d-23b9-25f1070b92aa	José	jose@gmail.com	L'estacio		2024-03-23 11:56:23.848863+00	client
+1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-03-23 19:02:51.413801+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
 \.
 
 
@@ -808,21 +809,21 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 27, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 60, true);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 2, true);
 
 
 --
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 47, true);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 9, true);
 
 
 --
 -- Name: part_part_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_part_id_seq', 34, true);
+SELECT pg_catalog.setval('public.part_part_id_seq', 2, true);
 
 
 --
@@ -836,21 +837,21 @@ SELECT pg_catalog.setval('public.part_part_providers_id_seq', 1, false);
 -- Name: part_partmachinerelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 36, true);
+SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 4, true);
 
 
 --
 -- Name: providers_partproviderrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 5, true);
 
 
 --
 -- Name: providers_providers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_providers_id_seq', 3, true);
+SELECT pg_catalog.setval('public.providers_providers_id_seq', 2, true);
 
 
 --
@@ -864,7 +865,7 @@ SELECT pg_catalog.setval('public.users_users_groups_id_seq', 1, false);
 -- Name: users_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.users_users_id_seq', 6, true);
+SELECT pg_catalog.setval('public.users_users_id_seq', 5, true);
 
 
 --

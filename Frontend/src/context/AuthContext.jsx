@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useCallback, createContext } from "react";
+import React, { useEffect, useState, useCallback, createContext, useContext } from "react";
 import AuthService from "../services/AuthService";
 import JwtService from "../services/JWTService";
 import { useNavigate } from "react-router-dom";
+import ProfileContext from "./ProfileContext";
 import { toast } from 'sonner'
 
 const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState([]);
+  const { setProfile } = useContext(ProfileContext);
   const [token, setToken] = useState(
     JwtService.getToken ? JwtService.getToken : false
   );
@@ -38,6 +40,7 @@ export function AuthContextProvider({ children }) {
     console.log('logout');
     JwtService.destroyToken();
     setUser({});
+    setProfile({});
     setToken(false);
     setIsAuth(false);
     setIsAdmin(false);

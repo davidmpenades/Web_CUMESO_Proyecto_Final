@@ -14,7 +14,14 @@ const MachineService = {
     updateMachine(slug, formdata) {
         console.log(slug, formdata);
         return api_form().patch(`/machineUpd/${slug}/`, formdata);
-    },    
+    }, 
+    addPartToMachine(slug, partId) {
+        console.log(slug, partId);
+        return api().patch(`/machineUpd/${slug}/`,  partId  );
+    },   
+    removePartFromMachine(slug, partId) {
+        return api().patch(`/machineUpd/${slug}/`, partId );
+    },
     delete(slug) {
         return api().delete(`/machineDel/${slug}/`);
     },

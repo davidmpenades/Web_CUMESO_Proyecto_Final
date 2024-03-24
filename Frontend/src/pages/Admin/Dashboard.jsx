@@ -12,6 +12,7 @@ import MachineUpdate from "../../component/Admin/Machine/machineUpdate";
 import ProviderCreate from "../../component/Admin/Providers/ProviderCreate";
 import PartCreate from "../../component/Admin/Part/PartCreate";
 import ProviderUpdate from "../../component/Admin/Providers/ProviderUpdate";
+import PartUpdate from "../../component/Admin/Part/PartUpdate";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const Dashboard = () => {
   const [currentView, setCurrentView] = useState(null);
   const [updateMachine, setUpdateMachine] = useState(null);
   const [updateProvider, setUpdateProvider] = useState(null);
+  const [updatePart, setUpdatePart] = useState(null);
 
   useEffect(() => {
     fetchMachines();
@@ -38,7 +40,6 @@ const Dashboard = () => {
 
   const handleUpdateSuccess = () => {
     setCurrentView("someDefaultView");
-    // También podrías querer resetear updateProvider aquí
     setUpdateProvider(null);
   };
 
@@ -78,6 +79,11 @@ const Dashboard = () => {
     setCurrentView("updateProvider");
   };
 
+  const showPartUpdateForm = (part) => {
+    setUpdatePart(part);
+    setCurrentView("updatePart");
+  };
+
   const renderContent = () => {
     if (currentView === "machineCreate") {
       return (
@@ -110,6 +116,11 @@ const Dashboard = () => {
         />
       );
     }
+    if (currentView === "updatePart" && updatePart) {
+      return (
+        <PartUpdate part={updatePart} onUpdateSuccess={handleUpdateSuccess} />
+      );
+    }
     switch (selectedItem) {
       case "machines":
         if (!machines) {
@@ -127,7 +138,7 @@ const Dashboard = () => {
           />
         ));
       case "parts":
-        return <PartTable />;
+        return <PartTable showPartUpdateForm={showPartUpdateForm}/>;
       case "providers":
         return <ProvidersTable showProviderUpdateForm={showProviderUpdateForm} />;
       case "users":

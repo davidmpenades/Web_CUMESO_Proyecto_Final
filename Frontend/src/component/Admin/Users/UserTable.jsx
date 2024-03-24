@@ -25,7 +25,6 @@ const UserTable = () => {
         .map((machine) => machine.id); 
     });
     setUserMachineSelections(selections);
-    fetchUsers();
   }, [users, machines]);
   
 
@@ -39,10 +38,10 @@ const UserTable = () => {
 
   const handleMachineChange = async (userId, selectedOptions) => {
     const selectedMachineIds = selectedOptions.map(option => option.value);
-    fetchUsers();
     try {
       await UserService.updateMachineUsers(userId, selectedMachineIds);
-      fetchUsers();
+      // fetch('/thing/stuck/in/cache', {cache: 'reload', credentials: 'include'});
+      fetchUsers('/thing/stuck/in/cache', {cache: 'reload', credentials: 'include'});
       toast.success("Usuarios actualizados.");
     } catch (error) {
       console.error("Error al asignar máquinas al usuario:", error);

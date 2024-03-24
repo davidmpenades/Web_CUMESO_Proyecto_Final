@@ -62,9 +62,20 @@ const useMachine = () => {
     }
   }, [setMachines]);
 
+  const addPartToMachine = useCallback(async (machineSlug, partId) => {
+    try {
+      const response = await MachineService.addPartToMachine(machineSlug, partId); 
+      setMachines((prev) => prev.map((machine) => machine.slug === machineSlug ? { ...machine, parts: [...machine.parts, partId] } : machine));
+      toast.success("Pieza añadida a la máquina correctamente");
+    } catch (error) {
+      console.error("Error al añadir la pieza a la máquina:", error);
+      toast.error("Error al añadir la pieza a la máquina");
+    }
+  }, [setMachines]);
+  
   const updateMachine = useCallback(async (slug, formData) => {
     try {
-      const response = await MachineService.updateMachine(slug, formData);
+      const response = await MachineService.updateMachine(slug, formData); 
       setMachines(prevMachines => prevMachines.map(machine => 
         machine.slug === slug ? response.data : machine
       ));  
@@ -75,7 +86,9 @@ const useMachine = () => {
       toast.error("Error al actualizar la máquina");
       return false; 
     }
-  })
+  }, [setMachines]);
+  
+  
   useEffect(() => {
     fetchMachines();
   }, [fetchMachines]);
@@ -88,6 +101,7 @@ const useMachine = () => {
     deleteMachine,
     createMachine,
     updateMachine,
+    addPartToMachine,
   };
 };
 

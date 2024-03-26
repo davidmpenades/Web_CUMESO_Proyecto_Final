@@ -30,7 +30,6 @@ const Profile = () => {
     getProfile();
     setModalOpen(false);
   };
-  
 
   return (
     <div className="p-4 md:p-16">
@@ -40,15 +39,12 @@ const Profile = () => {
             <div className="relative flex flex-col items-center md:items-start p-4">
               {profile.image ? (
                 <img
-                src={`${baseURL}${profile.image}?${new Date().getTime()}`}
-                alt="Profile"
-                className="w-48 h-48 object-contain mx-auto rounded-full shadow-2xl"
-              />
-              
+                  src={`${baseURL}${profile.image}?${new Date().getTime()}`}
+                  alt="Profile"
+                  className="w-48 h-48 object-contain mx-auto rounded-full shadow-2xl"
+                />
               ) : (
-                <div className="w-48 h-48 mx-auto">
-                  {defaultProfileSVG}
-                </div>
+                <div className="w-48 h-48 mx-auto">{defaultProfileSVG}</div>
               )}
             </div>
 
@@ -87,10 +83,13 @@ const Profile = () => {
         </div>
       </div>
       <div className="mt-12 flex flex-col items-center">
-        <h1 className="text-xl mb-4">Descarga de PDF's de nuestras máquinas</h1>
+        <h1 className="text-xl mb-4">Descarga el manual de instrucciones</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {machines
-            .filter((machine) => machine.pdf_machine)
+            .filter(
+              (machine) =>
+                machine.users.includes(profile.id) && machine.pdf_machine
+            )
             .map((machine) => (
               <div
                 key={machine.id}
@@ -105,15 +104,24 @@ const Profile = () => {
                   <div className="font-bold text-xl mb-2">{machine.name}</div>
                   <a
                     target="_blank"
-                    href={`${baseURL}${machine.pdf_machine}`} 
-                    download={`${machine.name.replace(/\s+/g, "_")}.pdf`} 
-                    className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                    href={`${baseURL}${machine.pdf_machine}`}
+                    download={`${machine.name.replace(/\s+/g, "_")}.pdf`}
+                    className="inline-block bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded cursor-pointer"
                   >
                     Descargar PDF
                   </a>
                 </div>
               </div>
             ))}
+          {machines.every((machine) => !machine.users.includes(profile.id)) && (
+            <div className="text-center text-2xl">
+              <p className="text-red-500">
+                No tienes asignada ninguna máquina. Por favor, ponte en
+                contacto con el administrador para obtener los manuales de
+                instrucciones que deseas descargar.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

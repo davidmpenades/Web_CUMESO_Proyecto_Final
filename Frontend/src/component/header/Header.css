@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10; 
+  z-index: 1000; 
 }
 
 .header-link {
@@ -18,7 +18,7 @@
 .header-link::after {
   content: '';
   position: absolute;
-  bottom: -5px; /* Ajusta la posición de la barra */
+  bottom: -5px; 
   left: 0;
   width: 0;
   height: 2px;
@@ -55,5 +55,25 @@
   z-index: 50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo img {
+  height: 40px; /* Ajusta según tu diseño */
+}
+
+.menu-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
 
 

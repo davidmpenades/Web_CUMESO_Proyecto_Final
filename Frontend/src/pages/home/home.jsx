@@ -113,7 +113,7 @@ const Home = () => {
                 <li>Con sistema de corte por navaja y cuchilla</li>
                 <li>Con sistema de control de tensión y velocidad</li>
                 <li>Control de diámetro de bobina</li>
-                <li>Extración de bobinas por sistema de brazo robótico</li>
+                <li>Extracción de bobinas por sistema de brazo robótico</li>
               </ul>
             </div>
           </div>
@@ -241,15 +241,13 @@ const Home = () => {
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-              Pidenos presupuesto sín compromiso
+              Pídenos presupuesto sin compromiso
             </h1>
             <p className="mb-8 leading-relaxed">
-              No dejes pasar la oportunidad de transformar tu línea de
-              producción y dar un paso adelante hacia el futuro de la
-              manufactura. Solicita tu presupuesto hoy y descubre cómo nuestra
-              Rebobinadora 1400 puede ser la pieza clave en la optimización de
-              tus operaciones. ¡Estamos aquí para ayudarte a alcanzar nuevos
-              niveles de éxito!
+            No pierdas la oportunidad de revolucionar tu línea de producción con nuestra Rebobinadora 1400, diseñada específicamente para aumentar la eficiencia y 
+            precisión en tus operaciones. Con tecnología de vanguardia, esta máquina se convierte en la solución ideal para superar los desafíos de la manufactura moderna.
+             Contáctanos hoy para obtener un presupuesto personalizado y descubre cómo podemos ayudarte a elevar tus procesos de producción a nuevos horizontes de éxito. 
+             En <b>CUMESO</b>, estamos comprometidos con tu crecimiento y satisfacción.
             </p>
             <div className="flex justify-center">
               <button

@@ -4,6 +4,8 @@ import Logo from "../../assets/imgs/Logo.webp";
 import "./Dashboard.css";
 import MachinsList from "../../component/Admin/Machine/MachineList";
 import useMachine from "../../hooks/useMachine";
+import useProvider from "../../hooks/useProvider";
+import usePart from "../../hooks/usePart";
 import PartTable from "../../component/Admin/Part/PartTable";
 import ProvidersTable from "../../component/Admin/Providers/ProviderTable";
 import UserTable from "../../component/Admin/Users/UserTable";
@@ -18,6 +20,8 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const { machines, fetchMachines } = useMachine();
+  const { providers } = useProvider();
+  const { parts } = usePart();
   const [selectedItem, setSelectedItem] = useState("machines");
   const [currentView, setCurrentView] = useState(null);
   const [updateMachine, setUpdateMachine] = useState(null);
@@ -97,6 +101,7 @@ const Dashboard = () => {
         />
       );
     }
+    
     if (currentView === "partCreate") {
       return <PartCreate onCreationSuccess={() => handleSelectItem("parts")} />;
     }

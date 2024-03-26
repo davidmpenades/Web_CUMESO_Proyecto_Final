@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import useProvider from "../../../hooks/useProvider";
 
-const MachineCreate = () => {
+
+const ProviderCreate = (props) => {
   const { createProvider } = useProvider();
   const [providerData, setProviderData] = useState({
     name: "",
@@ -27,8 +28,10 @@ const MachineCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createProvider(providerData);
-  
+    const success = await createProvider(providerData);
+    if (success && props.onCreationSuccess) {
+      props.onCreationSuccess(); 
+    }
   };
 
   return (
@@ -135,4 +138,4 @@ const MachineCreate = () => {
   );
 };
 
-export default MachineCreate;
+export default ProviderCreate;

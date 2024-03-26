@@ -51,10 +51,9 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
+  useEffect(() => {
+    closeDropdown(); 
+  }, [isAuth]);
 
   const handleNavigation = () => {
     navigate("/login");

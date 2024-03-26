@@ -667,7 +667,8 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at, pdf_machine) FROM stdin;
 1	rc-1200-2tydzx	RC-1200	Nuestra rebobinadora más pequeña	{"1200mm de ancho","800m/min de velocidad","Extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-23 08:48:57.36369+00	2024-03-25 15:58:31.15953+00	\N	machine_pdf/RC-1200.pdf
 2	rc-1400-t-g0sh95	RC-1400-T	La reina de las rebobinadoras	{"1400mm de ancho","800m/min de velocidad","Extracción automática"}	\N	t	machine_image/RC-1400.webp	2024-03-23 08:52:26.750055+00	2024-03-25 16:00:03.515764+00	\N	machine_pdf/RC-1400.pdf
-3	nueva-ykpvno	Nueva	La presentacion	{"1200mm de ancho","800m/min de velocidad"}	\N	t	machine_image/Nueva.webp	2024-03-25 15:59:28.035073+00	2024-03-25 16:00:36.381528+00	\N	
+3	nueva-u4xvz9	Nueva	La presentacion	{"1200mm de ancho","800m/min de velocidad"}	\N	t	machine_image/Nueva.webp	2024-03-25 15:59:28.035073+00	2024-03-26 16:37:39.446289+00	\N	machine_pdf/Nueva.pdf
+5	savannah-sullivan-p0ojzt	Savannah Sullivan	Rerum officia porro	{"Rerum qui adipisicin"}	\N	t	machine_image/Savannah_Sullivan.webp	2024-03-26 15:30:28.211159+00	2024-03-26 16:37:55.174418+00	\N	machine_pdf/Savannah_Sullivan.pdf
 \.
 
 
@@ -677,8 +678,6 @@ COPY public.machine_machine (id, slug, name, description, characteristics, price
 
 COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 5	1	5
-11	2	1
-12	1	4
 13	2	3
 15	2	2
 16	1	2
@@ -691,8 +690,10 @@ COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 --
 
 COPY public.part_part (id, slug, name, description, quantity, price, status, img, cad_file, pdf_file, created_at, updated_at) FROM stdin;
-2	rc-m1s2-o98p5m	RC-M1S2	Eje bobinador	1	\N	Fabricando	part_images/RC-M1S2_tsaGcWX.webp		part_pdf/David_Moreno_Penadés_RnDJ2wo.pdf	2024-03-23 18:09:25.5016+00	2024-03-25 16:01:42.094502+00
 1	rc-m1s1-06szdi	RC-M1S1	Eje desbobinador	2	\N	Fabricado	part_images/RC-M1S1_i7yDUCb.webp		part_pdf/David_Moreno_Penadés.pdf	2024-03-23 12:00:12.872036+00	2024-03-25 16:01:49.469048+00
+2	rc-m1s2-hdnvdl	RC-M1S2	Eje bobinador	2	\N	Fabricando	part_images/RC-M1S2_ffOPfIj.webp		part_pdf/David_Moreno_Penadés_RnDJ2wo.pdf	2024-03-23 18:09:25.5016+00	2024-03-26 15:32:43.515326+00
+3	sylvester-suarez-88v1tb	Sylvester Suarez	Illo laborum obcaeca	256	\N	Presupuesto recibido	part_images/Sylvester_Suarez_iA1rcnE.webp		part_pdf/David_Moreno_Penadés_Z4GOgH6.pdf	2024-03-26 14:54:47.679432+00	2024-03-26 15:32:58.268152+00
+4	adara-nash-5skqn5	Adara Nash	Deleniti qui dolore	922	104.00	Sin especificar				2024-03-26 15:32:26.045114+00	2024-03-26 15:57:17.253381+00
 \.
 
 
@@ -736,6 +737,10 @@ COPY public.providers_partproviderrelation (id, part_id, provider_id) FROM stdin
 COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, phone, responsible, created_at, updated_at) FROM stdin;
 1	suministros-navarro-0xb9ih	Suministros Navarro	Carrer de la trama, 20	B-344635y3573	s.navarro@gmail.com	Ontinyent(Valencia)	6524354576	Boira(Jefe)  Tato(responsable almacen)	2024-03-23 11:59:08.413775+00	2024-03-25 16:00:46.933854+00
 2	talleres-nector-sl-ubepbl	Talleres Nector, S.L.	Polígono el Altet, s/n	B-4820854924	tallleresnector@gmail.com	Ontinyent(Valencia)	655635422	Tito	2024-03-23 18:35:10.875541+00	2024-03-25 16:03:21.60535+00
+3	nichole-hubbard-zi58ll	Nichole Hubbard	Eum fugiat et nihil	Dignissimos qui dolo	Autem@gmail.com	Quis perferendis est	Illo veniam dolor q	Id ea qui amet ver	2024-03-26 14:49:05.099444+00	2024-03-26 14:49:05.099458+00
+4	daquan-cannon-sxk35b	Daquan Cannon	Voluptatum aliquip o	Quis non voluptate n	Amet@gmail.com	Magnam blanditiis qu	Sed consequatur pro	Velit dolores enim c	2024-03-26 15:02:26.366668+00	2024-03-26 15:02:26.366681+00
+5	rashad-russell-0qkdi4	Rashad Russell	Quod sint commodi et	Modi qui est porro d	Nobis@gmail.com	Doloremque eiusmod l	Qui quis debitis ten	Unde aliquip cum non	2024-03-26 15:24:37.989522+00	2024-03-26 15:24:37.989538+00
+6	gemma-chandler-4yv668	Gemma Chandler	Voluptatum et ducimu	Aut amet fugit deb	Id@gmail.com	Consectetur necessit	Aliquid magni eius e	Ratione cum dignissi	2024-03-26 15:30:58.627545+00	2024-03-26 15:30:58.627557+00
 \.
 
 
@@ -744,9 +749,8 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 --
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, created_at, type) FROM stdin;
+1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-03-26 17:09:39.746242+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
 2	pbkdf2_sha256$720000$s1w5YXOwnd43EdwfrjJ8CP$Ryb4FH1SRkBQBpSmnkASfapkyOUYWKoiAS486J04gzU=	2024-03-25 15:56:37.963402+00	f	92f05021-ec20-ffb4-b8b7-79a6e66463fd	Yolanda	yolanda@gmail.com	L'estacio	img_profile/Yolanda.webp	2024-03-23 11:51:29.927765+00	client
-1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-03-25 15:58:03.362956+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
-4	pbkdf2_sha256$720000$fgzppUSf2l9JSlWM5qgcQd$JYMsv0srwuOcqOyH/ma81Slnk3agaFgs0F2xFhPCob8=	2024-03-24 10:22:02.003459+00	f	0ba8909f-aaea-6e89-3b01-6d5dd7328f8a	Cristian	cristian@gmail.com	L'estacio	img_profile/Cristian.webp	2024-03-23 11:55:38.803345+00	client
 3	pbkdf2_sha256$720000$aJguPSPSmkpxXL33CZ5Muu$/Dsd9Ld9I9eeVyBUif12ffWVI5gGzHPEqR3+rByVSzw=	2024-03-24 10:23:35.573215+00	f	1f9f141b-74f0-ba5f-c75e-08f8a61225ec	Pau	pau@gmail.com	L'estacio	img_profile/Pau.webp	2024-03-23 11:53:41.311676+00	client
 5	pbkdf2_sha256$720000$IcH7XR1WD3cGm2rvI8k9c7$GlJYXVgeCTg55HtyeKNt0dbRIrfVZtyNFiuc4L2mC7E=	2024-03-24 10:23:50.265764+00	f	c36b4a90-620a-209d-23b9-25f1070b92aa	José	jose@gmail.com	L'estacio	img_profile/José.webp	2024-03-23 11:56:23.848863+00	client
 \.
@@ -814,21 +818,21 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 27, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 3, true);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 5, true);
 
 
 --
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 17, true);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 27, true);
 
 
 --
 -- Name: part_part_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_part_id_seq', 2, true);
+SELECT pg_catalog.setval('public.part_part_id_seq', 4, true);
 
 
 --
@@ -842,7 +846,7 @@ SELECT pg_catalog.setval('public.part_part_providers_id_seq', 1, false);
 -- Name: part_partmachinerelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 50, true);
+SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 51, true);
 
 
 --
@@ -856,7 +860,7 @@ SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 47, tru
 -- Name: providers_providers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_providers_id_seq', 2, true);
+SELECT pg_catalog.setval('public.providers_providers_id_seq', 6, true);
 
 
 --

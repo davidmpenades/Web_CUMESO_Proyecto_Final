@@ -3,7 +3,6 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import ProfileContext from "../../context/ProfileContext";
 import logo from "../../assets/imgs/Logo.webp";
-import profile from "../../assets/imgs/profile.webp";
 import "./Header.css";
 
 export default function Header() {
@@ -21,11 +20,12 @@ export default function Header() {
     >
       <path
         fillRule="evenodd"
-        d="M10 10a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
         clipRule="evenodd"
       />
     </svg>
   );
+  console.log(defaultProfileSVG);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

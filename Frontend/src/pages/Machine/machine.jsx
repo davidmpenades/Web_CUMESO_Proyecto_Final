@@ -69,6 +69,9 @@ const Machine = () => {
               <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
                 {machine.name}
               </h2>
+              <h2 className="text-xl text-gray-800 dark:text-white">
+                {machine.description}
+              </h2>
 
               <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2 dark:text-white">
                 Características:

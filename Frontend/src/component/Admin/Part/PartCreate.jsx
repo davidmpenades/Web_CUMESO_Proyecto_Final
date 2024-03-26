@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, TextField, Paper, Typography, Box, MenuItem } from "@mui/material";
 import usePart from "../../../hooks/usePart";
 
-const PartCreate = () => {
+const PartCreate = (props) => {
   const { createPart } = usePart();
   const [partData, setPartData] = useState({
     name: "",
@@ -64,7 +64,10 @@ const PartCreate = () => {
     });
   
     try {
-      await createPart(formData);
+      const success = await createPart(formData);
+      if (success && props.onCreationSuccess) {
+        props.onCreationSuccess(); 
+      }
       console.log("Pieza creada con éxito.");
     } catch (error) {
       console.error("Error al crear la pieza:", error);

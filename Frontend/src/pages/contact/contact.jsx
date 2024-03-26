@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import emailjs from "@emailjs/browser";
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser"
 import { toast } from "sonner";
 import contact from "../../assets/imgs/contact.webp";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,7 @@ export default function Contact() {
     email: "",
     message: "",
   });
-
+  const form = useRef()
   const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
@@ -76,9 +76,11 @@ export default function Contact() {
       });
       return;
     }
-
+   
     emailjs
-      .sendForm("service_id", "template_id", e.target, "user_id")
+      .sendForm("service_2ovof7d", "template_0373bxq", form.current, {
+        publicKey: "Ti7gJrPoQ3lQG7NEW"
+      })
       .then(() => {
         toast.success("Mensaje enviado correctamente", { duration: 1500 });
         setFormData({ name: "", company: "", email: "", message: "" });
@@ -97,7 +99,7 @@ export default function Contact() {
             Contacta con nosotros
           </h2>
 
-          <form onSubmit={sendEmail} className="space-y-4">
+          <form ref={form} onSubmit={sendEmail} className="space-y-4">
             <div className="flex items-center">
               <input
                 type="text"

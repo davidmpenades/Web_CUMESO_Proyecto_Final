@@ -10,7 +10,7 @@ const ProviderTable = ({showProviderUpdateForm}) => {
         <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 sm:-mx-1 lg:-mx-2">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+              <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg shadow-xl">
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-300 dark:bg-gray-800">
                     <tr>

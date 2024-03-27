@@ -56,6 +56,9 @@ const UserTable = () => {
 
   return (
     <div>
+      <div className="text-center text-4xl font-bold text-gray-600 decoration-double">
+        <h2 className="[text-shadow:_2px_3px_8px_rgb(0_0_0_/_40%)]">Usuarios</h2>
+      </div>
       <section className="sm:-mx-1 lg:-mx-2">
         <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 sm:-mx-1 lg:-mx-2">

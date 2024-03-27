@@ -22,7 +22,7 @@ const ProviderTable = ({ showProviderUpdateForm }) => {
   });
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const providersPerPage = 3;
+  const providersPerPage = 5;
   const totalPages = Math.ceil(filteredProviders.length / providersPerPage);
 
   const currentProviders = filteredProviders.slice(
@@ -33,6 +33,10 @@ const ProviderTable = ({ showProviderUpdateForm }) => {
 
   return (
     <div>
+      <div className="text-center text-4xl font-bold text-gray-600 decoration-double">
+        <h2 className="[text-shadow:_2px_3px_8px_rgb(0_0_0_/_40%)]">Proveedores</h2>
+      </div>
+      <div className="flex justify-end">
       <TextField
         label="Buscar proveedor"
         variant="outlined"
@@ -62,6 +66,7 @@ const ProviderTable = ({ showProviderUpdateForm }) => {
           },
         }}
       />
+      </div>
       <section className="sm:-mx-1 lg:-mx-2">
         <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 sm:-mx-1 lg:-mx-2">

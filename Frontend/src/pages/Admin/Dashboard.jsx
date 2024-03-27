@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/imgs/Logo.webp";
 import "./Dashboard.css";
@@ -101,7 +102,7 @@ const Dashboard = () => {
         />
       );
     }
-    
+
     if (currentView === "partCreate") {
       return <PartCreate onCreationSuccess={() => handleSelectItem("parts")} />;
     }
@@ -143,9 +144,11 @@ const Dashboard = () => {
           />
         ));
       case "parts":
-        return <PartTable showPartUpdateForm={showPartUpdateForm}/>;
+        return <PartTable showPartUpdateForm={showPartUpdateForm} />;
       case "providers":
-        return <ProvidersTable showProviderUpdateForm={showProviderUpdateForm} />;
+        return (
+          <ProvidersTable showProviderUpdateForm={showProviderUpdateForm} />
+        );
       case "users":
         return <UserTable />;
       default:
@@ -285,39 +288,57 @@ const Dashboard = () => {
       </div>
       {/* Sidebar - Fin */}
       {/* Contenido */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 ">
         {/* Encabezado del Panel de Administrador */}
         <div className="m-0">
           <h1 className="text-3xl flex justify-center font-semibold text-white bg-gray-700 p-3">
             Panel de Administrador
           </h1>
           {/* Botones - Se muestran solo si selectedItem no es "providers" ni "users" */}
-          {selectedItem !== "providers" && selectedItem !== "users" && (
-            <div className="mt-4 flex justify-center">
-              <button
-                onClick={() => handleSelectItem("machines")}
-                className="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded-3xl mr-2"
-              >
-                Máquinas
-              </button>
-              <button
-                onClick={() => handleSelectItem("parts")}
-                className="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-3xl"
-              >
-                Piezas
-              </button>
+          <div className="w-full flex items-center justify-center ">
+            <div className="flex justify-center items-center space-x-4 m-4 shadow-xl">
+              {selectedItem !== "providers" && selectedItem !== "users" && (
+                <Button.Group>
+                  <Button
+                    color="gray"
+                    onClick={() => handleSelectItem("machines")}
+                  >
+                    Máquinas
+                  </Button>
+                  <Button
+                    color="gray"
+                    onClick={() => handleSelectItem("parts")}
+                  >
+                    Piezas
+                  </Button>
+                </Button.Group>
+              )}
             </div>
-          )}
-          {selectedItem !== "users" && (
-            <div className="mt-4 flex justify-center">
-              <button
-                onClick={() => handerClickCreate(selectedItem)}
-                className="bg-green-500 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-3xl mr-2"
-              >
-                Añadir {buttonText[selectedItem]}
-              </button>
-            </div>
-          )}
+            {selectedItem !== "users" && (
+              <div className="fixed top-18 right-4 p-4">
+                <button
+                  onClick={() => handerClickCreate(selectedItem)}
+                  className="flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-3xl shadow-lg hover:shadow-xl"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                  Añadir {buttonText[selectedItem]}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         {/* Contenido basado en la selección */}
         <div className="content flex flex-wrap justify-center mt-4">

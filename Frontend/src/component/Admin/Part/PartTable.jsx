@@ -24,7 +24,7 @@ const PartTable = ({ showPartUpdateForm }) => {
   });
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const partPerPage = 3;
+  const partPerPage = 4;
   const totalPages = Math.ceil(filteredParts.length / partPerPage);
 
   const currentPart = filteredParts.slice(
@@ -33,9 +33,11 @@ const PartTable = ({ showPartUpdateForm }) => {
   );
 
   return (
-    <div>
-      <div className="text-center">
-        <h2>Piezas</h2>
+    <div className="overflow-x-hidden">
+      <div className="text-center text-4xl font-bold text-gray-600 decoration-double">
+        <h2 className="[text-shadow:_2px_3px_8px_rgb(0_0_0_/_40%)]">Piezas</h2>
+      </div>
+      <div className="flex justify-end">
         <TextField
           label="Buscar por nombre"
           variant="outlined"
@@ -94,8 +96,7 @@ const PartTable = ({ showPartUpdateForm }) => {
             },
           }}
         />
-      </div>
-      <div className="w-full px-5%">
+      </div>      
         <section className="sm:-mx-1 lg:-mx-2">
           <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 sm:-mx-1 lg:-mx-2">
@@ -228,7 +229,6 @@ const PartTable = ({ showPartUpdateForm }) => {
           </div>
         )}
       </div>
-    </div>
   );
 };
 

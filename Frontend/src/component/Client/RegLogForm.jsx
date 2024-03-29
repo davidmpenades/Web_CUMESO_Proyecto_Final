@@ -68,13 +68,13 @@ export default function RegLogForm({ loginUser, registerUser }) {
               className="w-full max-w-sm mx-auto"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <div className="flex items-center justify-center mt-20">
+              <div className="flex items-center justify-center mt-20 shadow-xl">
                 <div
                   onClick={() => setRegistro(false)}
                   className={`w-1/3 pb-4 font-medium text-center ${
                     !registro
                       ? "text-gray-300 capitalize border-b-2 border-gray-500 dark:border-white-900 dark:text-white"
-                      : "text-white-500"
+                      : "text-black"
                   } cursor-pointer`}
                 >
                   Entrar
@@ -85,7 +85,7 @@ export default function RegLogForm({ loginUser, registerUser }) {
                   className={`w-1/3 pb-4 font-medium text-center ${
                     registro
                       ? "text-gray-300 capitalize border-b-2 border-gray-500 dark:border-gray-400 dark:text-white"
-                      : "text-white-500"
+                      : "text-black"
                   } cursor-pointer`}
                 >
                   Registro

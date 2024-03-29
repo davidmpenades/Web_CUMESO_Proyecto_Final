@@ -3,6 +3,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import ProfileContext from "../../context/ProfileContext";
 import logo from "../../assets/imgs/Logo.webp";
+import mobileLogo from "../../assets/imgs/logo_Cumeso_Sin_Fondo_Movil.webp";
 import "./Header.css";
 
 export default function Header() {
@@ -11,6 +12,7 @@ export default function Header() {
   const { user, isAuth, isAdmin, logout } = useContext(AuthContext);
   const { profile } = useContext(ProfileContext);
   const baseURL = "http://localhost:8001";
+  const isHomePage = location.pathname === '/';
   const defaultProfileSVG = (
     <svg
       className="w-10 h-10 rounded-full"
@@ -52,7 +54,7 @@ export default function Header() {
     };
   }, []);
   useEffect(() => {
-    closeDropdown(); 
+    closeDropdown();
   }, [isAuth]);
 
   const handleNavigation = () => {
@@ -71,9 +73,10 @@ export default function Header() {
           <img
             src={logo}
             alt="Logo"
-            className="h-8 md:h-16"
-            style={{ width: "200px", height: "50px" }}
+            className="h-8 md:h-16 hidden md:block"
+            style={{ maxWidth: "150px", height: "auto" }}
           />
+          <img src={mobileLogo} alt="Logo" className="block md:hidden" style={{ maxWidth: "30px", height: "auto" }}/>
         </NavLink>
 
         {/* Navigation Links */}
@@ -104,21 +107,21 @@ export default function Header() {
         {!isAuth ? (
           <button
             onClick={handleNavigation}
-            className="w-[150px] bg-black h-[40px] my-3 flex items-center justify-center rounded-full cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#7c7979] before:to-[rgb(0, 0, 0, 0.1)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff] mx-2 py-2 font-medium text-sm"
+            className="btn-primary rounded-full text-white focus:outline-none focus:ring mx-2 my-2 py-2 px-4 transition duration-300 ease-in-out transform hover:scale-105"
+            style={{ width: "auto", height: "40px" }}
           >
-            Entrar
+            Acceso
           </button>
         ) : (
           <div className="relative flex items-center">
             <div onClick={toggleDropdown} className="cursor-pointer z-10">
               {profile.image ? (
                 <img
-                alt="User settings"
-                src={`${baseURL}${profile.image}?${new Date().getTime()}`}
-                style={{ width: "42px", height: "42px" }}
-                className="rounded-full"
-              />
-              
+                  alt="User settings"
+                  src={`${baseURL}${profile.image}?${new Date().getTime()}`}
+                  style={{ width: "42px", height: "42px" }}
+                  className="rounded-full"
+                />
               ) : (
                 defaultProfileSVG
               )}
@@ -162,9 +165,10 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="fixed top-0 right-0 m-4 z-50 md:hidden btn-primary"
+          className={`btn-primary md:hidden ${isHomePage ? 'mr-24' : ''}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          style={{ zIndex: 1000 }} // Asegúrate de que este z-index sea mayor que cualquier otro componente
+          aria-label="Toggle menu"
+          style={{ zIndex: 1000 }}
         >
           {/* Icono de menú */}
           <svg
@@ -182,7 +186,7 @@ export default function Header() {
           <div
             className={`${
               isMobileMenuOpen ? "flex" : "hidden"
-            } flex-col absolute top-full left-0 right-0 bg-white shadow-md z-20 md:hidden`}
+            } absolute inset-0 z-20 bg-white p-4`}
           >
             {/* Los mismos NavLink que en tu menú principal */}
             <NavLink

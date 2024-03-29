@@ -15,7 +15,7 @@ from pathlib import Path
 env = environ.Env(
     DEBUG=(bool, False)
 )
-
+from datetime import timedelta
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -151,6 +151,10 @@ REST_FRAMEWORK = {
         'CUMESO.CUMESO.users.backends.JWTAuthentication',
         
     )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1), 
 }
 
 MEDIA_URL = '/media/'

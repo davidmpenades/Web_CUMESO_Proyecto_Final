@@ -1,8 +1,22 @@
-/* Estilo para el botón activo */
 .active {
-    background-color: #f5f7f8; 
-    color: rgb(77, 75, 75); 
-  }
-.content{
-  margin-top: 3rem;
+  background-color: #f5f7f8;
+  color: rgb(77, 75, 75);
+}
+
+.dashboard-container,
+.dashboard-sidebar {
+  min-height: 100vh;
+}
+
+.dashboard-sidebar {
+  /* flex: 0 0 auto;  */
+  max-height: 100vh;
+}
+
+.dashboard-content {
+  flex: 1; 
+}
+
+.content {
+  width: 100%;
 }

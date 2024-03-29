@@ -157,9 +157,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 p-1">
+    <div className="dashboard-container flex h-screen bg-gray-100 p-1 overflow-hidden">
       {/* Sidebar - Inicio */}
-      <div className="flex flex-col w-16 justify-between bg-gray-700">
+      <div className="dashboard-sidebar flex flex-col justify-between bg-gray-700">
         {/* Logo e Iconos - Inicio */}
         <div>
           {/* Logo */}
@@ -288,7 +288,7 @@ const Dashboard = () => {
       </div>
       {/* Sidebar - Fin */}
       {/* Contenido */}
-      <div className="flex-1 ">
+      <div className="dashboard-content relative flex-1 overflow-auto">
         {/* Encabezado del Panel de Administrador */}
         <div className="m-0">
           <h1 className="text-3xl flex justify-center font-semibold text-white bg-gray-700 p-3">
@@ -300,13 +300,13 @@ const Dashboard = () => {
               {selectedItem !== "providers" && selectedItem !== "users" && (
                 <Button.Group>
                   <Button
-                    color="gray"
+                    color={selectedItem === "machines" ? "blue" : "gray"}
                     onClick={() => handleSelectItem("machines")}
                   >
                     Máquinas
                   </Button>
                   <Button
-                    color="gray"
+                    color={selectedItem === "parts" ? "blue" : "gray"}
                     onClick={() => handleSelectItem("parts")}
                   >
                     Piezas
@@ -315,7 +315,7 @@ const Dashboard = () => {
               )}
             </div>
             {selectedItem !== "users" && (
-              <div className="fixed top-18 right-4 p-4">
+              <div className="absolute top-20 right-0 p-4">
                 <button
                   onClick={() => handerClickCreate(selectedItem)}
                   className="flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-3xl shadow-lg hover:shadow-xl"

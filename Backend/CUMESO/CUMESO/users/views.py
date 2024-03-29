@@ -2,19 +2,15 @@ from rest_framework.response import Response
 from rest_framework import viewsets, status
 from .serializers import userSerializer
 from .models import Users
-from rest_framework.permissions import (AllowAny, IsAuthenticated)
+from rest_framework.permissions import (IsAuthenticated)
 from CUMESO.CUMESO.core.permissions import IsAdmin
-from django.shortcuts import get_object_or_404
-from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from PIL import Image
 import io
 from django.core.files.base import ContentFile
-from rest_framework.decorators import api_view
 from CUMESO.CUMESO.machine.models import Machine
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAdminUser
 
 def convert_to_webp(image_input):
         image = Image.open(image_input)

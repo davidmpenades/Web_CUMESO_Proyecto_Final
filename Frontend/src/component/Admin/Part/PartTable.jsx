@@ -24,7 +24,7 @@ const PartTable = ({ showPartUpdateForm }) => {
   });
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const partPerPage = 4;
+  const partPerPage = 7;
   const totalPages = Math.ceil(filteredParts.length / partPerPage);
 
   const currentPart = filteredParts.slice(
@@ -33,10 +33,7 @@ const PartTable = ({ showPartUpdateForm }) => {
   );
 
   return (
-    <div className="overflow-x-hidden">
-      <div className="text-center text-4xl font-bold text-gray-600 decoration-double">
-        <h2 className="[text-shadow:_2px_3px_8px_rgb(0_0_0_/_40%)]">Piezas</h2>
-      </div>
+    <div className="">
       <div className="flex justify-end">
         <TextField
           label="Buscar por nombre"
@@ -107,7 +104,7 @@ const PartTable = ({ showPartUpdateForm }) => {
                       <tr>
                         <th
                           scope="col"
-                          className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-black dark:text-gray-7700"
+                          className="w-64 py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-black dark:text-gray-7700"
                         >
                           <div className="flex items-center justify-center gap-x-3">
                             <span>Nombre de Pieza</span>
@@ -115,65 +112,65 @@ const PartTable = ({ showPartUpdateForm }) => {
                         </th>
                         <th
                           scope="col"
-                          className="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="w-64 px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           Descripción
                         </th>
                         <th
                           scope="col"
-                          className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="hidden sm:table-cell w-1/12 px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           Cantidad
                         </th>
                         <th
                           scope="col"
-                          className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="w-32 ppx-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           Estado
                         </th>
                         <th
                           scope="col"
-                          className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="hidden sm:table-cell w-32 px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           Máquina
                         </th>
                         <th
                           scope="col"
-                          className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="hidden sm:table-cell w-32 px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           Proveedor
                         </th>
                         <th
                           scope="col"
-                          className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="hidden sm:table-cell w-32 px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           Fecha Actualización
                         </th>
                         <th
                           scope="col"
-                          className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="hidden sm:table-cell w-32 px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           Creada
                         </th>
                         <th
                           scope="col"
-                          className="hidden sm:table-cell px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="hidden sm:table-cell w-1/12 px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           imagen
                         </th>
                         <th
                           scope="col"
-                          className="hidden sm:table-cell px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="hidden sm:table-cell w-1/12 px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           CAD
                         </th>
                         <th
                           scope="col"
-                          className="hidden sm:table-cell px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
+                          className="hidden sm:table-cell w-1/12 px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-black dark:text-gray-400"
                         >
                           PDF
                         </th>
-                        <th scope="col" className="relative py-3.5 px-4">
+                        <th scope="col" className="w-1/12 prelative py-3.5 px-4">
                           Editar
                         </th>
                       </tr>

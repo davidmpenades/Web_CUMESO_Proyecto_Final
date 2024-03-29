@@ -665,10 +665,9 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at, pdf_machine) FROM stdin;
-1	rc-1200-2tydzx	RC-1200	Nuestra rebobinadora más pequeña	{"1200mm de ancho","800m/min de velocidad","Extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-23 08:48:57.36369+00	2024-03-25 15:58:31.15953+00	\N	machine_pdf/RC-1200.pdf
-2	rc-1400-t-mwsgvm	RC-1400-T	La reina de las rebobinadoras	{"1400mm de ancho","800m/min de velocidad","Extracción automática"}	\N	t	machine_image/RC-1400.webp	2024-03-23 08:52:26.750055+00	2024-03-26 19:02:28.608694+00	\N	machine_pdf/RC-1400.pdf
-3	nueva-r3n1nl	Nueva	La presentacion	{"1200mm de ancho","800m/min de velocidad"}	\N	t	machine_image/Nueva.webp	2024-03-25 15:59:28.035073+00	2024-03-26 21:18:33.204708+00	\N	machine_pdf/Nueva.pdf
-5	savannah-sullivan-0b4cf4	Savannah Sullivan	Rerum officia porro	{"Rerum qui adipisicin"}	\N	t	machine_image/Savannah_Sullivan.webp	2024-03-26 15:30:28.211159+00	2024-03-26 21:18:54.119918+00	\N	machine_pdf/Savannah_Sullivan.pdf
+2	rc-1400-basic-kzs4qi	RC-1400-Basic	La reina de las rebobinadoras, en su versión lowcost	{"1400mm de ancho","800m/min de velocidad","Extracción automática"}	\N	t	machine_image/RC-1400-Basic.webp	2024-03-23 08:52:26.750055+00	2024-03-29 11:59:59.410598+00	\N	machine_pdf/RC-1400.pdf
+7	rc-1400-personalizada-f26giy	RC-1400-Personalizada	Añada los extras que su empresa necesite	{"Métricas de producción",Ensacadora,Pesadora,"Extracción derecha/izquierda"}	\N	t	machine_image/RC-1400-Personalizada.webp	2024-03-29 12:03:01.804108+00	2024-03-29 12:03:05.886236+00	\N	
+1	rc-1200-194j3h	RC-1200	Nuestra rebobinadora más pequeña	{"1200mm de ancho","800m/min de velocidad","Extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-23 08:48:57.36369+00	2024-03-29 17:14:29.846807+00	\N	machine_pdf/RC-1200.pdf
 \.
 
 
@@ -678,10 +677,12 @@ COPY public.machine_machine (id, slug, name, description, characteristics, price
 
 COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 5	1	5
-13	2	3
 15	2	2
 16	1	2
-17	3	2
+28	1	6
+30	2	1
+31	1	1
+32	7	3
 \.
 
 
@@ -690,11 +691,23 @@ COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 --
 
 COPY public.part_part (id, slug, name, description, quantity, price, status, img, cad_file, pdf_file, created_at, updated_at) FROM stdin;
-1	rc-m1s1-06szdi	RC-M1S1	Eje desbobinador	2	\N	Fabricado	part_images/RC-M1S1_i7yDUCb.webp		part_pdf/David_Moreno_Penadés.pdf	2024-03-23 12:00:12.872036+00	2024-03-25 16:01:49.469048+00
-2	rc-m1s2-hdnvdl	RC-M1S2	Eje bobinador	2	\N	Fabricando	part_images/RC-M1S2_ffOPfIj.webp		part_pdf/David_Moreno_Penadés_RnDJ2wo.pdf	2024-03-23 18:09:25.5016+00	2024-03-26 15:32:43.515326+00
-3	sylvester-suarez-88v1tb	Sylvester Suarez	Illo laborum obcaeca	256	\N	Presupuesto recibido	part_images/Sylvester_Suarez_iA1rcnE.webp		part_pdf/David_Moreno_Penadés_Z4GOgH6.pdf	2024-03-26 14:54:47.679432+00	2024-03-26 15:32:58.268152+00
-4	adara-nash-5skqn5	Adara Nash	Deleniti qui dolore	922	104.00	Sin especificar				2024-03-26 15:32:26.045114+00	2024-03-26 15:57:17.253381+00
-5	chantale-kaufman-u7z2xq	Chantale Kaufman	Et tenetur rem animi	298	672.00	Presupuesto enviado	part_images/Chantale_Kaufman_7dWFtEm.webp		part_pdf/David_Moreno_Penadés_YjqjchF.pdf	2024-03-26 20:01:35.34301+00	2024-03-26 20:01:38.008282+00
+2	rc-m1s2-hzmmea	RC-M1S2	Eje bobinador	2	\N	Fabricando	part_images/RC-M1S2_HhCOJxe.webp		part_pdf/David_Moreno_Penadés_RnDJ2wo.pdf	2024-03-23 18:09:25.5016+00	2024-03-29 11:55:46.003794+00
+1	rc-m1s1-0mea43	RC-M1S1	Eje desbobinador	2	\N	Fabricando	part_images/RC-M1S1_8mJ9nPV.webp		part_pdf/David_Moreno_Penadés.pdf	2024-03-23 12:00:12.872036+00	2024-03-29 11:55:58.763956+00
+6	rc-m1s3-d26fkb	RC-M1S3	Bancada principal	1	\N	Presupuesto enviado	part_images/RC-M1S3_f2h9trS.webp			2024-03-29 08:08:47.064677+00	2024-03-29 11:56:08.672659+00
+11	rc-m1s7e030-azrt54	RC-M1S7E030	Conjunto de unión patín rodillo	4	\N	Presupuesto enviado	part_images/RC-M1S7E030_JoRpblT.webp			2024-03-29 08:36:35.26789+00	2024-03-29 11:56:28.515279+00
+18	rc14-m1s13p016a-ah7ln6	RC14 M1S13P016A	Husillo (Ref.SCR03232FC7-6000 TBI) 2104mm	1	\N	Presupuesto recibido	part_images/RC14_M1S13P016A_GhvK5bV.webp			2024-03-29 08:40:33.465152+00	2024-03-29 11:56:38.51279+00
+19	rc14-m1s13p016b-54nl7s	RC14 M1S13P016B	Tuerca husillo (Ref. GSFYAR032A2D TBI)	1	\N	Fabricando	part_images/RC14_M1S13P016B_XY8CzCq.webp			2024-03-29 08:40:57.016792+00	2024-03-29 11:56:48.545945+00
+20	rc14-m1s1s018-p85j22	RC14 M1S1S018	Tirante soldado corto	5	\N	Fabricado	part_images/RC14_M1S1S018_p24mVSB.webp			2024-03-29 08:41:23.252199+00	2024-03-29 11:56:58.565782+00
+7	rc-m1s12e004-fu9rnf	RC-M1S12E004	Caja de patines soldada	3	\N	Presupuesto recibido	part_images/RC-M1S12E004_02q3DIc.webp			2024-03-29 08:32:49.756674+00	2024-03-29 11:57:07.277935+00
+8	rc-m1s12p002-7lmmn1	RC-M1S12P002	Anclaje a tuerca husillo	1	\N	Fabricado	part_images/RC-M1S12P002_4635W7F.webp			2024-03-29 08:33:41.796083+00	2024-03-29 11:57:15.776677+00
+9	rc-m1s12p009-vw4djs	RC-M1S12P009	Unión a tuerca husillo	1	\N	Presupuesto recibido	part_images/RC-M1S12P009_j82dnrl.webp			2024-03-29 08:34:35.289293+00	2024-03-29 11:57:24.962471+00
+10	rc-m1s12p015-ne7rvc	RC-M1S12P015	Torreón placa motor D. 40x40mm M-10	4	\N	Presupuesto enviado	part_images/RC-M1S12P015_2TrBNrV.webp			2024-03-29 08:35:09.549649+00	2024-03-29 11:57:34.190473+00
+12	rc-m1s7p022-vbjod5	RC-M1S7P022	Soporte cilindro chafador	4	\N	Presupuesto recibido	part_images/RC-M1S7P022_vLWKyyL.webp			2024-03-29 08:37:08.277404+00	2024-03-29 11:57:43.088303+00
+13	rc-m1s7p026-raalo4	RC-M1S7P026	Bulon fijo chafador	4	\N	Fabricado	part_images/RC-M1S7P026_CgvPCYi.webp			2024-03-29 08:37:35.684332+00	2024-03-29 11:57:52.169125+00
+14	rc-m1s7p028-r0hlqz	RC-M1S7P028	Base bulon orquilla	4	\N	Fabricado	part_images/RC-M1S7P028_NcfUIHi.webp			2024-03-29 08:38:00.90916+00	2024-03-29 11:58:01.109034+00
+16	rc-m1s9e036-tycg1m	RC-M1S9E036	cubre neumatica Mir	1	\N	Presupuesto recibido	part_images/RC-M1S9E036_5Yw6htA.webp			2024-03-29 08:39:31.66364+00	2024-03-29 11:58:08.838091+00
+15	rc-m1s7p031-yagl0p	RC-M1S7P031	Chapetón exagonal TAE 10	4	\N	Fabricando	part_images/RC-M1S7P031_sPqC9Fg.webp			2024-03-29 08:38:40.835364+00	2024-03-29 11:58:17.160968+00
+17	rc14-m1s12s005-ymotju	RC14 M1S12S005	Vigueta soldada patines guias U + plantilla	1	\N	Presupuesto recibido	part_images/RC14_M1S12S005_lJYKbrg.webp			2024-03-29 08:39:59.367223+00	2024-03-29 11:58:25.10519+00
 \.
 
 
@@ -712,13 +725,22 @@ COPY public.part_part_providers (id, part_id, providers_id) FROM stdin;
 
 COPY public.part_partmachinerelation (id, machine_id, part_id) FROM stdin;
 8	2	2
-15	2	1
-16	1	2
 17	1	1
-50	3	2
-52	2	3
-53	3	4
-54	5	5
+55	1	6
+57	1	9
+58	2	14
+59	2	11
+60	2	18
+61	2	7
+62	2	19
+63	2	20
+64	1	8
+65	2	10
+66	2	12
+67	1	13
+68	2	16
+69	2	15
+70	1	17
 \.
 
 
@@ -727,13 +749,23 @@ COPY public.part_partmachinerelation (id, machine_id, part_id) FROM stdin;
 --
 
 COPY public.providers_partproviderrelation (id, part_id, provider_id) FROM stdin;
-12	2	2
-13	1	2
-14	1	1
-47	2	1
-48	3	1
-49	4	1
-50	5	2
+54	9	2
+55	14	1
+56	11	2
+57	18	12
+58	20	8
+59	7	2
+60	19	12
+61	8	13
+62	10	2
+63	12	2
+64	13	2
+65	16	14
+66	15	2
+67	17	2
+68	1	9
+69	6	11
+70	2	10
 \.
 
 
@@ -742,12 +774,16 @@ COPY public.providers_partproviderrelation (id, part_id, provider_id) FROM stdin
 --
 
 COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, phone, responsible, created_at, updated_at) FROM stdin;
-3	nichole-hubbard-zi58ll	Nichole Hubbard	Eum fugiat et nihil	Dignissimos qui dolo	Autem@gmail.com	Quis perferendis est	Illo veniam dolor q	Id ea qui amet ver	2024-03-26 14:49:05.099444+00	2024-03-26 14:49:05.099458+00
-4	daquan-cannon-sxk35b	Daquan Cannon	Voluptatum aliquip o	Quis non voluptate n	Amet@gmail.com	Magnam blanditiis qu	Sed consequatur pro	Velit dolores enim c	2024-03-26 15:02:26.366668+00	2024-03-26 15:02:26.366681+00
-5	rashad-russell-0qkdi4	Rashad Russell	Quod sint commodi et	Modi qui est porro d	Nobis@gmail.com	Doloremque eiusmod l	Qui quis debitis ten	Unde aliquip cum non	2024-03-26 15:24:37.989522+00	2024-03-26 15:24:37.989538+00
-6	gemma-chandler-4yv668	Gemma Chandler	Voluptatum et ducimu	Aut amet fugit deb	Id@gmail.com	Consectetur necessit	Aliquid magni eius e	Ratione cum dignissi	2024-03-26 15:30:58.627545+00	2024-03-26 15:30:58.627557+00
-1	suministros-navarro-gmh6ta	Suministros Navarro	Carrer de la trama, 20	B-344635y3573	s.navarro@gmail.com	Ontinyent(Valencia)	6524354576	Boira(Jefe)  Tato(responsable almacen)	2024-03-23 11:59:08.413775+00	2024-03-26 21:18:44.414447+00
-2	talleres-nector-sl-a4dqwx	Talleres Nector, S.L.	Polígono el Altet, s/n	B-4820854924	tallleresnector@gmail.com	Ontinyent(Valencia)	655635422	Tito	2024-03-23 18:35:10.875541+00	2024-03-26 21:19:03.262426+00
+7	mecanizador-brenguer-2ow4el	Mecanizador Brenguer	calle falsa, 123	B-4865892709	m.berenguer@gmail.com	Alcoi	656434578	Miguel-Taller\nMªCarmen-admin	2024-03-29 11:16:07.869282+00	2024-03-29 11:16:07.8693+00
+8	tacome-f8ken0	Tacome	Carrer la Trama, 45	B-435242456	tacome@gmail.com	Ontinyent	645533422	Tomás-Taller\nAnabel-Admin	2024-03-29 11:17:03.706972+00	2024-03-29 11:29:00.5422+00
+12	roller-6ukdlt	Roller	Poligono l'Altet, calle 3, nave 2	B-3234585654	roller@gmail.com	Ontinyent	645343909	Vicent(pedidos)\nErnesto(admin)	2024-03-29 11:26:05.619897+00	2024-03-29 11:30:13.655824+00
+13	tci-jeohnb	TCI	Carrer inventat, 69	B-334213241	tci@gmail.com	Orihuela	5432454664	Francisco	2024-03-29 11:31:38.211577+00	2024-03-29 11:31:51.424563+00
+14	codopi-cys00a	Codopi	Calle sin asfaltar, 22	B-3413546543	codopi@gmail.com	Albaida	565344578	Hortensio	2024-03-29 11:34:14.830538+00	2024-03-29 11:34:44.406503+00
+9	bzo-engomados-0f9nvm	BZO Engomados	Calle Espinosa Reina	B-48285628	bzo.engom@gmail.com	Paiporta	654357782	Ramón	2024-03-29 11:18:35.356317+00	2024-03-29 11:40:26.259756+00
+11	herrokor-c49fc9	Herrokor	Calle sin piedad, 666	B-3455632242	herrokor@gmail.com	Manises	6543226778	David	2024-03-29 11:23:24.298329+00	2024-03-29 11:40:33.448639+00
+10	durokrom-hauf2k	Durokrom	Calle sin salida, s/n	B-2334532432	durokrom@gmail.com	Alzira	654290702	Cristian (Taller) Begoña (Admin)	2024-03-29 11:21:17.413106+00	2024-03-29 11:40:43.715561+00
+1	suministros-navarro-ipi8pc	Suministros Navarro	Carrer de la trama, 20	B-344635y3573	s.navarro@gmail.com	Ontinyent(Valencia)	6524354576	Boira(Jefe)  Tato(responsable almacen)	2024-03-23 11:59:08.413775+00	2024-03-29 11:59:22.748768+00
+2	talleres-nector-sl-6zo90i	Talleres Nector, S.L.	Polígono el Altet, s/n	B-4820854924	tallleresnector@gmail.com	Ontinyent(Valencia)	655635422	Tito	2024-03-23 18:35:10.875541+00	2024-03-29 11:59:51.301863+00
 \.
 
 
@@ -757,10 +793,10 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, created_at, type) FROM stdin;
 6	pbkdf2_sha256$720000$SHLjxqAK0et2lNykxYAFwA$y2zhNowpuHAqxvzHYsInuLavqBSQhZDcF22cZcZVxFU=	\N	f	a9c22b05-330a-eda7-d500-763d683c27b4	Cristian	cristian@gmail.com	L'estacio	img_profile/Cristian_ITzEynK.webp	2024-03-26 18:52:18.325996+00	client
-2	pbkdf2_sha256$720000$s1w5YXOwnd43EdwfrjJ8CP$Ryb4FH1SRkBQBpSmnkASfapkyOUYWKoiAS486J04gzU=	2024-03-26 19:00:26.723362+00	f	92f05021-ec20-ffb4-b8b7-79a6e66463fd	Yolanda	yolanda@gmail.com	L'estacio	img_profile/Yolanda.webp	2024-03-23 11:51:29.927765+00	client
-1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-03-26 21:24:26.944541+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
+1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-03-29 17:13:49.437861+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
 3	pbkdf2_sha256$720000$aJguPSPSmkpxXL33CZ5Muu$/Dsd9Ld9I9eeVyBUif12ffWVI5gGzHPEqR3+rByVSzw=	2024-03-24 10:23:35.573215+00	f	1f9f141b-74f0-ba5f-c75e-08f8a61225ec	Pau	pau@gmail.com	L'estacio	img_profile/Pau.webp	2024-03-23 11:53:41.311676+00	client
 5	pbkdf2_sha256$720000$IcH7XR1WD3cGm2rvI8k9c7$GlJYXVgeCTg55HtyeKNt0dbRIrfVZtyNFiuc4L2mC7E=	2024-03-24 10:23:50.265764+00	f	c36b4a90-620a-209d-23b9-25f1070b92aa	José	jose@gmail.com	L'estacio	img_profile/José.webp	2024-03-23 11:56:23.848863+00	client
+2	pbkdf2_sha256$720000$s1w5YXOwnd43EdwfrjJ8CP$Ryb4FH1SRkBQBpSmnkASfapkyOUYWKoiAS486J04gzU=	2024-03-28 16:14:49.052242+00	f	92f05021-ec20-ffb4-b8b7-79a6e66463fd	Yolanda	yolanda@gmail.com	L'estacio	img_profile/Yolanda.webp	2024-03-23 11:51:29.927765+00	client
 \.
 
 
@@ -826,21 +862,21 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 27, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 5, true);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 7, true);
 
 
 --
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 27, true);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 32, true);
 
 
 --
 -- Name: part_part_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_part_id_seq', 5, true);
+SELECT pg_catalog.setval('public.part_part_id_seq', 50, true);
 
 
 --
@@ -854,21 +890,21 @@ SELECT pg_catalog.setval('public.part_part_providers_id_seq', 1, false);
 -- Name: part_partmachinerelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 54, true);
+SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 70, true);
 
 
 --
 -- Name: providers_partproviderrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 50, true);
+SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 70, true);
 
 
 --
 -- Name: providers_providers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_providers_id_seq', 6, true);
+SELECT pg_catalog.setval('public.providers_providers_id_seq', 14, true);
 
 
 --

@@ -19,13 +19,13 @@ import ConfirmationModal from "../Modals/ConfirmationModal";
 const getStatusStyle = (status) => {
   switch (status) {
     case "Presupuesto enviado":
-      return { backgroundColor: "#FFEB3B", color: "#000" };
+      return { backgroundColor: "#F6ED97", color: "#000" };
     case "Presupuesto recibido":
-      return { backgroundColor: "#FF9800", color: "#000" };
+      return { backgroundColor: "#F6D597", color: "#000" };
     case "Fabricando":
-      return { backgroundColor: "#4299E1", color: "#000" };
+      return { backgroundColor: "#97ABF6", color: "#000" };
     case "Fabricado":
-      return { backgroundColor: "#48BB78", color: "#000" };
+      return { backgroundColor: "#B2F697", color: "#000" };
     default:
       return {};
   }
@@ -154,7 +154,7 @@ const PartList = ({ part, onShowUpdateForm }) => {
 
   return (
     <tr style={rowStyle}>
-      <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+      <td className="w-1/4 min-w-[120px] max-w-[160px] px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
         <div className="inline-flex items-center gap-x-3">
           <input
             type="checkbox"
@@ -168,13 +168,13 @@ const PartList = ({ part, onShowUpdateForm }) => {
       <td className="px-12 py-4 text-sm text-center font-normal text-black whitespace-nowrap">
         {part.description}
       </td>
-      <td className="px-4 py-4 text-sm text-black text-center dark:text-gray-300">
+      <td className="hidden sm:table-cell w-1/12 px-4 py-4 text-sm text-black text-center dark:text-gray-300">
         {part.quantity}
       </td>
       <td className="px-4 py-4 text-sm text-black text-center dark:text-gray-300">
         {part.status}
       </td>
-      <td>
+      <td className="hidden sm:table-cell w-32">
         <Select
           multiple
           value={machines
@@ -199,6 +199,7 @@ const PartList = ({ part, onShowUpdateForm }) => {
             PaperProps: {
               style: {
                 maxHeight: "200px",
+                backgroundColor: "white", 
               },
             },
           }}
@@ -211,7 +212,7 @@ const PartList = ({ part, onShowUpdateForm }) => {
           ))}
         </Select>
       </td>
-      <td>
+      <td className="hidden sm:table-cell w-32">
         <Select
           multiple
           value={providers
@@ -236,6 +237,7 @@ const PartList = ({ part, onShowUpdateForm }) => {
             PaperProps: {
               style: {
                 maxHeight: 200,
+                backgroundColor: "white", 
               },
             },
           }}
@@ -250,7 +252,7 @@ const PartList = ({ part, onShowUpdateForm }) => {
           ))}
         </Select>
       </td>
-      <td className="px-4 py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
+      <td className="hidden sm:table-cell w-32 px-4 py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
         {new Date(part.updated_at).toLocaleDateString("es-ES", {
           year: "numeric",
           month: "long",
@@ -259,7 +261,7 @@ const PartList = ({ part, onShowUpdateForm }) => {
           minute: "2-digit",
         })}
       </td>
-      <td className="px-4 py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
+      <td className="hidden sm:table-cell w-32 px-4 py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
         {new Date(part.created_at).toLocaleDateString("es-ES", {
           year: "numeric",
           month: "long",

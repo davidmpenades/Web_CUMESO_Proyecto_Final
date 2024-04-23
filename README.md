@@ -8,6 +8,7 @@ El desarrollo de Web CUMESO se ha apoyado en una combinación de tecnologías av
 
 [![My Skills](https://skillicons.dev/icons?i=react,js,tailwind,html,css,django,py,postgres,docker)](https://skillicons.dev)
 
+
 ### Frontend
 
 - **React**: Hemos utilizado React, aprovechando Context y Hooks, para desarrollar una interfaz de usuario dinámica y reactiva. Esto facilita significativamente la interacción del usuario con la aplicación.
@@ -30,45 +31,35 @@ Cada una de estas tecnologías ha sido seleccionada cuidadosamente para ofrecer 
 
 Comenzamos nuestra visita a inicio, donde podemos observar informacion revelante de la empresa y la maquinaria a promocionar.
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/cd7a3762-1c7d-4900-b50f-8d45fae96fbc" alt="Home" style="width: 120%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/a0c3cca9-7b96-4865-93e5-8336a428f5a5
 
 Desde la página principal podemos accesos a la parte de contactar via email con la empresa y redireccion a registro/login.
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/29a0d4b5-70e4-4d77-9b3b-0c442ba1e46a" alt="Home" style="width: 120%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/b5f264ed-8b97-48f7-9c73-2a305ed62a10
+
 
 ## CONTACTO
 
 Desde contacto tendremos un formulario para enviar un correo al administrador de la web. Para pedir presupuestros o precio de la máquinaria ofertada.
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/687971d0-6c33-4941-a1aa-62a6d5a58377" alt="Home" style="width: 100%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/15020b92-1c3d-45f7-8dd5-4ebbf0ca3eaf
 
 ## CATÁLOGO
 
 Aquí vemos el catálogo de máquinaria ofertada
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/ac9922f6-34f0-4285-881b-1d914130208b" alt="Home" style="width: 100%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/fc6ac302-f2da-4d68-82d0-bef8e87ff995
+
 
 Esta página es dinámica y se controla desde el panel de administrador. Qué máquina quiere ofertar de las que tiene creadas y subidas.
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/33340979-af15-4649-b8fc-841cc15117b1" alt="Home" style="width: 100%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/34ab0e89-5082-4200-aaf0-ec521283edef
 
 ## PERFIL
 
 En el perfil de usuario, se podrá ver la información personal del usuario y descargar el manual de intrucciones de la máquina que haya adquirido. También podra cambiar la foto de perfil
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/2f3f78d6-3bcb-4ce9-acc8-0f5349c618a0" alt="Home" style="width: 100%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/3e346c34-378b-47e5-915c-2a3832b3927e
 
 ## Panel de Administración
 
@@ -101,31 +92,24 @@ Este panel está diseñado para ser intuitivo y fácil de usar, asegurando que l
 
 Cuando el administrador se loguea, entra directamente al panel de administrador, donde la página principal es la de las máquinas, aqui puede ver la información que se renderizará en el catálogo. Podrá crear una máquina nueva, modificar una ya existente, borrar y decidir que máquina se muestra en la web.
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/28906c94-62ba-4581-b9da-578a878e6184" alt="Home" style="width: 100%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/d22dfa2b-8cde-4c94-8f37-69eef9266623
 
 ### Piezas
 
 Al igual que en el apartado anterior, en esta página del panel de administrador, se puede observar. Los datos que cada pieza, también podremos asignar esa pieza a una máquina o a un proveedor. Dependiendo de su estado, la fila se mostrará de un color para identificar las piezas que aun necesitan supervisión a 
-la hora de fabricar una máquina. Tendremos como en el anterior punto la opcion de crear una nueva, modificar y borrar. En el formulario de modificar esta pensado para que la imagen sea el plano de la máquina que se verá de gran tamaño para verificar que se quiere hacer una modificación de esa pieza.
+la hora de fabricar una máquina. Tendremos como en el anterior punto la opcion de crear una nueva, modificar y borrar. En el formulario de modificar esta pensado para que la imagen sea el plano de la máquina que se verá de gran tamaño para verificar que se quiere hacer una modificación de esa pieza. Hemos añadido un search por nombre o por estado, y una paginación.
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/c03de059-2ce8-41a6-ba70-ee401d921d46" alt="Home" style="width: 100%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/7440c3ae-cd4f-4f6c-8221-0c808c77105c
 
 ### Proveedores
 
-Aquí en el apartado de proveedores podremos ver la información de los proveedores dados de alta en nuestra aplicación. También podremos crear nuevos, modificar los ya creados, borrarlos y ver que piezas estan asociadas a ese proveedor y en que estado se encuentra.
+Aquí en el apartado de proveedores podremos ver la información de los proveedores dados de alta en nuestra aplicación. También podremos crear nuevos, modificar los ya creados, borrarlos y ver que piezas estan asociadas a ese proveedor y en que estado se encuentra. Tambien hemos añadido un search por cualquier campo y una paginación.
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/aef5927f-a258-4ed7-b2f3-e84ff301a990" alt="Home" style="width: 100%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/809d9a1e-5081-4fbf-84c5-edad37444109
 
 ### Usuarios
 
 En el apartado de los usuarios, podemos observar todos los usuarios que hay registrados. Podemos borrarlos y asignarles a una máquina.
 
-<p align="center">
-  <img src="https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/228b4406-1298-472d-8a3e-84947f09e35e" alt="Home" style="width: 100%;" />
-</p>
+https://github.com/davidmpenades/Web_CUMESO_Proyecto_Final/assets/118437119/268f7b26-ceb5-43d3-ba56-5f85e2e4a09b
+

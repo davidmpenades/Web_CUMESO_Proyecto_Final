@@ -15,7 +15,7 @@ const PartTable = ({ showPartUpdateForm }) => {
       setSearchStatus(e.target.value);
     }
   };
-
+  //search
   const filteredParts = parts.filter((part) => {
     return (
       part.name.toLowerCase().includes(searchTerm.toLowerCase()) &&

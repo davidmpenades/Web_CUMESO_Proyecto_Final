@@ -17,7 +17,9 @@ const FooterComponent = () => {
             />
             <Footer.LinkGroup>
               <Footer.Link href="#">Sobre Nosotros</Footer.Link>
-              <Footer.Link href="/contact">Contacto</Footer.Link>
+              <Footer.Link href="/cookie">Politica de cookies</Footer.Link>
+              <Footer.Link href="/privacy">Politica de privacidad</Footer.Link>
+              <Footer.Link href="/legal">Aviso Legal</Footer.Link>
             </Footer.LinkGroup>
           </div>
           <Footer.Divider />

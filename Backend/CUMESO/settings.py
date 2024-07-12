@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'CUMESO.CUMESO.machine',
     'CUMESO.CUMESO.part',
     'CUMESO.CUMESO.providers',
+   
 ]
 
 MIDDLEWARE = [

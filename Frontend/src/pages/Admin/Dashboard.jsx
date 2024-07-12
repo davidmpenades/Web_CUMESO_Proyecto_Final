@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/imgs/Logo.webp";
@@ -16,7 +16,6 @@ import ProviderCreate from "../../component/Admin/Providers/ProviderCreate";
 import PartCreate from "../../component/Admin/Part/PartCreate";
 import ProviderUpdate from "../../component/Admin/Providers/ProviderUpdate";
 import PartUpdate from "../../component/Admin/Part/PartUpdate";
-import AuthContext from "../../context/AuthContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -29,7 +28,6 @@ const Dashboard = () => {
   const [updateMachine, setUpdateMachine] = useState(null);
   const [updateProvider, setUpdateProvider] = useState(null);
   const [updatePart, setUpdatePart] = useState(null);
-  const { isAdmin } = useContext(AuthContext);
 
   useEffect(() => {
     fetchMachines();
@@ -207,7 +205,7 @@ const Dashboard = () => {
                 </a>
               </div>
               <ul className="space-y-1 border-t border-gray-100 pt-4">
-                {isAdmin && <li>
+                <li>
                   <a
                     onClick={() => handleSelectItem("providers")}
                     className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${
@@ -231,7 +229,7 @@ const Dashboard = () => {
                       Proveedores
                     </span>
                   </a>
-                </li>}
+                </li>
                 <li>
                   <a
                     onClick={() => handleSelectItem("users")}
@@ -298,7 +296,7 @@ const Dashboard = () => {
           </h1>
           {/* Botones - Se muestran solo si selectedItem no es "providers" ni "users" */}
           <div className="w-full flex items-center justify-center ">
-            {isAdmin && <div className="flex justify-center items-center space-x-4 m-4 shadow-xl">
+            <div className="flex justify-center items-center space-x-4 m-4 shadow-xl">
               {selectedItem !== "providers" && selectedItem !== "users" && (
                 <Button.Group>
                   <Button
@@ -315,7 +313,7 @@ const Dashboard = () => {
                   </Button>
                 </Button.Group>
               )}
-            </div>}
+            </div>
             {selectedItem !== "users" && (
               <div className="absolute top-20 right-0 p-4">
                 <button

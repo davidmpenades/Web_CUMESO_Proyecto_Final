@@ -80,6 +80,15 @@ class Part(models.Model):
         pil_img.save(new_img_path, format='WEBP')
         
         return new_img_path
+    def convert_image(self, img_field, new_name):
+        pil_img = Image.open(img_field)
+        pil_img = pil_img.convert('RGB')  # Convertir a RGB en caso de que sea una imagen PNG
+        new_img_path = f'part_images/{new_name}.webp'
+        
+        # Guardar la imagen convertida
+        pil_img.save(new_img_path, format='WEBP')
+        
+        return new_img_path
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

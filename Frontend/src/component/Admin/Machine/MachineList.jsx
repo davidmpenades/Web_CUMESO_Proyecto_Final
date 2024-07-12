@@ -34,7 +34,7 @@ const MachinesList = ({ machine, onShowUpdateForm }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row w-3/4 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl dark:bg-gray-800 m-20 py-6 px-4">
+    <div className="flex flex-col md:flex-row w-3/4 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl dark:bg-gray-800 m-4">
       {machineImageUrl && (
         <div
           className="m-6 w-full bg-cover bg-center md:w-1/2 h-48 md:h-auto"

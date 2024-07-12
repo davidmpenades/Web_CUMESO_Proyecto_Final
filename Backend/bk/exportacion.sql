@@ -665,10 +665,9 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at, pdf_machine) FROM stdin;
-7	rc-1400-personalizada-mpf8ze	RC-1400-Personalizada	Añada los extras que su empresa necesite	{"Métricas de producción",Ensacadora,"Extracción derecha/izquierda"}	\N	f	machine_image/RC-1400-Personalizada.webp	2024-03-29 12:03:01.804108+00	2024-05-02 09:58:25.903791+00	\N	machine_pdf/RC-1400-Personalizada.pdf
-2	rc-1400-basic-w10ffs	RC-1400-Basic	La reina de las rebobinadoras, en su versión lowcost	{"1400mm de ancho","800m/min de velocidad","Extracción automática","La más básica"}	\N	f	machine_image/RC-1400-Basic.webp	2024-03-23 08:52:26.750055+00	2024-05-02 09:58:44.771202+00	\N	machine_pdf/RC-1400-Basic.pdf
-10	rc-1200-t-twldj5	RC-1200-T	La más rapida	{"Reloj de trama"}	\N	f	machine_image/RC-1200-T.webp	2024-05-02 09:59:20.477774+00	2024-05-02 09:59:20.486206+00	\N	
-1	rc-1200-5niqln	RC-1200	Nuestra rebobinadora más pequeña	{"1200mm de ancho","800m/min de velocidad","Extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-23 08:48:57.36369+00	2024-07-12 11:10:32.492614+00	\N	machine_pdf/RC-1200.pdf
+2	rc-1400-basic-kzs4qi	RC-1400-Basic	La reina de las rebobinadoras, en su versión lowcost	{"1400mm de ancho","800m/min de velocidad","Extracción automática"}	\N	t	machine_image/RC-1400-Basic.webp	2024-03-23 08:52:26.750055+00	2024-03-29 11:59:59.410598+00	\N	machine_pdf/RC-1400.pdf
+7	rc-1400-personalizada-f26giy	RC-1400-Personalizada	Añada los extras que su empresa necesite	{"Métricas de producción",Ensacadora,Pesadora,"Extracción derecha/izquierda"}	\N	t	machine_image/RC-1400-Personalizada.webp	2024-03-29 12:03:01.804108+00	2024-03-29 12:03:05.886236+00	\N	
+1	rc-1200-194j3h	RC-1200	Nuestra rebobinadora más pequeña	{"1200mm de ancho","800m/min de velocidad","Extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-23 08:48:57.36369+00	2024-03-29 17:14:29.846807+00	\N	machine_pdf/RC-1200.pdf
 \.
 
 
@@ -677,9 +676,13 @@ COPY public.machine_machine (id, slug, name, description, characteristics, price
 --
 
 COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
+5	1	5
+15	2	2
 16	1	2
-34	7	3
-38	7	1
+28	1	6
+30	2	1
+31	1	1
+32	7	3
 \.
 
 
@@ -688,7 +691,7 @@ COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 --
 
 COPY public.part_part (id, slug, name, description, quantity, price, status, img, cad_file, pdf_file, created_at, updated_at) FROM stdin;
-2	rc-m1s2-zg0pkw	RC-M1S2	Eje bobinador	2	\N	Fabricando	part_images/RC-M1S2_lrCmS0P.webp		part_pdf/David_Moreno_Penadés_RnDJ2wo.pdf	2024-03-23 18:09:25.5016+00	2024-05-02 10:06:56.787389+00
+2	rc-m1s2-hzmmea	RC-M1S2	Eje bobinador	2	\N	Fabricando	part_images/RC-M1S2_HhCOJxe.webp		part_pdf/David_Moreno_Penadés_RnDJ2wo.pdf	2024-03-23 18:09:25.5016+00	2024-03-29 11:55:46.003794+00
 1	rc-m1s1-0mea43	RC-M1S1	Eje desbobinador	2	\N	Fabricando	part_images/RC-M1S1_8mJ9nPV.webp		part_pdf/David_Moreno_Penadés.pdf	2024-03-23 12:00:12.872036+00	2024-03-29 11:55:58.763956+00
 6	rc-m1s3-d26fkb	RC-M1S3	Bancada principal	1	\N	Presupuesto enviado	part_images/RC-M1S3_f2h9trS.webp			2024-03-29 08:08:47.064677+00	2024-03-29 11:56:08.672659+00
 11	rc-m1s7e030-azrt54	RC-M1S7E030	Conjunto de unión patín rodillo	4	\N	Presupuesto enviado	part_images/RC-M1S7E030_JoRpblT.webp			2024-03-29 08:36:35.26789+00	2024-03-29 11:56:28.515279+00
@@ -726,6 +729,7 @@ COPY public.part_partmachinerelation (id, machine_id, part_id) FROM stdin;
 55	1	6
 57	1	9
 58	2	14
+59	2	11
 60	2	18
 61	2	7
 62	2	19
@@ -770,6 +774,9 @@ COPY public.providers_partproviderrelation (id, part_id, provider_id) FROM stdin
 --
 
 COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, phone, responsible, created_at, updated_at) FROM stdin;
+7	mecanizador-brenguer-2ow4el	Mecanizador Brenguer	calle falsa, 123	B-4865892709	m.berenguer@gmail.com	Alcoi	656434578	Miguel-Taller\nMªCarmen-admin	2024-03-29 11:16:07.869282+00	2024-03-29 11:16:07.8693+00
+8	tacome-f8ken0	Tacome	Carrer la Trama, 45	B-435242456	tacome@gmail.com	Ontinyent	645533422	Tomás-Taller\nAnabel-Admin	2024-03-29 11:17:03.706972+00	2024-03-29 11:29:00.5422+00
+12	roller-6ukdlt	Roller	Poligono l'Altet, calle 3, nave 2	B-3234585654	roller@gmail.com	Ontinyent	645343909	Vicent(pedidos)\nErnesto(admin)	2024-03-29 11:26:05.619897+00	2024-03-29 11:30:13.655824+00
 13	tci-jeohnb	TCI	Carrer inventat, 69	B-334213241	tci@gmail.com	Orihuela	5432454664	Francisco	2024-03-29 11:31:38.211577+00	2024-03-29 11:31:51.424563+00
 14	codopi-cys00a	Codopi	Calle sin asfaltar, 22	B-3413546543	codopi@gmail.com	Albaida	565344578	Hortensio	2024-03-29 11:34:14.830538+00	2024-03-29 11:34:44.406503+00
 9	bzo-engomados-0f9nvm	BZO Engomados	Calle Espinosa Reina	B-48285628	bzo.engom@gmail.com	Paiporta	654357782	Ramón	2024-03-29 11:18:35.356317+00	2024-03-29 11:40:26.259756+00
@@ -777,9 +784,6 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 10	durokrom-hauf2k	Durokrom	Calle sin salida, s/n	B-2334532432	durokrom@gmail.com	Alzira	654290702	Cristian (Taller) Begoña (Admin)	2024-03-29 11:21:17.413106+00	2024-03-29 11:40:43.715561+00
 1	suministros-navarro-ipi8pc	Suministros Navarro	Carrer de la trama, 20	B-344635y3573	s.navarro@gmail.com	Ontinyent(Valencia)	6524354576	Boira(Jefe)  Tato(responsable almacen)	2024-03-23 11:59:08.413775+00	2024-03-29 11:59:22.748768+00
 2	talleres-nector-sl-6zo90i	Talleres Nector, S.L.	Polígono el Altet, s/n	B-4820854924	tallleresnector@gmail.com	Ontinyent(Valencia)	655635422	Tito	2024-03-23 18:35:10.875541+00	2024-03-29 11:59:51.301863+00
-8	tacome-fixu07	Tacome	Carrer la Trama, 45	B-435242456	tacome@gmail.com	Ontinyent	645533422	Tomás-Taller\nAnabel-Admin	2024-03-29 11:17:03.706972+00	2024-04-23 09:07:51.794076+00
-7	mecanizador-brenguer-gekfuk	Mecanizador Brenguer	calle falsa, 123	B-4865892709	m.berenguer@gmail.com	Ontinyent	656434578	Miguel-Taller\nMªCarmen-admin	2024-03-29 11:16:07.869282+00	2024-05-02 10:11:08.958235+00
-12	roller-z9zpsq	Roller	Poligono l'Altet, calle 3, nave 2	B-3234585654	roller@gmail.com	Valencia	645343909	Vicent(pedidos)\nErnesto(admin)	2024-03-29 11:26:05.619897+00	2024-05-02 10:13:28.028368+00
 \.
 
 
@@ -788,9 +792,11 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 --
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, created_at, type) FROM stdin;
-2	pbkdf2_sha256$720000$s1w5YXOwnd43EdwfrjJ8CP$Ryb4FH1SRkBQBpSmnkASfapkyOUYWKoiAS486J04gzU=	2024-04-11 10:10:52.402469+00	f	92f05021-ec20-ffb4-b8b7-79a6e66463fd	Yolanda	yolanda@gmail.com	L'estacio	img_profile/Yolanda.webp	2024-03-23 11:51:29.927765+00	client
-1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-07-12 10:59:38.726762+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
-3	pbkdf2_sha256$720000$aJguPSPSmkpxXL33CZ5Muu$/Dsd9Ld9I9eeVyBUif12ffWVI5gGzHPEqR3+rByVSzw=	2024-04-18 11:34:46.347506+00	f	1f9f141b-74f0-ba5f-c75e-08f8a61225ec	Pau	pau@gmail.com	L'estacio	img_profile/Pau.webp	2024-03-23 11:53:41.311676+00	client
+6	pbkdf2_sha256$720000$SHLjxqAK0et2lNykxYAFwA$y2zhNowpuHAqxvzHYsInuLavqBSQhZDcF22cZcZVxFU=	\N	f	a9c22b05-330a-eda7-d500-763d683c27b4	Cristian	cristian@gmail.com	L'estacio	img_profile/Cristian_ITzEynK.webp	2024-03-26 18:52:18.325996+00	client
+1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-03-29 17:13:49.437861+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
+3	pbkdf2_sha256$720000$aJguPSPSmkpxXL33CZ5Muu$/Dsd9Ld9I9eeVyBUif12ffWVI5gGzHPEqR3+rByVSzw=	2024-03-24 10:23:35.573215+00	f	1f9f141b-74f0-ba5f-c75e-08f8a61225ec	Pau	pau@gmail.com	L'estacio	img_profile/Pau.webp	2024-03-23 11:53:41.311676+00	client
+5	pbkdf2_sha256$720000$IcH7XR1WD3cGm2rvI8k9c7$GlJYXVgeCTg55HtyeKNt0dbRIrfVZtyNFiuc4L2mC7E=	2024-03-24 10:23:50.265764+00	f	c36b4a90-620a-209d-23b9-25f1070b92aa	José	jose@gmail.com	L'estacio	img_profile/José.webp	2024-03-23 11:56:23.848863+00	client
+2	pbkdf2_sha256$720000$s1w5YXOwnd43EdwfrjJ8CP$Ryb4FH1SRkBQBpSmnkASfapkyOUYWKoiAS486J04gzU=	2024-03-28 16:14:49.052242+00	f	92f05021-ec20-ffb4-b8b7-79a6e66463fd	Yolanda	yolanda@gmail.com	L'estacio	img_profile/Yolanda.webp	2024-03-23 11:51:29.927765+00	client
 \.
 
 
@@ -856,21 +862,21 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 27, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 10, true);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 7, true);
 
 
 --
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 70, true);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 32, true);
 
 
 --
 -- Name: part_part_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_part_id_seq', 52, true);
+SELECT pg_catalog.setval('public.part_part_id_seq', 50, true);
 
 
 --
@@ -884,21 +890,21 @@ SELECT pg_catalog.setval('public.part_part_providers_id_seq', 1, false);
 -- Name: part_partmachinerelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 72, true);
+SELECT pg_catalog.setval('public.part_partmachinerelation_id_seq', 70, true);
 
 
 --
 -- Name: providers_partproviderrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 71, true);
+SELECT pg_catalog.setval('public.providers_partproviderrelation_id_seq', 70, true);
 
 
 --
 -- Name: providers_providers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.providers_providers_id_seq', 15, true);
+SELECT pg_catalog.setval('public.providers_providers_id_seq', 14, true);
 
 
 --

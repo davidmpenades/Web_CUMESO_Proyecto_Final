@@ -62,9 +62,6 @@ function App() {
   const PartUpdate = React.lazy(() =>
     import("./component/Admin/Part/PartUpdate")
   );
-  const Cookies = React.lazy(() => import("./pages/Legal/CookiePolicy"));
-  const Legal = React.lazy(() => import("./pages/Legal/LegalNotice"));
-  const Privacy = React.lazy(() => import("./pages/Legal/PrivacyPolicy"));
 
   return (
     <div className="App">
@@ -107,30 +104,6 @@ function App() {
                           element={
                             <Layout>
                               <Machine />
-                            </Layout>
-                          }
-                        />
-                        <Route
-                          path="/cookie"
-                          element={
-                            <Layout>
-                              <Cookies />
-                            </Layout>
-                          }
-                        />
-                        <Route
-                          path="/legal"
-                          element={
-                            <Layout>
-                              <Legal />
-                            </Layout>
-                          }
-                        />
-                        <Route
-                          path="/privacy"
-                          element={
-                            <Layout>
-                              <Privacy />
                             </Layout>
                           }
                         />

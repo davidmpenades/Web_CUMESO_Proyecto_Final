@@ -27,7 +27,6 @@ export default function Header() {
       />
     </svg>
   );
-  console.log(defaultProfileSVG);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

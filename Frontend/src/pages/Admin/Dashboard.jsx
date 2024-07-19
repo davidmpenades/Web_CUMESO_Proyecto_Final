@@ -291,7 +291,7 @@ const Dashboard = () => {
       <div className="dashboard-content relative flex-1 overflow-auto">
         {/* Encabezado del Panel de Administrador */}
         <div className="m-0">
-          <h1 className="text-3xl flex justify-center font-semibold text-white bg-gray-700 p-3 w-screen z-100">
+          <h1 className="text-3xl flex justify-center font-semibold text-white bg-gray-700 p-3 z-100">
             Panel de Administrador
           </h1>
           {/* Botones - Se muestran solo si selectedItem no es "providers" ni "users" */}

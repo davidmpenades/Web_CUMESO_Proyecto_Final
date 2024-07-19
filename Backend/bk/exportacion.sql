@@ -665,10 +665,10 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.machine_machine (id, slug, name, description, characteristics, price, visibility, img, created_at, updated_at, deleted_at, pdf_machine) FROM stdin;
-7	rc-1400-personalizada-mpf8ze	RC-1400-Personalizada	Añada los extras que su empresa necesite	{"Métricas de producción",Ensacadora,"Extracción derecha/izquierda"}	\N	f	machine_image/RC-1400-Personalizada.webp	2024-03-29 12:03:01.804108+00	2024-05-02 09:58:25.903791+00	\N	machine_pdf/RC-1400-Personalizada.pdf
-2	rc-1400-basic-w10ffs	RC-1400-Basic	La reina de las rebobinadoras, en su versión lowcost	{"1400mm de ancho","800m/min de velocidad","Extracción automática","La más básica"}	\N	f	machine_image/RC-1400-Basic.webp	2024-03-23 08:52:26.750055+00	2024-05-02 09:58:44.771202+00	\N	machine_pdf/RC-1400-Basic.pdf
-10	rc-1200-t-twldj5	RC-1200-T	La más rapida	{"Reloj de trama"}	\N	f	machine_image/RC-1200-T.webp	2024-05-02 09:59:20.477774+00	2024-05-02 09:59:20.486206+00	\N	
-1	rc-1200-5niqln	RC-1200	Nuestra rebobinadora más pequeña	{"1200mm de ancho","800m/min de velocidad","Extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-23 08:48:57.36369+00	2024-07-12 11:10:32.492614+00	\N	machine_pdf/RC-1200.pdf
+2	rc-1400-basic-cu5cr5	RC-1400-Basic	La reina de las rebobinadoras, en su versión lowcost	{"1400mm de ancho","800m/min de velocidad","Extracción automática","La más básica"}	\N	f	machine_image/RC-1400-Basic.webp	2024-03-23 08:52:26.750055+00	2024-07-16 07:22:00.205674+00	\N	machine_pdf/RC-1400-Basic.pdf
+7	rc-1400-personalizada-to8rof	RC-1400-Personalizada	Añada los extras que su empresa necesite	{"Métricas de producción","Descarga izquierda automática","Extracción derecha/izquierda"}	\N	t	machine_image/RC-1400-Personalizada.webp	2024-03-29 12:03:01.804108+00	2024-07-17 09:08:10.123173+00	\N	machine_pdf/RC-1400-Personalizada.pdf
+11	ef-800-sp-hn7jq3	EF-800-SP	Envolvedora de Film	{"1200mm de ancho","800m/min de velocidad","que sirve","para poder hacer",cosas}	\N	t	machine_image/EF-800-SP.webp	2024-07-17 10:40:12.471044+00	2024-07-17 10:48:35.193249+00	\N	
+1	rc-1200-9hhqvh	RC-1200	Nuestra rebobinadora más pequeña	{"1200mm de ancho","800m/min de velocidad","Extracción automática","Pantalla de Lence 24\\""}	\N	t	machine_image/RC-1200.webp	2024-03-23 08:48:57.36369+00	2024-07-18 09:55:04.475113+00	\N	machine_pdf/RC-1200.pdf
 \.
 
 
@@ -678,8 +678,8 @@ COPY public.machine_machine (id, slug, name, description, characteristics, price
 
 COPY public.machine_machineuserrelation (id, machine_id, user_id) FROM stdin;
 16	1	2
-34	7	3
-38	7	1
+71	1	1
+72	2	7
 \.
 
 
@@ -788,9 +788,9 @@ COPY public.providers_providers (id, slug, name, direction, "CIF", email, city, 
 --
 
 COPY public.users_users (id, password, last_login, is_superuser, uuid, username, email, company, image, created_at, type) FROM stdin;
+1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-07-19 07:53:57.264599+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
+7	pbkdf2_sha256$720000$AVFAZvvVxm272sWMD5jrPU$VBk/tIsupeY0MLp2YQdlDnUWZ4arq33r+pYK5DI7NVg=	2024-07-17 09:54:33.369711+00	f	68e89ddb-4385-ea76-fac3-cd347a963ac0	Ivan	ivan@gmail.com	CUMESO	img_profile/Ivan.webp	2024-07-17 09:53:27.762447+00	client
 2	pbkdf2_sha256$720000$s1w5YXOwnd43EdwfrjJ8CP$Ryb4FH1SRkBQBpSmnkASfapkyOUYWKoiAS486J04gzU=	2024-04-11 10:10:52.402469+00	f	92f05021-ec20-ffb4-b8b7-79a6e66463fd	Yolanda	yolanda@gmail.com	L'estacio	img_profile/Yolanda.webp	2024-03-23 11:51:29.927765+00	client
-1	pbkdf2_sha256$720000$ogvozpY4yaEafDZL5YuKtj$Ofju+u75jJVT6PnHx3lTF3Gliv7lupo55WiUHlF6sQM=	2024-07-12 10:59:38.726762+00	t	0ff40b27-3bb4-1985-6146-ba1e9666071d	David	davidmpenades@gmail.com	Cumes@2024	img_profile/David.webp	2024-03-23 08:46:42.512691+00	admin
-3	pbkdf2_sha256$720000$aJguPSPSmkpxXL33CZ5Muu$/Dsd9Ld9I9eeVyBUif12ffWVI5gGzHPEqR3+rByVSzw=	2024-04-18 11:34:46.347506+00	f	1f9f141b-74f0-ba5f-c75e-08f8a61225ec	Pau	pau@gmail.com	L'estacio	img_profile/Pau.webp	2024-03-23 11:53:41.311676+00	client
 \.
 
 
@@ -856,14 +856,14 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 27, true);
 -- Name: machine_machine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machine_id_seq', 10, true);
+SELECT pg_catalog.setval('public.machine_machine_id_seq', 189, true);
 
 
 --
 -- Name: machine_machineuserrelation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 70, true);
+SELECT pg_catalog.setval('public.machine_machineuserrelation_id_seq', 72, true);
 
 
 --
@@ -912,7 +912,7 @@ SELECT pg_catalog.setval('public.users_users_groups_id_seq', 1, false);
 -- Name: users_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: david
 --
 
-SELECT pg_catalog.setval('public.users_users_id_seq', 6, true);
+SELECT pg_catalog.setval('public.users_users_id_seq', 7, true);
 
 
 --

@@ -76,7 +76,7 @@ function App() {
                 <PartContextProvider>
                   <ProviderContextProvider>
                     <UserContextProvider>
-                      <Toaster position="top-center" richColors expand={true} />
+                      <Toaster position="top-left" richColors expand={true} closeButton={true}/>
                       <Routes>
                         <Route
                           path="/"

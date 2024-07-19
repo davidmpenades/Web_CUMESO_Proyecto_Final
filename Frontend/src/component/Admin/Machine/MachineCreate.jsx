@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Button,
   TextField,
@@ -7,13 +7,18 @@ import {
   Typography,
   Box,
   Stack,
-  Avatar,
+  Avatar
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useDropzone } from "react-dropzone";
 import useMachine from "../../../hooks/useMachine";
+import { toast } from "sonner";
+import ImageEditorModal from "./ImageEditorModal";
 
-const MachineCreate = (props) => {
+const MachineCreate = ({ onCreationSuccess }) => {
   const { createMachine } = useMachine();
   const [machineData, setMachineData] = useState({
     name: "",
@@ -21,17 +26,23 @@ const MachineCreate = (props) => {
     characteristics: [""],
     img: null,
   });
-
   const [imgPreview, setImgPreview] = useState(null);
+  const [editedImage, setEditedImage] = useState(null);
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    onDrop: (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      setMachineData((prev) => ({ ...prev, img: file }));
+      setImgPreview(URL.createObjectURL(file));
+      setEditedImage(null);
+    },
+  });
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "img") {
-      setMachineData((prev) => ({ ...prev, [name]: files[0] }));
-      setImgPreview(files[0] ? URL.createObjectURL(files[0]) : null);
-    } else {
-      setMachineData((prev) => ({ ...prev, [name]: value }));
-    }
+    const { name, value } = e.target;
+    setMachineData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCharacteristicChange = (index, value) => {
@@ -62,16 +73,26 @@ const MachineCreate = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!machineData.img && !editedImage) {
+      toast.error("Selecciona una imagen.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", machineData.name);
     formData.append("description", machineData.description);
     formData.append("characteristics", JSON.stringify(machineData.characteristics));
-    if (machineData.img) {
+
+    if (editedImage) {
+      const editedBlob = await fetch(editedImage).then((res) => res.blob());
+      formData.append("img", editedBlob);
+    } else {
       formData.append("img", machineData.img);
     }
+
     const success = await createMachine(formData);
-    if (success && props.onCreationSuccess) {
-      props.onCreationSuccess(); 
+    if (success && onCreationSuccess) {
+      onCreationSuccess();
     }
   };
 
@@ -118,14 +139,9 @@ const MachineCreate = (props) => {
               fullWidth
               label={`Característica #${index + 1}`}
               value={char}
-              onChange={(e) =>
-                handleCharacteristicChange(index, e.target.value)
-              }
+              onChange={(e) => handleCharacteristicChange(index, e.target.value)}
             />
-            <IconButton
-              aria-label="delete"
-              onClick={() => removeCharacteristic(index)}
-            >
+            <IconButton aria-label="delete" onClick={() => removeCharacteristic(index)}>
               <DeleteIcon />
             </IconButton>
           </Stack>
@@ -138,26 +154,47 @@ const MachineCreate = (props) => {
           Añadir Característica
         </Button>
 
-        {imgPreview && (
-          <Box sx={{ my: 2, display: "flex", justifyContent: "center" }}>
-            <Avatar
-              src={imgPreview}
-              variant="rounded"
-              sx={{ width: 100, height: 100 }}
-            />
-          </Box>
-        )}
-        <Button variant="contained" component="label" fullWidth sx={{ mt: 2 }}>
-          Subir imagen
-          <input type="file" name="img" hidden onChange={handleChange} />
-        </Button>
+        <div className="max-w-lg mx-auto shadow-xl bg-white rounded-lg">
+          <div
+            {...getRootProps()}
+            className="border-2 border-gray-300 border-dashed p-8 rounded-lg"
+          >
+            <input {...getInputProps()} />
+            <div className="flex items-center justify-center">
+              <FontAwesomeIcon icon={faPlus} className="mr-2 text-gray-500" />
+              <p className="text-center text-gray-500">
+                Arrastra y suelta una imagen aquí, o haz clic para seleccionar una
+              </p>
+            </div>
+          </div>
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
+          {machineData.img && (
+            <div className="mt-4">
+              <Button onClick={() => setIsEditorOpen(true)} variant="outlined">
+                Editar Imagen
+              </Button>
+              <ImageEditorModal
+                open={isEditorOpen}
+                onClose={() => setIsEditorOpen(false)}
+                onSave={(img) => {
+                  setEditedImage(img);
+                  setImgPreview(img);
+                  setIsEditorOpen(false);
+                }}
+                image={imgPreview}
+              />
+            </div>
+          )}
+
+          {imgPreview && (
+            <div className="m-4">
+              <h3 className="text-lg font-medium text-gray-700 mb-2">Vista Previa:</h3>
+              <Avatar src={imgPreview} variant="rounded" sx={{ width: 480, height: 270 }} />
+            </div>
+          )}
+        </div>
+
+        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
           Crear Máquina
         </Button>
       </Box>

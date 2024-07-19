@@ -175,11 +175,10 @@ const Dashboard = () => {
               <div className="py-2">
                 <a
                   onClick={() => handleSelectItem("machines")}
-                  className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${
-                    selectedItem === "machines" || selectedItem === "parts"
+                  className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${selectedItem === "machines" || selectedItem === "parts"
                       ? "active"
                       : ""
-                  }`}
+                    }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -202,17 +201,17 @@ const Dashboard = () => {
                   </svg>
 
                   <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
-                    Máquinas y piezas
+                    Máquinas
+                    {/* Máquinas y piezas */}
                   </span>
                 </a>
               </div>
               <ul className="space-y-1 border-t border-gray-100 pt-4">
-                {isAdmin && <li>
+                {!isAdmin && <li>
                   <a
                     onClick={() => handleSelectItem("providers")}
-                    className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${
-                      selectedItem === "providers" ? "active" : ""
-                    }`}
+                    className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${selectedItem === "providers" ? "active" : ""
+                      }`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -235,9 +234,8 @@ const Dashboard = () => {
                 <li>
                   <a
                     onClick={() => handleSelectItem("users")}
-                    className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${
-                      selectedItem === "users" ? "active" : ""
-                    }`}
+                    className={`group relative flex justify-center rounded px-2 py-1.5 text-white hover:bg-gray-50 hover:text-gray-700 ${selectedItem === "users" ? "active" : ""
+                      }`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -261,7 +259,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="sticky inset-x-0 bottom-0 border-t border-gray-100 bg-green-700 p-2">
+        <div className="sticky inset-x-0 bottom-0 border-t border-gray-100 bg-green-700 p-2 z-10">
           <form action="#">
             <button
               onClick={handlerClickShop}
@@ -293,12 +291,12 @@ const Dashboard = () => {
       <div className="dashboard-content relative flex-1 overflow-auto">
         {/* Encabezado del Panel de Administrador */}
         <div className="m-0">
-          <h1 className="text-3xl flex justify-center font-semibold text-white bg-gray-700 p-3">
+          <h1 className="text-3xl flex justify-center font-semibold text-white bg-gray-700 p-3 w-screen z-100">
             Panel de Administrador
           </h1>
           {/* Botones - Se muestran solo si selectedItem no es "providers" ni "users" */}
-          <div className="w-full flex items-center justify-center ">
-            {isAdmin && <div className="flex justify-center items-center space-x-4 m-4 shadow-xl">
+          <div className="w-full flex items-center justify-center">
+            {!isAdmin && <div className="flex justify-center items-center space-x-4 m-4 shadow-xl">
               {selectedItem !== "providers" && selectedItem !== "users" && (
                 <Button.Group>
                   <Button
@@ -317,10 +315,10 @@ const Dashboard = () => {
               )}
             </div>}
             {selectedItem !== "users" && (
-              <div className="absolute top-20 right-0 p-4">
+              <div className="absolute top-20 right-0 p-4 z-10">
                 <button
                   onClick={() => handerClickCreate(selectedItem)}
-                  className="flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-3xl shadow-lg hover:shadow-xl"
+                  className="flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-3xl shadow-lg hover:shadow-xl z-10"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

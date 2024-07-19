@@ -95,10 +95,25 @@ class MachineList(viewsets.GenericViewSet):
     def delete(self, request, slug):
         try:
             machine = Machine.objects.get(slug=slug)
+            
+            if machine.img:
+                try:
+                    machine.img.delete(save=False)
+                except Exception as e:
+                    print(f"No se pudo eliminar la imagen: {e}")
+
+            if machine.pdf_machine:
+                try:
+                    machine.pdf_machine.delete(save=False)
+                except Exception as e:
+                    print(f"No se pudo eliminar el PDF: {e}")
+
             machine.delete()
+            
             return HttpResponse(status=status.HTTP_204_NO_CONTENT)
         except Machine.DoesNotExist:
             return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
         
     def partial_update(self, request, slug=None):
         logger.info(f"Comenzando actualización de la máquina con slug: {slug}")

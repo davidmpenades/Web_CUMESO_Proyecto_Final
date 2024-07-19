@@ -114,13 +114,13 @@ const CookieConsent = () => {
       className="fixed inset-0 flex items-center justify-start md:justify-normal z-50"
       overlayClassName="fixed inset-0 bg-black bg-opacity-50"
     >
-      <div className="bg-gradient-to-r from-gray-400 to-gray-200 rounded-lg overflow-hidden shadow-xl max-w-80 md:max-w-lg md:mx-auto ml-5">
+      <div className="bg-gradient-to-r from-gray-300 to-gray-200 rounded-lg overflow-hidden shadow-xl max-w-80 md:max-w-lg md:mx-auto ml-5">
         <div className="p-10">
           <h2 className="text-4xl font-bold mb-2 text-gray-600 text-center">Cookies</h2>
           <p className="text-lg mb-4 text-gray-600 mt-8">
             Este sitio web utiliza cookies para mejorar la experiencia del usuario y analizar el rendimiento y el tráfico en nuestro sitio web.
           </p>
-          <div className="flex flex-col gap-2 mt-16 md:flex-row">
+          <div className="flex flex-col gap-2 mt-8 md:flex-row">
             <button
               className="duration-300 bg-white hover:bg-black/25 text-gray-600 font-bold py-2 px-4 rounded"
               onClick={handleAcceptAll}

@@ -13,11 +13,20 @@ const ImageEditorModal = ({ open, onClose, onSave, image }) => {
   const handleSave = useCallback(() => {
     if (editor) {
       const canvas = editor.getImageScaledToCanvas();
-      canvas.toBlob((blob) => {
+      const scale = 3; 
+
+      const higherResCanvas = document.createElement('canvas');
+      higherResCanvas.width = canvas.width * scale;
+      higherResCanvas.height = canvas.height * scale;
+      const higherResContext = higherResCanvas.getContext('2d');
+      higherResContext.scale(scale, scale);
+      higherResContext.drawImage(canvas, 0, 0);
+
+      higherResCanvas.toBlob((blob) => {
         const editedImg = URL.createObjectURL(blob);
         onSave(editedImg);
         onClose();
-      }, "image/png");
+      }, "image/png"); 
     }
   }, [editor, onSave, onClose]);
 
@@ -40,8 +49,8 @@ const ImageEditorModal = ({ open, onClose, onSave, image }) => {
         <AvatarEditor
           ref={setEditor}
           image={image}
-          width={320} 
-          height={180} 
+          width={1000}  
+          height={563}
           border={10}
           borderRadius={0}
           color={[255, 255, 255, 0.6]}
